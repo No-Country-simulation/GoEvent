@@ -10,27 +10,27 @@ en el día del evento. Panel de Control: Los organizadores pueden ver en tiempo 
 
 # Tecnologías empleadas:
 
-##FrontEnd:
+## FrontEnd:
 -React
 -Vite
 -Tailwind
 -Typescript
 
-##Backend:
+## Backend:
 -MySQL
 -
 -
 
-#Equipo de trabajo:
+# Equipo de trabajo:
 
-##Diseño UX/UI
+## Diseño UX/UI
 - Ailen Martinez
 
-##FrontEnd:
+## FrontEnd:
 - José García - Linkedin: https://www.linkedin.com/in/jose-garcia-025766241/
 - Lina Maria Cardona - Linkedin: https://www.linkedin.com/in/lina-maria-cardona-giraldo/
 
-##Backend:
+## Backend:
 - Franco Maidana - Linkedin: https://www.linkedin.com/in/maidana-franco07
 - Tabaré Bermúdez - Linkedin: https://www.linkedin.com/in/tabarebermudez
 - Sombra Cristian - Linkedin:  https://www.linkedin.com/in/cristiansombra
