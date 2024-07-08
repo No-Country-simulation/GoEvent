@@ -1,4 +1,4 @@
-# 1.Nombre Proyecto: Pendiente por asignar
+# 1.Nombre Proyecto: GoEvent
 
 
 # 2.Descripción: 
@@ -24,7 +24,7 @@ en el día del evento. Panel de Control: Los organizadores pueden ver en tiempo 
 # Equipo de trabajo:
 
 ## Diseño UX/UI
-- Ailen Martinez
+- Ailen Martinez - Linkedin: https://www.linkedin.com/in/ailéndaniela-martinezrosica/
 
 ## FrontEnd:
 - José García - Linkedin: https://www.linkedin.com/in/jose-garcia-025766241/
