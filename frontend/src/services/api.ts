@@ -2,7 +2,7 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-// instacia de axios para predefinir valores
+// instancia de axios para predefinir valores
 
 const api = axios.create({
   baseURL: baseUrl || "http://localhost:3000/api/v1",
