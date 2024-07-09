@@ -3,6 +3,7 @@ import cors from 'cors';
 import { PORT, API_VERSION, CORS_ORIGIN } from './environment';
 import MongoDB from './db';
 import authRoutes from '../routes/auth.routes';
+import userRoutes from '../routes/user.routes';
 
 export default class Server {
   private app: express.Application;
@@ -26,7 +27,7 @@ export default class Server {
 
   private routes() {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
-
+    this.app.use(`/${API_VERSION}/users`, userRoutes);
   }
 
   public listen() {

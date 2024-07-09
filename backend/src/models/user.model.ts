@@ -1,7 +1,39 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { validate } from 'uuid';
+
+enum SubscriptionType {
+  FREE = 'free',
+  PREMIUM = 'premium',
+}
+
+interface ISubscriptionType {
+  id: number;
+  type: SubscriptionType;
+  max_events: number;
+  price: number;
+}
+
+const SubscriptionTypeSchema: Schema = new Schema({
+  id: {
+    type: Number,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  max_events: {
+    type: Number,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+});
+
 
 interface ICreditCard {
+  id: number;
   number: string;
   cvc: string;
   exp_month: string;
@@ -9,6 +41,10 @@ interface ICreditCard {
 }
 
 const CreditCardSchema: Schema = new Schema({
+  id: {
+    type: Number,
+    required: true,
+  },
   number: {
     type: String,
     required: true,
@@ -27,40 +63,31 @@ const CreditCardSchema: Schema = new Schema({
   },
 });
 
+enum UserRole {
+  USER = 'user',
+  ADMIN = 'admin',
+}
 
 export interface IUser extends Document {
   id: string;
-  name: string;
-  surname: string;
-  username: string;
+  fullname: string;
   email: string;
   password: string;
-  profile_image: 0 | 1;
+  profile_image: string;
   phone: string;
-  google_registred: 0 | 1;
-  credit_card: ICreditCard[];
+  subscription_type: number;
   credit: number;
-  subscription_type: string;
-  role: string;
-  is_active: 0 | 1;
+  role: UserRole;
+  is_active: boolean;
   created_at: Date;
   updated_at: Date;
 }
 
 // Define the schema
 const userSchema: Schema = new Schema({
-  name: {
+  fullname: {
     type: String,
     required: true,
-  },
-  surname: {
-    type: String,
-    required: true,
-  },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -78,23 +105,12 @@ const userSchema: Schema = new Schema({
     required: true,
   },
   profile_image: {
-    type: Number,
-    required: false,
-    default: 0,
+    type: String,
+    required: false
   },
   phone: {
     type: String,
     required: false,
-  },
-  google_registred: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  credit_card: {
-    type: [CreditCardSchema],
-    required: true,
-    default: [],
   },
   credit: {
     type: Number,
@@ -112,9 +128,9 @@ const userSchema: Schema = new Schema({
     default: 'user',
   },
   is_active: {
-    type: Number,
+    type: Boolean,
     required: true,
-    default: 1,
+    default: true,
   },
   created_at: {
     type: Date,

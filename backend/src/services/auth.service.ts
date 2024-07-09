@@ -5,12 +5,12 @@ import AuthHelper from '../helpers/auth.helper';
 
 
 export default class AuthService {
+  private constructor() { }
 
   // REGISTER USER -------------------------------------------------------------
   public static async register(user: Partial<IUser>, profile_image?: any) {
-
     // Check required fields
-    if (!user.name || !user.surname || !user.username || !user.email || !user.password) {
+    if (!user.fullname || !user.email || !user.password) {
       return { success: false, message: 'Missing required fields.' }
     }
     if (!AuthHelper.checkPasswordStrength(user.password)) {
@@ -62,5 +62,6 @@ export default class AuthService {
       return { success: false, message: `Internal server error logging user. Error: ${error}` };
     }
   }
+
 
 }

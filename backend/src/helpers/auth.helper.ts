@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { SALT_ROUNDS, JWT_SECRET, JWT_EXPIRES_IN } from '../config/environment';
 
 export default class AuthHelper {
+  private constructor() { }
 
   public static async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
