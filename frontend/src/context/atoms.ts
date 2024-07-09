@@ -3,9 +3,10 @@ import {
   loadFromLocalStorage,
   saveToLocalStorage,
 } from "../utils/localStorageUtils";
+import { userAndToken } from "../types";
 
 const createPersistedAtom = <T>(key: string, initilValue: T) => {
-  const baseAtom = atom(loadFromLocalStorage(key) || initilValue);
+  const baseAtom = atom<T>(loadFromLocalStorage<T>(key) || initilValue);
 
   const persistedAtom = atom(
     (get) => get(baseAtom),
@@ -17,4 +18,4 @@ const createPersistedAtom = <T>(key: string, initilValue: T) => {
   return persistedAtom;
 };
 
-export const userAtom = createPersistedAtom("user", null);
+export const userAtom = createPersistedAtom<userAndToken | null>("user", null);

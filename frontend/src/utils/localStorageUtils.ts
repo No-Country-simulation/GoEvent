@@ -1,10 +1,10 @@
-export const loadFromLocalStorage = <T>(key: string): T | undefined => {
+export const loadFromLocalStorage = <T>(key: string): T | null => {
   try {
     const serializedState = localStorage.getItem(key);
     return !serializedState ? undefined : JSON.parse(serializedState);
   } catch (error) {
     console.error("Error al cargar los datos del LocalStorage", error);
-    return undefined;
+    return null;
   }
 };
 
