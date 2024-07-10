@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { PORT, API_VERSION, CORS_ORIGIN } from './environment';
-import MongoDB from './db';
+import PostgreDB from './db';
 import authRoutes from '../routes/auth.routes';
 import userRoutes from '../routes/user.routes';
 
@@ -17,7 +17,7 @@ export default class Server {
   }
 
   private database() {
-    MongoDB.getInstance();
+    PostgreDB.getInstance();
   }
 
   private middlewares() {

@@ -1,81 +1,22 @@
-import mongoose, { Document, Schema } from 'mongoose';
-
-enum SubscriptionType {
-  FREE = 'free',
-  PREMIUM = 'premium',
-}
-
-interface ISubscriptionType {
-  id: number;
-  type: SubscriptionType;
-  max_events: number;
-  price: number;
-}
-
-const SubscriptionTypeSchema: Schema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-  max_events: {
-    type: Number,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-});
-
-
-interface ICreditCard {
-  id: number;
-  number: string;
-  cvc: string;
-  exp_month: string;
-  exp_year: string;
-}
-
-const CreditCardSchema: Schema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-  },
-  number: {
-    type: String,
-    required: true,
-  },
-  cvc: {
-    type: String,
-    required: true,
-  },
-  exp_month: {
-    type: String,
-    required: true,
-  },
-  exp_year: {
-    type: String,
-    required: true,
-  },
-});
+import { DataTypes, Model, Optional } from 'sequelize';
+import { sequelize } from '../config/db'
+import { SubscriptionType } from './subscriptiontype.model'
+import { CreditCard } from './creditcard.model'
 
 enum UserRole {
   USER = 'user',
   ADMIN = 'admin',
 }
 
-export interface IUser extends Document {
+
+export interface UserAttributes {
   id: string;
   fullname: string;
   email: string;
   password: string;
   profile_image: string;
   phone: string;
-  subscription_type: number;
+  subscription_type_id: number;
   credit: number;
   role: UserRole;
   is_active: boolean;
@@ -83,65 +24,100 @@ export interface IUser extends Document {
   updated_at: Date;
 }
 
-// Define the schema
-const userSchema: Schema = new Schema({
-  fullname: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    validate: {
-      validator: function (value: string) {
-        return /\S+@\S+\.\S+/.test(value);
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> { }
+
+class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+  public id!: string;
+  public fullname!: string;
+  public email!: string;
+  public password!: string;
+  public profile_image!: string;
+  public phone!: string;
+  public subscription_type_id!: number;
+  public credit!: number;
+  public role!: UserRole;
+  public is_active!: boolean;
+  public created_at!: Date;
+  public updated_at!: Date;
+}
+
+User.init(
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    fullname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
       },
-      message: "Invalid email format",
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    profile_image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    credit: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    subscription_type_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: SubscriptionType,
+        key: 'id',
+      },
+    },
+    role: {
+      type: DataTypes.ENUM(...Object.values(UserRole)),
+      allowNull: false,
+      defaultValue: UserRole.USER,
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  profile_image: {
-    type: String,
-    required: false
-  },
-  phone: {
-    type: String,
-    required: false,
-  },
-  credit: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  subscription_type: {
-    type: String,
-    required: true,
-    default: 'free',
-  },
-  role: {
-    type: String,
-    required: true,
-    default: 'user',
-  },
-  is_active: {
-    type: Boolean,
-    required: true,
-    default: true,
-  },
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-  updated_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  {
+    sequelize,
+    modelName: 'User',
+    tableName: 'users',
+    timestamps: false,
+  }
+);
 
-const UserModel = mongoose.model<IUser>('User', userSchema);
+// Define associations
+User.belongsTo(SubscriptionType, { foreignKey: 'subscription_type_id' });
+SubscriptionType.hasMany(User, { foreignKey: 'subscription_type_id' });
 
-export default UserModel;
+CreditCard.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(CreditCard, { foreignKey: 'user_id' });
+
+export { SubscriptionType, CreditCard, User };

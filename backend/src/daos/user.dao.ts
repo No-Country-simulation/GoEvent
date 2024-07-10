@@ -1,14 +1,12 @@
-import { IUser } from "../models/user.model";
-import UserModel from "../models/user.model";
+import { User, UserAttributes } from "../models/user.model";
 
 export default class UserDAO {
-
   private constructor() { }
 
-  public static async register(user: Partial<IUser>) {
+  public static async register(user: UserAttributes) {
     try {
-      const createdUser = await UserModel.create(user);
-      return createdUser.toObject();
+      const createdUser = await User.create(user);
+      return createdUser.toJSON();
     } catch (error) {
       console.error('Error registering user:', error);
       throw error;
@@ -17,12 +15,12 @@ export default class UserDAO {
 
   public static async login(email: string) {
     try {
-      const foundUser = await UserModel.findOne({ email });
+      const foundUser = await User.findOne({ where: { email } });
       if (!foundUser) {
         console.error('Invalid credentials');
         throw new Error('Invalid credentials');
       }
-      return foundUser.toObject();
+      return foundUser.toJSON();
     } catch (error) {
       console.error('Error logging in user:', error);
       throw error;

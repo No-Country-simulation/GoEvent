@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { JWT_SECRET } from '../config/environment';
-import { IUser } from '../models/user.model';
+import { UserAttributes } from '../models/user.model';
 
 passport.use(
   'userJWT',
@@ -10,7 +10,7 @@ passport.use(
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: JWT_SECRET
     },
-    async (payload: Partial<IUser>, done: any) => {
+    async (payload: Partial<UserAttributes>, done: any) => {
       try {
         return done(null, payload.id ? payload.id : false);
       } catch (error) {
