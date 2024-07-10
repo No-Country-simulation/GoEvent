@@ -6,7 +6,8 @@ export default class UserController {
 
   public static async update(req: Request, res: Response) {
     try {
-      const serviceResponse = await UserService.update(req.body, req.file);
+      const userId = req.user as string;
+      const serviceResponse = await UserService.update(req.body, userId, req.file);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;
@@ -19,7 +20,7 @@ export default class UserController {
 
   public static async delete(req: Request, res: Response) {
     try {
-      const serviceResponse = await UserService.delete(req.body);
+      const serviceResponse = await UserService.delete(req.user as string);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;

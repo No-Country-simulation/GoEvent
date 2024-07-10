@@ -65,4 +65,18 @@ export default class AuthService {
   }
 
 
+  // REFRESH TOKEN ---------------------------------------------------------------
+  public static async refreshToken(token: string) {
+    try {
+      const user = await AuthHelper.verifyToken(token);
+      if (!user) return { success: false, message: 'Invalid token.' };
+      const newToken = AuthHelper.generateToken(user);
+      return { success: true, message: 'Token refreshed successfully.', token: newToken };
+    } catch (error) {
+      console.error('Error refreshing token:', error);
+      return { success: false, message: `Internal server error refreshing token. ${error}` };
+    }
+  }
+
+
 }

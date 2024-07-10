@@ -9,14 +9,26 @@ export default class UserService {
 
 
   // UPDATE USER ---------------------------------------------------------------
-  public static async update(user: Partial<UserAttributes>, profile_image?: any) {
-    return { success: true, message: 'User updated successfully.' };
+  public static async update(user: Partial<UserAttributes>, userId: string, profile_image?: any) {
+    try {
+      const updatedUser = await UserDAO.update(user, userId, profile_image);
+      return { success: true, message: 'User updated successfully.', user: updatedUser };
+    } catch (error: any) {
+      console.error('Error on service updating user:', error.errors);
+      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
+    }
   }
 
 
   // DELETE USER ---------------------------------------------------------------
-  public static async delete(user: Partial<UserAttributes>) {
-    return { success: true, message: 'User deleted successfully.' };
+  public static async delete(userId: string) {
+    try {
+      const deleteUser = await UserDAO.delete(userId)
+      return { success: true, message: 'User deleted successfully.' };
+    } catch (error: any) {
+      console.error('Error on service deleting user:', error.errors);
+      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
+    }
   }
 
 

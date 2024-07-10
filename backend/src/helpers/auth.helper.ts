@@ -43,6 +43,10 @@ export default class AuthHelper {
     return jwt.sign({ ...user, password: null }, JWT_SECRET as string, { expiresIn: JWT_EXPIRES_IN });
   }
 
+  public static verifyToken(user: any) {
+    return jwt.verify(user, JWT_SECRET as string) as { [key: string]: any };
+  }
+
   public static decodeToken(token: string): { [key: string]: any } {
     try {
       const decodedToken = jwt.verify(token, JWT_SECRET as string) as { [key: string]: any };

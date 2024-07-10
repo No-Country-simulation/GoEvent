@@ -28,4 +28,24 @@ export default class UserDAO {
     }
   }
 
+  public static async update(user: Partial<UserAttributes>, id: string, profile_image?: any) {
+    try {
+      const updatedUser = await User.update(user, { where: { id } });
+      return updatedUser;
+    } catch (error: UniqueConstraintError | any) {
+      console.error('Error on DAO registering user:', error.errors);
+      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
+    }
+  }
+
+  public static async delete(userId: string) {
+    try {
+      const deletedUser = await User.update({ is_active: false }, { where: { id: userId } });
+      return deletedUser;
+    } catch (error: UniqueConstraintError | any) {
+      console.error('Error on DAO deleting user:', error.errors);
+      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
+    }
+  }
+
 }

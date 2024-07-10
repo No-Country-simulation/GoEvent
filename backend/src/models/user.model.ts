@@ -8,7 +8,6 @@ enum UserRole {
   ADMIN = 'admin',
 }
 
-
 export interface UserAttributes {
   id: string;
   fullname: string;
