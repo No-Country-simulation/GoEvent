@@ -20,6 +20,7 @@ export default class AuthService {
     try {
       // Create user
       user.password = await AuthHelper.hashPassword(user.password);
+      user.subscription_type_id = 2; // Default subscription type free
       const createdUser = await UserDAO.register(user);
       /*
         // Upload profile image
@@ -35,8 +36,8 @@ export default class AuthService {
       return { success: true, message: 'User created successfully.', user: { ...createdUser, password: undefined } };
 
     } catch (error) {
-      console.error('Error creating user:', error);
-      return { success: false, message: `Internal server error creating user. Error: ${error}` };
+      console.error('Error os Service creating user:', error);
+      return { success: false, message: `Internal server error creating user. ${error}` };
     }
   }
 
@@ -59,7 +60,7 @@ export default class AuthService {
 
     } catch (error) {
       console.error('Error logging in user:', error);
-      return { success: false, message: `Internal server error logging user. Error: ${error}` };
+      return { success: false, message: `Internal server error logging user. ${error}` };
     }
   }
 

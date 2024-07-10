@@ -1,4 +1,5 @@
 import { User, UserAttributes } from "../models/user.model";
+import { UniqueConstraintError } from 'sequelize';
 
 export default class UserDAO {
   private constructor() { }
@@ -7,9 +8,9 @@ export default class UserDAO {
     try {
       const createdUser = await User.create(user);
       return createdUser.toJSON();
-    } catch (error) {
-      console.error('Error registering user:', error);
-      throw error;
+    } catch (error: UniqueConstraintError | any) {
+      console.error('Error on DAO registering user:', error.errors);
+      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
     }
   }
 
@@ -21,9 +22,9 @@ export default class UserDAO {
         throw new Error('Invalid credentials');
       }
       return foundUser.toJSON();
-    } catch (error) {
-      console.error('Error logging in user:', error);
-      throw error;
+    } catch (error: UniqueConstraintError | any) {
+      console.error('Error on DAO registering user:', error.errors);
+      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
     }
   }
 
