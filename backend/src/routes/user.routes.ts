@@ -4,7 +4,7 @@ import passport from "../middlewares/auth.mid";
 import UserController from "../controllers/user.controller";
 
 const upload = multer();
-// API /api/v1/auth
+// API /api/v1/user
 
 export default express
   .Router()

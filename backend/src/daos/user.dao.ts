@@ -16,7 +16,7 @@ export default class UserDAO {
 
   public static async login(email: string) {
     try {
-      const foundUser = await User.findOne({ where: { email } });
+      const foundUser = await User.findOne({ where: { email: email, is_active: true } });
       if (!foundUser) {
         console.error('Invalid credentials');
         throw new Error('Invalid credentials');
@@ -32,6 +32,16 @@ export default class UserDAO {
     try {
       const updatedUser = await User.update(user, { where: { id } });
       return updatedUser;
+    } catch (error: UniqueConstraintError | any) {
+      console.error('Error on DAO registering user:', error.errors);
+      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
+    }
+  }
+
+  public static async updateProfileImage(user_id: string, profile_image: any) {
+    try {
+      await User.update({ profile_image }, { where: { id: user_id } });
+      return
     } catch (error: UniqueConstraintError | any) {
       console.error('Error on DAO registering user:', error.errors);
       throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);

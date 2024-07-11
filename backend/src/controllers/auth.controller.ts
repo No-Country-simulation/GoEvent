@@ -34,7 +34,7 @@ export default class AuthController {
 
   public static async refreshToken(req: Request, res: Response) {
     try {
-      const serviceResponse = await AuthService.refreshToken(req.body.refreshToken);
+      const serviceResponse = await AuthService.refreshToken(req.params.token);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;

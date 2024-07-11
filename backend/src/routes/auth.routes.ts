@@ -9,4 +9,4 @@ export default express
   .Router()
   .post("/register", upload.single("profile_image"), AuthController.register)
   .post("/login", AuthController.login)
-  .post("/refreshToken", AuthController.refreshToken)
+  .get("/refreshToken/:token", AuthController.refreshToken)

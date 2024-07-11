@@ -27,7 +27,7 @@ export default class Server {
 
   private routes() {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
-    this.app.use(`/${API_VERSION}/users`, userRoutes);
+    this.app.use(`/${API_VERSION}/user`, userRoutes);
   }
 
   public listen() {
