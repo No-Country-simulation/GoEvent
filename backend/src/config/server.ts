@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import { PORT, API_VERSION, CORS_ORIGIN } from './environment';
-import MongoDB from './db';
+import PostgreDB from './db';
 import authRoutes from '../routes/auth.routes';
+import userRoutes from '../routes/user.routes';
 
 export default class Server {
   private app: express.Application;
@@ -16,7 +17,7 @@ export default class Server {
   }
 
   private database() {
-    MongoDB.getInstance();
+    PostgreDB.getInstance();
   }
 
   private middlewares() {
@@ -26,7 +27,7 @@ export default class Server {
 
   private routes() {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
-
+    this.app.use(`/${API_VERSION}/user`, userRoutes);
   }
 
   public listen() {
