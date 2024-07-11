@@ -18,7 +18,7 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
   // si existe el token lo agrega
 
-  if (token && config.headers) {
+  if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
