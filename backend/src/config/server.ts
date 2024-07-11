@@ -4,6 +4,7 @@ import { PORT, API_VERSION, CORS_ORIGIN } from './environment';
 import PostgreDB from './db';
 import authRoutes from '../routes/auth.routes';
 import userRoutes from '../routes/user.routes';
+import guestRoutes from '../routes/guest.routes';
 
 export default class Server {
   private app: express.Application;
@@ -28,6 +29,7 @@ export default class Server {
   private routes() {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
     this.app.use(`/${API_VERSION}/user`, userRoutes);
+    this.app.use(`/${API_VERSION}/guest`, guestRoutes);
   }
 
   public listen() {
