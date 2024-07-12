@@ -7,7 +7,7 @@ import userRoutes from '../routes/user.routes';
 import guestRoutes from '../routes/guest.routes';
 
 export default class Server {
-  private app: express.Application;
+  public app: express.Application;
   private server: any;
 
   constructor() {
@@ -15,6 +15,7 @@ export default class Server {
     this.database();
     this.middlewares();
     this.routes();
+    this.listen();
   }
 
   private database() {
@@ -32,7 +33,7 @@ export default class Server {
     this.app.use(`/${API_VERSION}/guest`, guestRoutes);
   }
 
-  public listen() {
+  private listen() {
     this.server = this.app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
