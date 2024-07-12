@@ -11,15 +11,18 @@ en el día del evento. Panel de Control: Los organizadores pueden ver en tiempo 
 # Tecnologías empleadas:
 
 ## FrontEnd:
--React
--Vite
--Tailwind
--Typescript
+- React
+- Vite
+- Tailwind
+- Typescript
 
 ## Backend:
--MySQL
--
--
+- NodeJs
+- Express
+- Typescript
+- PostgreSQL
+**API URL: https://goevent-api.vercel.app/**
+**API DOC: https://documenter.getpostman.com/view/24685479/2sA3dyjBYu**
 
 # Equipo de trabajo:
 
@@ -33,6 +36,9 @@ en el día del evento. Panel de Control: Los organizadores pueden ver en tiempo 
 ## Backend:
 - Franco Maidana - Linkedin: https://www.linkedin.com/in/maidana-franco07
 - Tabaré Bermúdez - Linkedin: https://www.linkedin.com/in/tabarebermudez
-- Sombra Cristian - Linkedin:  https://www.linkedin.com/in/cristiansombra
-- Nazareno Lujan - Linkedin:  https://www.linkedin.com/in/omar-nazareno-lujan-8b09b0268/
+- Sombra Cristian - Linkedin: https://www.linkedin.com/in/cristiansombra
+- Nazareno Lujan - Linkedin: https://www.linkedin.com/in/omar-nazareno-lujan-8b09b0268/
+
+## QA
+- Esteban Mendez - Linkedin: https://www.linkedin.com/in/mendez-esteban/
 
