@@ -52,7 +52,11 @@ export default class AuthService {
       if (!email && !password) return { success: false, message: 'Missing required fields.' }
       const user = await UserDAO.login(email);
 
-      if (!user || !await AuthHelper.comparePasswords(password, user.password)) return { success: false, message: 'Invalid email or password.' };
+      if (!user || !await AuthHelper.comparePasswords(password, user.password))
+        return {
+          success: false,
+          message: 'Invalid email or password.'
+        };
 
       const token = AuthHelper.generateToken(user);
       return {
@@ -63,7 +67,7 @@ export default class AuthService {
       };
 
     } catch (error) {
-      console.error('Error logging in user:', error);
+      console.log('Error logging in user [AuthService]:', error);
       return {
         success: false,
         message: `Internal server error logging user. ${error}`

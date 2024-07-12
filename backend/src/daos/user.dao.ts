@@ -9,7 +9,7 @@ export default class UserDAO {
       const createdUser = await User.create(user);
       return createdUser.toJSON();
     } catch (error: UniqueConstraintError | any) {
-      console.error('Error on DAO registering user:', error.errors);
+      console.error('Error registering user [DAO]:', error.errors);
       throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
     }
   }
@@ -17,13 +17,10 @@ export default class UserDAO {
   public static async login(email: string) {
     try {
       const foundUser = await User.findOne({ where: { email: email, is_active: true } });
-      if (!foundUser) {
-        console.error('Invalid credentials');
-        throw new Error('Invalid credentials');
-      }
+      if (!foundUser) return null
       return foundUser.toJSON();
     } catch (error: UniqueConstraintError | any) {
-      console.error('Error on DAO registering user:', error.errors);
+      console.error('Error logging user [DAO]:', error.errors);
       throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
     }
   }
