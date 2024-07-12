@@ -7,10 +7,10 @@ export const login = async (data: LoginData) => {
   let response = await handleApiCall(api.post("/auth/login", data));
 
   // luego se puede hacer lo que desee con la informacion
-
-  response.success
-    ? saveToLocalStorage("user", response.data)
-    : console.error(response.error);
+  if (response.success) {
+    saveToLocalStorage("user", response.data);
+    return response;
+  } else return response;
 };
 
 export const register = async (data: RegisterData) => {
