@@ -20,8 +20,8 @@ en el día del evento. Panel de Control: Los organizadores pueden ver en tiempo 
 - Express
 - Typescript
 - PostgreSQL
-**API URL: https://goevent-api.vercel.app/**
-**API DOC: https://documenter.getpostman.com/view/24685479/2sA3dyjBYu**
+- **API URL: https://goevent-api.vercel.app/**
+- **API DOC: https://documenter.getpostman.com/view/24685479/2sA3dyjBYu**
 
 ## Equipo de trabajo
 
