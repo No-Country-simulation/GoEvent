@@ -1,11 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import { PORT, API_VERSION, CORS_ORIGIN } from './environment';
-import MongoDB from './db';
+import PostgreDB from './db';
 import authRoutes from '../routes/auth.routes';
+import userRoutes from '../routes/user.routes';
+import guestRoutes from '../routes/guest.routes';
 
 export default class Server {
-  private app: express.Application;
+  public app: express.Application;
   private server: any;
 
   constructor() {
@@ -13,10 +15,11 @@ export default class Server {
     this.database();
     this.middlewares();
     this.routes();
+    this.listen();
   }
 
   private database() {
-    MongoDB.getInstance();
+    PostgreDB.getInstance();
   }
 
   private middlewares() {
@@ -26,10 +29,11 @@ export default class Server {
 
   private routes() {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
-
+    this.app.use(`/${API_VERSION}/user`, userRoutes);
+    this.app.use(`/${API_VERSION}/guest`, guestRoutes);
   }
 
-  public listen() {
+  private listen() {
     this.server = this.app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });

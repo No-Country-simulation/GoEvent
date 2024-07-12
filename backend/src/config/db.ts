@@ -1,41 +1,65 @@
-import mongoose from 'mongoose';
+import pg from 'pg';
+import { Sequelize } from 'sequelize';
 import { DB_URL } from './environment';
+import { SubscriptionType } from '../models/subscriptiontype.model';
+import { CreditCard } from '../models/creditcard.model';
+import { User } from '../models/user.model';
 
-class MongoDB {
-  private static instance: MongoDB | null = null;
+export const sequelize = new Sequelize(DB_URL, {
+  dialect: 'postgres',
+  dialectModule: pg,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
+});
+
+export default class PostgreDB {
+  private static instance: PostgreDB | null = null;
 
   private constructor() { }
 
-  public static getInstance(): MongoDB {
-    if (!MongoDB.instance) {
-      MongoDB.instance = new MongoDB();
-      MongoDB.instance.connect();
+  public static getInstance(): PostgreDB {
+    if (!PostgreDB.instance) {
+      PostgreDB.instance = new PostgreDB();
+      PostgreDB.instance.connect();
     }
-    return MongoDB.instance;
+    return PostgreDB.instance;
   }
 
   private async connect(): Promise<void> {
     try {
-      await mongoose.connect(DB_URL);
-      console.log('Connected to MongoDB with Mongoose');
+      await sequelize.authenticate();
+      console.log('Conected to PostgreSQL with Sequelize');
     } catch (err) {
       console.error('Unable to connect to the database:', err);
     }
   }
 
-  public async isConnected(): Promise<boolean> {
-    if (!mongoose.connection.readyState) {
-      await mongoose.connect(DB_URL);
-      console.log('Reconnected to MongoDB with Mongoose');
+  public async sync(): Promise<void> {
+    try {
+      await sequelize.sync({ alter: true });
+    } catch (err) {
+      console.error('Unable to sync the database:', err);
     }
-    return mongoose.connection.readyState === 1;
+  }
+
+  public async isConnected(): Promise<boolean> {
+    try {
+      await sequelize.authenticate();
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   public async close(): Promise<void> {
     try {
-      await mongoose.disconnect();
-      MongoDB.instance = null;
-      console.log('Connection to MongoDB closed');
+      await sequelize.close();
+      PostgreDB.instance = null;
+      console.log('Connection to PostgreSQL closed');
     } catch (err) {
       console.error('Error closing the connection:', err);
     }
@@ -43,4 +67,4 @@ class MongoDB {
 
 }
 
-export default MongoDB
+
