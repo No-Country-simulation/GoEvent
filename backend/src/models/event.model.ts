@@ -1,16 +1,15 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../config/db';
-import { SubscriptionType } from './subscriptiontype.model';
 import { User } from './user.model';
 import { Guest } from './guest.model';
 
-enum EventStatus {
+export enum EventStatus {
   SCHEDULED = 'scheduled',
   ONGOING = 'ongoing',
   COMPLETED = 'completed',
   CANCELLED = 'cancelled',
 }
-enum EventType {
+export enum EventType {
   FREE = 'free',
   PAID = 'paid',
 }
@@ -108,7 +107,6 @@ Event.init(
   },
 );
 
-// Define associations
 Event.belongsTo(User, { foreignKey: 'user_id' });
 User.hasMany(Event, { foreignKey: 'user_id' });
 

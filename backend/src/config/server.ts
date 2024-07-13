@@ -18,8 +18,14 @@ export default class Server {
     this.listen();
   }
 
-  private database() {
-    PostgreDB.getInstance();
+  private async database() {
+    const db = PostgreDB.getInstance();
+    try {
+      await db.sync();
+      console.log('Database synchronized successfully.');
+    } catch (err) {
+      console.error('Error synchronizing the database:', err);
+    }
   }
 
   private middlewares() {
