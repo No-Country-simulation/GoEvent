@@ -1,0 +1,81 @@
+import EventDAO from '../daos/event.dao';
+import { EventAttributes, EventType } from '../models/event.model';
+import { User, UserAttributes } from '../models/user.model';
+
+export default class EventService {
+  private constructor() {}
+
+  // Create Event -------------------------------------------------------------
+  public static async create(event: EventAttributes) {
+    // Check required fields
+    if (!event.name) {
+      return { success: false, message: 'The required name field is missing.' };
+    }
+    if (!event.description) {
+      return { success: false, message: 'The required description field is missing.' };
+    }
+    if (!event.location) {
+      return { success: false, message: 'The required location field is missing.' };
+    }
+    if (!event.time) {
+      return { success: false, message: 'The required time field is missing.' };
+    }
+    if (!event.date) {
+      return { success: false, message: 'The required date field is missing.' };
+    }
+    try {
+      // Find user and check subscription type
+      const user = await User.findOne({ where: { id: event.user_id } });
+      if (!user) {
+        return { success: false, message: 'User not found.' };
+      }
+
+      // Compare subscription type 2 is free
+      if (user.subscription_type_id !== 2) {
+        event.type = EventType.PAID;
+      }
+
+      // Create Event
+      const createdEvent = await EventDAO.create(event);
+      return { success: true, message: 'Event created successfully.', event: createdEvent };
+    } catch (error: any) {
+      console.error('Error on Service creating event:', error);
+      return {
+        success: false,
+        message: `Internal server error creating event. ${error.message}`,
+      };
+    }
+  }
+
+  // Update Event ---------------------------------------------------------------
+  public static async update(event: Partial<EventAttributes>, eventId: string) {
+    try {
+      if (!event) {
+        return { success: false, message: 'No data to update.' };
+      }
+
+      const updatedEvent = await EventDAO.update(event, eventId);
+      return { success: true, message: 'Event updated successfully.', event: updatedEvent };
+    } catch (error: any) {
+      console.error('Error on service updating event:', error);
+      return {
+        success: false,
+        message: `Internal server error updating event. ${error.message}`,
+      };
+    }
+  }
+
+  // Delete Event ---------------------------------------------------------------
+  public static async delete(eventId: string) {
+    try {
+      const deleteEvent = await EventDAO.delete(eventId);
+      return { success: true, message: 'Event deleted successfully.' };
+    } catch (error: any) {
+      console.error('Error on service deleting event:', error);
+      return {
+        success: false,
+        message: `Internal server error deleting event. ${error.message}`,
+      };
+    }
+  }
+}
