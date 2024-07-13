@@ -42,6 +42,4 @@ export default class Server {
   public close() {
     this.server.close();
   }
-
-
 }
