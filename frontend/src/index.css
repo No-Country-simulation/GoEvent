@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .degradado {
+        background: linear-gradient(180deg, #EBE2CD 0%, #EBBC94 79.66%, #EB9C64 100%);
+    }
+}
