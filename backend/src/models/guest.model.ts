@@ -33,7 +33,7 @@ Guest.init(
     },
     user_id: {
       type: DataTypes.STRING,
-      allowNull: false, // en proceso
+      allowNull: true, // en proceso ( despues dejar en false)
       references: {
         model: User,
         key: 'id',
@@ -41,7 +41,7 @@ Guest.init(
     },
     event_id: {
       type: DataTypes.STRING,
-      allowNull: false, // en proceso
+      allowNull: true, // en proceso ( despues dejar en false)
       // references: {
       //   model: Event,
       //   key: 'id',
@@ -67,8 +67,8 @@ Guest.init(
   },
 );
 
-// Guest.belongsTo(User, { foreignKey: 'user_id' });
-// User.hasMany(Guest, { foreignKey: 'user_id' });
+Guest.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(Guest, { foreignKey: 'user_id' });
 
 // Guest.belongsTo(Event, { foreignKey: 'event_id' });
 // Event.hasMany(Guest, { foreignKey: 'event_id' });

@@ -4,6 +4,7 @@ import { DB_URL } from './environment';
 import { SubscriptionType } from '../models/subscriptiontype.model';
 import { CreditCard } from '../models/creditcard.model';
 import { User } from '../models/user.model';
+import { Guest } from '../models/guest.model';
 
 export const sequelize = new Sequelize(DB_URL, {
   dialect: 'postgres',

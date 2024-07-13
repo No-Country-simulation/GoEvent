@@ -1,87 +1,80 @@
-import { type Request, type Response } from "express";
-import GuestService from "../services/guest.service";
+import { Request, Response, NextFunction } from 'express';
+import guestService from "../services/guest.service";
 import HTTP_STATUS from "../constants/httpStatusCodes";
 
 
-export default class GuestController {
-    private guestService: GuestService;
-
-    constructor(guestService: GuestService) {
-        this.guestService = guestService;
+class GuestController {
+    constructor() {
     }
 
-    async getAll(req: Request, res: Response) {
+    async getAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const guests = await this.guestService.getAll();
+            const guests = await guestService.getAll();
             res.status(HTTP_STATUS.OK).json(guests);
-
-        } catch (error: any) {
-            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message: "Internal server error.", error: error.message
-                })
+        } catch (error) {
+            next(error);
         }
     }
 
-    async getOne(req: Request, res: Response) {
+    async getAllInEvent(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { eid } = req.params
+            const guests = await guestService.getAllInEvent(eid);
+            res.status(HTTP_STATUS.OK).json(guests);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getOne(req: Request, res: Response, next: NextFunction) {
         try {
             const { gid } = req.params
-            const guest = await this.guestService.getOne(gid);
+            const guest = await guestService.getOne(gid);
             res.status(HTTP_STATUS.OK).json(guest);
-        } catch (error: any) {
-            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message: "Internal server error.", error: error.message
-                })
+        } catch (error) {
+            next(error);
         }
     }
 
-    async createOne(req: Request, res: Response) {
+    async createOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const guest = await this.guestService.createOne(req.body);
-            console.log(guest);
-
+            const guest = await guestService.createOne(req.body);
             res.status(HTTP_STATUS.CREATED).json(guest);
-        } catch (error: any) {
-            console.log(error);
-
-            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message: "Internal server error.", error: error.message
-                })
+        } catch (error) {
+            next(error);
         }
     }
 
-    async updateOne(req: Request, res: Response) {
+    async updateOne(req: Request, res: Response, next: NextFunction) {
         try {
-
-        } catch (error: any) {
-            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message: "Internal server error.", error: error.message
-                })
+            const { gid } = req.params
+            const guestUpdate = await guestService.updateOne(gid, req.body)
+            res.status(HTTP_STATUS.OK).json(guestUpdate)
+        } catch (error) {
+            next(error);
         }
     }
 
-    async deleteOne(req: Request, res: Response) {
+    async deleteOne(req: Request, res: Response, next: NextFunction) {
         try {
-
-        } catch (error: any) {
-            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message: "Internal server error.", error: error.message
-                })
+            const { gid } = req.params
+            const guestDelete = await guestService.deleteOne(gid)
+            res.status(HTTP_STATUS.OK).json(guestDelete)
+        } catch (error) {
+            next(error);
         }
     }
 
-    async deleteAll(req: Request, res: Response) {
+    async deleteAll(req: Request, res: Response, next: NextFunction) {
         try {
-
-        } catch (error: any) {
-            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message: "Internal server error.", error: error.message
-                })
+            const { eid } = req.params
+            const guestsDelete = await guestService.deleteAll(eid)
+            res.status(HTTP_STATUS.OK).json(guestsDelete)
+        } catch (error) {
+            next(error);
         }
     }
 }
+
+const guestController = new GuestController()
+export default guestController

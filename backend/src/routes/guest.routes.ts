@@ -1,11 +1,7 @@
 import { Router } from "express";
-import GuestController from "../controllers/guest.controller";
-import GuestService from "../services/guest.service";
-import { Guest } from "../models/guest.model";
+import guestController from "../controllers/guest.controller";
+import { errorHandler } from "../middlewares/errorHandler";
 
-// ------ INSTANTIATE ----------------------------
-const guestService = new GuestService(Guest);
-const guestController = new GuestController(guestService);
 
 // API ROUTE /api/v1/guest
 const router = Router();
@@ -13,6 +9,7 @@ const router = Router();
 // ------ GET ----------------------------
 router
     .get("/", guestController.getAll)
+    .get("/event/:eid", guestController.getAllInEvent)
     .get("/:gid", guestController.getOne);
 
 // ------ POST ----------------------------
@@ -26,7 +23,10 @@ router
 // ------ DELETE ----------------------------
 router
     .delete("/:gid", guestController.deleteOne)
-    .delete("/all", guestController.deleteAll);
+    .delete("/event/:eid", guestController.deleteAll);
+
+// ------ ERROR HANDLER ----------------------------
+router.use(errorHandler);
 
 // ------ EXPORT ----------------------------
 export default router
