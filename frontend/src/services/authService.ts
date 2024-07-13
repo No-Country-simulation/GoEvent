@@ -7,7 +7,10 @@ export const login = async (data: LoginData) => {
   let response = await handleApiCall(api.post("/auth/login", data));
 
   // luego se puede hacer lo que desee con la informacion
-  if (response.success) saveToLocalStorage("user", response.data);
+  if (response.success) {
+    const { user, token } = response.data;
+    saveToLocalStorage("user", { user, token });
+  }
 
   return response;
 };

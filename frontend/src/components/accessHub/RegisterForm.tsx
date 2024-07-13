@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useFormState } from "../../hooks/useFormState";
 import { register } from "../../services";
 import { RegisterData } from "../../types";
 import { toast } from "sonner";
+
 const RegisterForm = () => {
-  const [formData, setFormData] = useState<RegisterData>({
+  const { formData, handleChange } = useFormState<RegisterData>({
     fullname: "",
     email: "",
     password: "",
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import { login } from "../../services";
 import { LoginData } from "../../types";
-import { useFormAction, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useFormState } from "../../hooks/useFormState";
 
@@ -11,7 +11,7 @@ const LoginForm = () => {
     password: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await login(formData);
 

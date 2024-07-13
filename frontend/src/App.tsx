@@ -1,13 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AccessHub, Home } from "./pages";
+import { AccessHub, Home, Landing } from "./pages";
+import ProtecteRoute from "./components/ProtecteRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={} /> aqui va la landing  */}
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<AccessHub />} />
-        <Route path="/home" element={<h1>Home</h1>} />
+        <Route
+          path="/home"
+          element={<ProtecteRoute element={<Home />} redirectTo={"/login"} />}
+        />
       </Routes>
     </BrowserRouter>
   );
