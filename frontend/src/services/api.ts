@@ -14,9 +14,11 @@ const api = axios.create({
 // Antes de hacer cada llamada, pasa por aqui para agregar el token
 
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = null; // aqui va el token
+  const token = null;
 
-  if (token && config.headers) {
+  // si existe el token lo agrega
+
+  if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
