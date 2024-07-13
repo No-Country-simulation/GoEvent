@@ -8,7 +8,7 @@ export const login = async (data: LoginData) => {
 
   // luego se puede hacer lo que desee con la informacion
   if (response.success) {
-    saveToLocalStorage("user", response.data);
+    console.log("usuario creado");
     return response;
   } else return response;
 };
@@ -16,7 +16,8 @@ export const login = async (data: LoginData) => {
 export const register = async (data: RegisterData) => {
   let response = await handleApiCall(api.post("/auth/register", data));
 
-  response.success
-    ? console.log(response.data) //////
-    : console.error(response.error);
+  if (response.success) {
+    saveToLocalStorage("user", response.data);
+    console.log("Logueado correctamente");
+  } else return response;
 };

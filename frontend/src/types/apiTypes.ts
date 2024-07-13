@@ -4,7 +4,5 @@ export interface LoginData {
 }
 
 export interface RegisterData extends LoginData {
-  name: string;
-  surname: string;
-  username: string;
+  fullname: string;
 }
