@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { login } from "../../services";
+import { LoginData } from "../../types";
 
 const LoginForm = () => {
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [loginData, setLoginData] = useState<LoginData>({
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

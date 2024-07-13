@@ -3,10 +3,10 @@ import RegisterForm from "../components/accessHub/RegisterForm";
 
 const AccessHubPage = () => {
   return (
-    <div>
-      {/* <LoginForm /> */}
-      <RegisterForm />
-    </div>
+    <>
+      <LoginForm />
+      {/* <RegisterForm /> */}
+    </>
   );
 };
 
