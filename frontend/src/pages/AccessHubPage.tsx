@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import LoginForm from "../components/accessHub/LoginForm";
 import RegisterForm from "../components/accessHub/RegisterForm";
 
@@ -6,6 +7,7 @@ const AccessHubPage = () => {
     <>
       <LoginForm />
       {/* <RegisterForm /> */}
+      <Toaster richColors />
     </>
   );
 };

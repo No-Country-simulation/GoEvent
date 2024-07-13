@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { register } from "../../services";
 import { RegisterData } from "../../types";
+import { toast } from "sonner";
 const RegisterForm = () => {
   const [formData, setFormData] = useState<RegisterData>({
     fullname: "",
@@ -15,7 +16,11 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await register(formData);
+    let response = await register(formData);
+
+    response.success
+      ? toast.success("Usuario creado correctamente")
+      : toast.error("Hay un error");
   };
 
   return (

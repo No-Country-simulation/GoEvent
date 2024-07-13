@@ -1,23 +1,22 @@
-import { useState } from "react";
 import { login } from "../../services";
 import { LoginData } from "../../types";
+import { useFormAction, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useFormState } from "../../hooks/useFormState";
 
 const LoginForm = () => {
-  const [loginData, setLoginData] = useState<LoginData>({
+  const navigate = useNavigate();
+  const { formData, handleChange } = useFormState<LoginData>({
     email: "",
     password: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await login(loginData);
-    console.log(response);
-  };
+    const response = await login(formData);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setLoginData({ ...loginData, [name]: value });
+    if (response.success) navigate("/home");
+    else toast.error("Tu usuario o contraseña esta mal");
   };
 
   return (
@@ -29,13 +28,13 @@ const LoginForm = () => {
         <input
           type="email"
           name="email"
-          value={loginData.email}
+          value={formData.email}
           onChange={handleChange}
         />
         <input
           type="password"
           name="password"
-          value={loginData.password}
+          value={formData.password}
           onChange={handleChange}
         />
         <button type="submit">Ingresar</button>
