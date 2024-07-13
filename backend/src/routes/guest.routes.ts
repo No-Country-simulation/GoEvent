@@ -1,17 +1,32 @@
-import express from "express";
-import multer from "multer";
-// import AuthController from "../controllers/auth.controller";
+import { Router } from "express";
+import GuestController from "../controllers/guest.controller";
+import GuestService from "../services/guest.service";
+import { Guest } from "../models/guest.model";
 
-const upload = multer();
-// API /api/v1/guest
+// ------ INSTANTIATE ----------------------------
+const guestService = new GuestService(Guest);
+const guestController = new GuestController(guestService);
 
-export default express
-    .Router()
-    .post("/", (req, res) => res.send("CREATE"))
-    .get("/", (req, res) => res.send("READ"))
-    .patch("/:gid", (req, res) => res.send("UPDATE"))
-    .delete("/:gid", (req, res) => res.send("DELETE"))
+// API ROUTE /api/v1/guest
+const router = Router();
 
-//   .post("/register", upload.single("profile_image"), AuthController.register)
-//   .post("/login", AuthController.login)
-//   .get("/refreshToken/:token", AuthController.refreshToken)
+// ------ GET ----------------------------
+router
+    .get("/", guestController.getAll)
+    .get("/:gid", guestController.getOne);
+
+// ------ POST ----------------------------
+router
+    .post("/", guestController.createOne);
+
+// ------ PATCH ----------------------------
+router
+    .patch("/:gid", guestController.updateOne);
+
+// ------ DELETE ----------------------------
+router
+    .delete("/:gid", guestController.deleteOne)
+    .delete("/all", guestController.deleteAll);
+
+// ------ EXPORT ----------------------------
+export default router

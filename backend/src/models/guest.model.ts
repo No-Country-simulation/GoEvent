@@ -1,21 +1,12 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../config/db';
 import { User } from './user.model';
-import { Event } from './event.model';
+// import { Event } from './event.model';
+import IGuest from "../types/guest.types"
 
-export interface GuestAttributes {
-  id: number;
-  fullname: string;
-  description: string;
-  user_id: string;
-  event_id: string;
-  email: string;
-  phone: string;
-}
+interface GuestCreationAttributes extends Optional<IGuest, 'id'> { }
 
-interface GuestCreationAttributes extends Optional<GuestAttributes, 'id'> {}
-
-class Guest extends Model<GuestAttributes, GuestCreationAttributes> implements GuestAttributes {
+class Guest extends Model<IGuest, GuestCreationAttributes> implements IGuest {
   public id!: number;
   public fullname!: string;
   public description!: string;
@@ -42,7 +33,7 @@ Guest.init(
     },
     user_id: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false, // en proceso
       references: {
         model: User,
         key: 'id',
@@ -50,11 +41,11 @@ Guest.init(
     },
     event_id: {
       type: DataTypes.STRING,
-      allowNull: false,
-      references: {
-        model: Event,
-        key: 'id',
-      },
+      allowNull: false, // en proceso
+      // references: {
+      //   model: Event,
+      //   key: 'id',
+      // },
     },
     email: {
       type: DataTypes.STRING,
@@ -76,10 +67,10 @@ Guest.init(
   },
 );
 
-Guest.belongsTo(User, { foreignKey: 'user_id' });
-User.hasMany(Guest, { foreignKey: 'user_id' });
+// Guest.belongsTo(User, { foreignKey: 'user_id' });
+// User.hasMany(Guest, { foreignKey: 'user_id' });
 
-Guest.belongsTo(Event, { foreignKey: 'event_id' });
-Event.hasMany(Guest, { foreignKey: 'event_id' });
+// Guest.belongsTo(Event, { foreignKey: 'event_id' });
+// Event.hasMany(Guest, { foreignKey: 'event_id' });
 
 export { Guest };
