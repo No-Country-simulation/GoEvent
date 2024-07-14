@@ -1,4 +1,4 @@
-import { User, UserAttributes } from "../models/user.model";
+import { User, UserAttributes } from "../models";
 import { UniqueConstraintError } from 'sequelize';
 
 export default class UserDAO {
