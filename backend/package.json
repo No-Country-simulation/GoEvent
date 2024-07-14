@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "lint": "eslint src/**/*.ts --fix",
-    "sync": "ts-node src/config/sync.db.ts",
+    "sync": "set SYNC_DB=1 && nodemon --exec ts-node src/app.ts",
     "deploy": "tsc && vercel --prod --force"
   },
   "keywords": [],

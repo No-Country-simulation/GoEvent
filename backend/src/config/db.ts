@@ -1,9 +1,12 @@
 import pg from 'pg';
 import { Sequelize } from 'sequelize';
-import { DB_URL } from './environment';
+import { SYNC_DB, DB_URL } from './environment';
 import { SubscriptionType } from '../models/subscriptiontype.model';
 import { CreditCard } from '../models/creditcard.model';
 import { User } from '../models/user.model';
+import { Event } from '../models/event.model';
+import { Guest } from '../models/guest.model';
+import { Invitation } from '../models/invitation.model';
 
 export const sequelize = new Sequelize(DB_URL, {
   dialect: 'postgres',
@@ -32,6 +35,7 @@ export default class PostgreDB {
   private async connect(): Promise<void> {
     try {
       await sequelize.authenticate();
+      if (SYNC_DB === 1) await sequelize.sync({ alter: true });
       console.log('Conected to PostgreSQL with Sequelize');
     } catch (err) {
       console.error('Unable to connect to the database:', err);

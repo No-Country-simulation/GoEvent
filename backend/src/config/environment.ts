@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+export const SYNC_DB = process.env.SYNC_DB ? parseInt(process.env.SYNC_DB) : 0
 export const PORT = process.env.PORT
 export const API_VERSION = process.env.API_VERSION
 export const SALT_ROUNDS = process.env.SALT_ROUNDS ? parseInt(process.env.SALT_ROUNDS) : 10
