@@ -1,34 +1,13 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../config/db';
-import { Event } from './event.model';
-import { Guest } from './guest.model';
-
-enum InvitationStatus {
-  ACCEPTED = 'accepted',
-  PENDING = 'pending',
-  REJECTED = 'rejected',
-}
-
-enum InvitationType {
-  FREE = 'free',
-  PAY = 'pay',
-}
-
-export interface InvitationAttributes {
-  id: string;
-  event_id: string;
-  guest_id: string;
-  status: InvitationStatus;
-  type: InvitationType;
-  qr_code: string;
-  cost: number;
-  paid: boolean;
-  attendance: Date;
-}
+import { sequelize } from '../../config/db';
+import { InvitationAttributes } from './invitation.interface';
+import { InvitationStatus } from './invitation.status';
+import { InvitationType } from './invitation.type';
+import { Event, Guest } from '../index';
 
 interface InvitationCreationAttributes extends Optional<InvitationAttributes, 'id'> {}
 
-class Invitation extends Model<InvitationAttributes, InvitationCreationAttributes> implements InvitationAttributes {
+export class Invitation extends Model<InvitationAttributes, InvitationCreationAttributes> implements InvitationAttributes {
   public id!: string;
   public event_id!: string;
   public guest_id!: string;
@@ -96,11 +75,3 @@ Invitation.init(
     timestamps: false,
   },
 );
-
-Invitation.belongsTo(Event, { foreignKey: 'event_id' });
-Event.hasMany(Invitation, { foreignKey: 'event_id' });
-
-Invitation.belongsTo(Guest, { foreignKey: 'guest_id' });
-Guest.hasMany(Invitation, { foreignKey: 'guest_id' });
-
-export { Invitation, Guest, Event };
