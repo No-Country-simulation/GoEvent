@@ -19,7 +19,7 @@ export default class Server {
   }
 
   private async database() {
-    const db = PostgreDB.getInstance();
+    const db = await PostgreDB.getInstance();
     try {
       await db.sync();
       console.log('Database synchronized successfully.');
