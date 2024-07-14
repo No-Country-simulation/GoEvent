@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AccessHub, Home, Landing } from "./pages";
 import ProtecteRoute from "./components/ProtecteRoute";
+import QrScanner from "./components/QrScanner";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           path="/home"
           element={<ProtecteRoute element={<Home />} redirectTo={"/login"} />}
         />
+        <Route path="/scanner" element={<QrScanner />} />
       </Routes>
     </BrowserRouter>
   );
