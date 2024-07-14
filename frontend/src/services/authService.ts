@@ -1,20 +1,23 @@
 import { LoginData, RegisterData } from "../types";
+import { handleApiCall } from "../utils";
 import { saveToLocalStorage } from "../utils/localStorageUtils";
 import api from "./api";
 
 export const login = async (data: LoginData) => {
-  try {
-    let response = await api.post("/auth/login", data);
-    saveToLocalStorage("user", response.data);
-    return { success: true };
-  } catch (error) {
-    console.error(error);
-    return { success: false, error: error };
-  }
+  let response = await handleApiCall(api.post("/auth/login", data));
+
   // luego se puede hacer lo que desee con la informacion
+  if (response.success) {
+    const { user, token } = response.data;
+    saveToLocalStorage("user", { user, token });
+  }
+  console.log(response, data);
+  return response;
 };
 
 export const register = async (data: RegisterData) => {
-  let response = await api.post("/auth/register", data);
-  console.log(response.data);
+  let response = await handleApiCall(api.post("/auth/register", data));
+  console.log(response, data);
+
+  return response;
 };

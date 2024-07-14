@@ -1,4 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
+import { loadFromLocalStorage } from "../utils";
+import { userAndToken } from "../types";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -14,10 +16,12 @@ const api = axios.create({
 // Antes de hacer cada llamada, pasa por aqui para agregar el token
 
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = null; // aqui va el token
+  const user = loadFromLocalStorage<userAndToken>("user");
 
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
+  // si existe el token lo agrega
+
+  if (user?.token) {
+    config.headers.Authorization = `Bearer ${user.token}`;
   }
 
   return config;

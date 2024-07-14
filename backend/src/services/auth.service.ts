@@ -1,5 +1,5 @@
 import UserDAO from '../daos/user.dao';
-import { UserAttributes } from '../models/user.model';
+import { UserAttributes } from '../types/user.types';
 import AuthHelper from '../helpers/auth.helper';
 import EmailHelper from '../helpers/email.helper';
 

@@ -1,36 +1,11 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../config/db';
-import { SubscriptionType } from './subscriptiontype.model';
-import { User } from './user.model';
-import { Guest } from './guest.model';
+import { sequelize } from '../../config/db';
+import { EventAttributes, EventStatus, EventType } from '../../types/event.types';
+import { User } from '../index';
 
-enum EventStatus {
-  SCHEDULED = 'scheduled',
-  ONGOING = 'ongoing',
-  COMPLETED = 'completed',
-  CANCELLED = 'cancelled',
-}
-enum EventType {
-  FREE = 'free',
-  PAID = 'paid',
-}
-export interface EventAttributes {
-  id: string;
-  name: string;
-  description: string;
-  location: string;
-  time: Date;
-  date: Date;
-  user_id: string;
-  status: EventStatus;
-  type: EventType;
-  created_at: Date;
-  updated_at: Date;
-}
+interface EventCreationAttributes extends Optional<EventAttributes, 'id'> { }
 
-interface EventCreationAttributes extends Optional<EventAttributes, 'id'> {}
-
-class Event extends Model<EventAttributes, EventCreationAttributes> implements EventAttributes {
+export class Event extends Model<EventAttributes, EventCreationAttributes> implements EventAttributes {
   public id!: string;
   public name!: string;
   public description!: string;
@@ -64,15 +39,15 @@ Event.init(
       allowNull: false,
     },
     time: {
-      type: DataTypes.STRING,
+      type: DataTypes.TIME,
       allowNull: true,
     },
     date: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: true,
     },
     user_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: User,
@@ -107,12 +82,3 @@ Event.init(
     timestamps: false,
   },
 );
-
-// Define associations
-Event.belongsTo(User, { foreignKey: 'user_id' });
-User.hasMany(Event, { foreignKey: 'user_id' });
-
-Guest.belongsTo(Event, { foreignKey: 'event_id' });
-Event.hasMany(Guest, { foreignKey: 'event_id' });
-
-export { Event, Guest  };

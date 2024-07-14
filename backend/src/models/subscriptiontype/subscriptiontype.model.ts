@@ -1,17 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../config/db'
-
-enum SubscriptionTypeEnum {
-  FREE = 'free',
-  PREMIUM = 'premium',
-}
-
-export interface SubscriptionTypeAttributes {
-  id: number;
-  type: SubscriptionTypeEnum;
-  max_events: number;
-  price: number;
-}
+import { sequelize } from '../../config/db'
+import { SubscriptionTypeAttributes, SubscriptionTypeEnum } from '../../types/subscription.types';
 
 interface SubscriptionTypeCreationAttributes extends Optional<SubscriptionTypeAttributes, 'id'> { }
 

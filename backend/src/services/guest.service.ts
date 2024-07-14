@@ -1,4 +1,4 @@
-import { Guest } from "../models/guest.model"
+import { Guest } from "../models/guest/guest.model"
 import { ICreateGuest, IGuestResponse, IUpdateGuest } from "../types/guest.types";
 
 
