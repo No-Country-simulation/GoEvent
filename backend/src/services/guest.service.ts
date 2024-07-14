@@ -6,12 +6,18 @@ class GuestService {
     constructor(private guestModel: typeof Guest) {
         this.guestModel = guestModel;
     }
+    #handleError(error: any, trying: string) {
+        const err = new Error(`Error ${trying} guests. ${error.message}`)
+        err.name = error.name ?? "GuestServiceError"
+        throw err
+    }
+
 
     async getAll(): Promise<any> {
         try {
-            return await this.guestModel.findAll(); 
-        } catch (error: any) {            
-            throw new Error(`Error getting guests. ${error.message}`)
+            return await this.guestModel.findAll();
+        } catch (error: any) {
+            this.#handleError(error, "getting");
         }
     }
 
@@ -21,17 +27,17 @@ class GuestService {
             return getAllInEvent;
 
         } catch (error: any) {
-            throw new Error(`Error getting guests. ${error.message}`)
+            this.#handleError(error, "getting");
         }
     }
 
-    async getOne(gid: string): Promise<Guest> {
+    async getOne(gid: string) {
         try {
             const guest = await this.guestModel.findByPk(gid);
             if (!guest) { throw new Error(`Guest with id:${gid} not found.`) }
             return guest;
         } catch (error: any) {
-            throw new Error(`Error getting guest. ${error.message}`)
+            this.#handleError(error, "getting");
         }
     }
 
@@ -44,14 +50,14 @@ class GuestService {
                 data: createGuest
             }
         } catch (error: any) {
-            throw new Error(`Error creating guest: ${error.message}`)
+            this.#handleError(error, "creating");
         }
     }
 
     async updateOne(gid: string, data: Partial<IGuest>) {
         try {
             const updateThis = await this.getOne(gid)
-            const updateGuest = await updateThis.update(data);
+            const updateGuest = await updateThis?.update(data);
 
             return {
                 success: true,
@@ -59,21 +65,21 @@ class GuestService {
                 data: updateGuest
             }
         } catch (error: any) {
-            throw new Error(`Error updating guest: ${error.message}`)
+            this.#handleError(error, "updating");
         }
     }
 
     async deleteOne(gid: string) {
         try {
             const guest = await this.getOne(gid)
-            const deleteOne = await guest.destroy();
+            const deleteOne = await guest?.destroy();
             return {
                 success: true,
                 message: "Guest deleted successfully",
                 data: deleteOne
             }
         } catch (error: any) {
-            throw new Error(`Error deleting guest: ${error.message}`)
+            this.#handleError(error, "deleting");
         }
     }
 
@@ -82,7 +88,7 @@ class GuestService {
             const deleteAll = await this.guestModel.destroy({ where: { event_id: eid } })
             return deleteAll;
         } catch (error: any) {
-            throw new Error(`Error deleting guests: ${error.message}`)
+            this.#handleError(error, "deleting");
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import guestController from "../controllers/guest.controller";
-import { errorHandler } from "../middlewares/errorHandler";
+import { errorHandler } from "../middlewares/error.middleware";
 
 
 // API ROUTE /api/v1/guest
