@@ -14,6 +14,6 @@ export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET
 
 export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY ? process.env.SENDGRID_API_KEY : 'GoEvent'
 
-export const CORS_ORIGIN = process.env.CORS_ORIGIN
+export const CORS_ORIGIN = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN : '*'
 export const JWT_SECRET = process.env.JWT_SECRET ? process.env.JWT_SECRET : 'GoEvent'
 export const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN
