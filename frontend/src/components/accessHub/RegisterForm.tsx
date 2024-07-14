@@ -20,32 +20,50 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="fullname"
-          value={formData.fullname}
-          onChange={handleChange}
-          className="border"
-        />
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="border"
-        />
-        <input
-          type="text"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="border"
-        />
-        <button type="submit"> Crear Usuario </button>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="flex w-full max-w-[600px] flex-col px-8"
+    >
+      <label htmlFor="" className="mb-3">
+        Ingresa tu nombre y apellido
+      </label>
+      <input
+        type="text"
+        name="fullname"
+        value={formData.fullname}
+        onChange={handleChange}
+        className="inputStyle mb-3"
+        placeholder="Nonmbre y apellido"
+      />
+      <label htmlFor="" className="mb-3">
+        Ingresa tu email
+      </label>
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        className="inputStyle mb-3"
+        placeholder="Ejemplo@gmail.com"
+      />
+      <label htmlFor="" className="mb-3">
+        Ingresa tu contraseña
+      </label>
+      <input
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={handleChange}
+        className="inputStyle mb-10"
+        placeholder="···············"
+      />
+      <button
+        type="submit"
+        className="rounded-lg bg-[#FF8789] py-2 font-semibold"
+      >
+        Registrate
+      </button>
+    </form>
   );
 };
 

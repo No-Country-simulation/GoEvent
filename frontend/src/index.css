@@ -7,4 +7,8 @@
     .degradado {
         background: linear-gradient(180deg, #EBE2CD 0%, #EBBC94 79.66%, #EB9C64 100%);
     }
+
+    .inputStyle {
+        @apply rounded-lg border border-[#C2BAA6] bg-[#EBE2CD] px-6 py-2 outline-none
+    }
 }
