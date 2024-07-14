@@ -17,12 +17,25 @@ export default class EventController {
       res.status(500).json({ error });
     }
   }
+  // Find Event By User Id---------------------------------------------------------------
+ public static async findEventByUserId(req: Request, res: Response) {
+  try {
+    const serviceResponse = await EventService.findEventByUserId(req.body);
+    if (serviceResponse.success === false) {
+      res.status(400).json(serviceResponse);
+      return;
+    }
+    res.status(201).json(serviceResponse);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+}
 
   // Update Event ---------------------------------------------------------------
   public static async update(req: Request, res: Response) {
     try {
-      const userId = req.user as string;
-      const serviceResponse = await EventService.update(req.body, userId);
+      const eventId = req.query.eventId as string;
+      const serviceResponse = await EventService.update(req.body, eventId);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;
@@ -36,7 +49,8 @@ export default class EventController {
   // Delete Event ---------------------------------------------------------------
   public static async delete(req: Request, res: Response) {
     try {
-      const serviceResponse = await EventService.delete(req.user as string);
+      const eventId = req.query.eventId as string;
+      const serviceResponse = await EventService.delete(eventId);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;

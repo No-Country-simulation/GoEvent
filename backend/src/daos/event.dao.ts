@@ -14,6 +14,15 @@ export default class EventDAO {
       throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
     }
   }
+  public static async findEventByUserId(userId: string) {
+    try {
+      const events = await Event.findAll({ where: { user_id: userId } });
+      return events.map((event) => event.toJSON());
+    } catch (error) {
+      console.error('Error on DAO find events by user ID:', error);
+      throw new Error('Error fetching events for the given user ID');
+    }
+  }
 
   public static async update(event: Partial<EventAttributes>, id: string) {
     try {

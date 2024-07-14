@@ -23,6 +23,9 @@ export default class EventService {
     if (!event.date) {
       return { success: false, message: 'The required date field is missing.' };
     }
+    if (!event.user_id) {
+      return { success: false, message: 'The required user id field is missing.' };
+    }
     try {
       // Find user and check subscription type
       const user = await User.findOne({ where: { id: event.user_id } });
@@ -43,6 +46,23 @@ export default class EventService {
       return {
         success: false,
         message: `Internal server error creating event. ${error.message}`,
+      };
+    }
+  }
+
+  // Find Event By User Id---------------------------------------------------------------
+  public static async findEventByUserId(userId: string) {
+    try {
+      const events = await EventDAO.findEventByUserId(userId);
+      if (!events) {
+        return { success: false, message: 'There are no events associated with that id.' };
+      }
+      return { events };
+    } catch (error: any) {
+      console.error('Error getting event service:', error);
+      return {
+        success: false,
+        message: `Internal server error get event. ${error.message}`,
       };
     }
   }
