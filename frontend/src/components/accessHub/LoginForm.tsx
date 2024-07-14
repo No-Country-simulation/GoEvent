@@ -20,26 +20,26 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full ">
-      <div className="relative degradado w-full lg:w-10/12 m-auto h-screen flex flex-col justify-center items-center ">
-        <div className="flex w-full items-center justify-between px-10 absolute top-2">
+    <div className="w-full">
+      <div className="degradado relative m-auto flex h-screen w-full flex-col items-center justify-center lg:w-10/12">
+        <div className="absolute top-2 flex w-full items-center justify-between px-10">
           <p className="text-xl font-semibold">Iniciar Sesion</p>
           <button className="text-3xl">x</button>
         </div>
-        <button className="bg-[#C2BAA6] py-2 w-full max-w-[600px] rounded-lg mb-6">
+        <button className="mb-6 w-full max-w-[600px] rounded-lg bg-[#C2BAA6] py-2">
           Iniciar con Google
         </button>
         <p>O ingresa con tu email</p>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col w-full max-w-[600px] mb-8 mt-2 px-8 lg:px-0 "
+          className="mb-8 mt-2 flex w-full max-w-[600px] flex-col px-8 lg:px-0"
         >
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="bg-[#EBE2CD] border border-[#C2BAA6] rounded-lg mb-1.5 py-2 px-6 outline-none"
+            className="mb-1.5 rounded-lg border border-[#C2BAA6] bg-[#EBE2CD] px-6 py-2 outline-none"
             placeholder="Gmail"
           />
           <input
@@ -47,17 +47,17 @@ const LoginForm = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="bg-[#EBE2CD] border border-[#C2BAA6] rounded-lg mb-4 p-2 px-6 outline-none"
+            className="mb-4 rounded-lg border border-[#C2BAA6] bg-[#EBE2CD] p-2 px-6 outline-none"
             placeholder="Contraseña"
           />
           <button
             type="submit"
-            className="bg-[#FF8789] rounded-lg py-2 font-semibold "
+            className="rounded-lg bg-[#FF8789] py-2 font-semibold"
           >
             Ingresar
           </button>
         </form>
-        <div className="text-center space-y-3">
+        <div className="space-y-3 text-center">
           <p>¿Olvidaste tu contraseña?</p>
           <p>
             ¿No tienes cuenta? <span className="font-semibold">Registrate</span>
