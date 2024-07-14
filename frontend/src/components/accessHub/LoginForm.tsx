@@ -3,8 +3,13 @@ import { LoginData } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useFormState } from "../../hooks/useFormState";
+import React from "react";
 
-const LoginForm = () => {
+type ChildComponentProps = {
+  setOpenRegister: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const LoginForm: React.FC<ChildComponentProps> = ({ setOpenRegister }) => {
   const navigate = useNavigate();
   const { formData, handleChange } = useFormState<LoginData>({
     email: "",
@@ -20,26 +25,45 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="">
+    <>
+      <button className="mb-6 w-full max-w-[600px] rounded-lg bg-[#C2BAA6] py-2">
+        Iniciar con Google
+      </button>
+      <p>O ingresa con tu email</p>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col border border-green-400 w-[400px] p-10"
+        className="mb-8 mt-2 flex w-full max-w-[600px] flex-col px-8 lg:px-0"
       >
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
+          className="inputStyle mb-1.5"
+          placeholder="Gmail"
         />
         <input
           type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
+          className="inputStyle mb-4"
+          placeholder="Contraseña"
         />
-        <button type="submit">Ingresar</button>
+        <button
+          type="submit"
+          className="rounded-lg bg-[#FF8789] py-2 font-semibold"
+        >
+          Ingresar
+        </button>
       </form>
-    </div>
+      <div className="space-y-3 text-center">
+        <p>¿Olvidaste tu contraseña?</p>
+        <p onClick={() => setOpenRegister(true)}>
+          ¿No tienes cuenta? <span className="font-semibold">Registrate</span>
+        </p>
+      </div>
+    </>
   );
 };
 

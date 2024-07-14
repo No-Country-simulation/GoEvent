@@ -1,6 +1,6 @@
 import EventDAO from '../daos/event.dao';
-import { EventAttributes, EventType } from '../models/event.model';
-import { User, UserAttributes } from '../models/user.model';
+import { EventAttributes, EventType } from '../types/event.types';
+import { User} from '../models//user/user.model';
 
 export default class EventService {
   private constructor() {}

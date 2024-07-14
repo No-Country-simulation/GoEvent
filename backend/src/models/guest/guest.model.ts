@@ -1,21 +1,11 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../config/db';
-import { User } from './user.model';
-import { Event } from './event.model';
+import { sequelize } from '../../config/db';
+import IGuest from '../../types/guest.types';
+import { Event, User } from '../index';
 
-export interface GuestAttributes {
-  id: number;
-  fullname: string;
-  description: string;
-  user_id: string;
-  event_id: string;
-  email: string;
-  phone: string;
-}
+interface GuestCreationAttributes extends Optional<IGuest, 'id'> { }
 
-interface GuestCreationAttributes extends Optional<GuestAttributes, 'id'> {}
-
-class Guest extends Model<GuestAttributes, GuestCreationAttributes> implements GuestAttributes {
+export class Guest extends Model<IGuest, GuestCreationAttributes> implements IGuest {
   public id!: number;
   public fullname!: string;
   public description!: string;
@@ -49,8 +39,9 @@ Guest.init(
       },
     },
     event_id: {
+      primaryKey: true,
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false, 
       references: {
         model: Event,
         key: 'id',
@@ -75,11 +66,3 @@ Guest.init(
     timestamps: false,
   },
 );
-
-Guest.belongsTo(User, { foreignKey: 'user_id' });
-User.hasMany(Guest, { foreignKey: 'user_id' });
-
-Guest.belongsTo(Event, { foreignKey: 'event_id' });
-Event.hasMany(Guest, { foreignKey: 'event_id' });
-
-export { Guest };

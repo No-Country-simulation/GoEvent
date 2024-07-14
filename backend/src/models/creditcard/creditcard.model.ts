@@ -1,14 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../config/db'
-
-export interface CreditCardAttributes {
-  id: number;
-  number: string;
-  cvc: string;
-  exp_month: string;
-  exp_year: string;
-  user_id: string;
-}
+import { sequelize } from '../../config/db'
+import { CreditCardAttributes } from '../../types/creditcard.types';
 
 interface CreditCardCreationAttributes extends Optional<CreditCardAttributes, 'id'> { }
 
@@ -32,18 +24,34 @@ CreditCard.init(
     number: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isInt: true,
+        len: [13, 19],
+      }
     },
     cvc: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isInt: true,
+        len: [3, 4],
+      }
     },
     exp_month: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isInt: true,
+        len: [2, 2],
+      }
     },
     exp_year: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isInt: true,
+        len: [4, 4],
+      }
     },
     user_id: {
       type: DataTypes.UUID,

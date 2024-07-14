@@ -1,15 +1,16 @@
 interface userData {
-  id: string;
-  createdAt: string;
-  description: string;
+  created_at: string;
+  credit: number;
   email: string;
-  img: string;
-  name: string;
-  phone: string;
-  rating: number[];
-  updatedAt: string;
+  fullname: string;
+  id: string;
+  is_active: boolean;
+  password: null | string;
+  phone: null | string;
+  profile_image: null | string;
+  subscription_type_id: Number;
+  updated_at: string;
 }
-
 export interface userAndToken {
   token: string;
   user: userData;

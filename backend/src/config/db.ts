@@ -1,12 +1,7 @@
 import pg from 'pg';
 import { Sequelize } from 'sequelize';
 import { DB_URL } from './environment';
-import { SubscriptionType } from '../models/subscriptiontype.model';
-import { CreditCard } from '../models/creditcard.model';
-import { User } from '../models/user.model';
-import { Event } from '../models/event.model';
-import { Guest } from '../models/event.model';
-import { Invitation } from '../models/invitation.model';
+import { defineAssociations } from '../models';
 
 export const sequelize = new Sequelize(DB_URL, {
   dialect: 'postgres',
@@ -22,15 +17,16 @@ export const sequelize = new Sequelize(DB_URL, {
 export default class PostgreDB {
   private static instance: PostgreDB | null = null;
 
-  private constructor() { }
 
-  public static getInstance(): PostgreDB {
+  public static async getInstance(): Promise<PostgreDB> {
     if (!PostgreDB.instance) {
       PostgreDB.instance = new PostgreDB();
-      PostgreDB.instance.connect();
+      await PostgreDB.instance.connect();
+      defineAssociations();
     }
     return PostgreDB.instance;
   }
+
 
   private async connect(): Promise<void> {
     try {
@@ -38,6 +34,7 @@ export default class PostgreDB {
       console.log('Conected to PostgreSQL with Sequelize');
     } catch (err) {
       console.error('Unable to connect to the database:', err);
+      throw err;
     }
   }
 
@@ -46,6 +43,7 @@ export default class PostgreDB {
       await sequelize.sync({ alter: true });
     } catch (err) {
       console.error('Unable to sync the database:', err);
+      throw err;
     }
   }
 
@@ -65,9 +63,7 @@ export default class PostgreDB {
       console.log('Connection to PostgreSQL closed');
     } catch (err) {
       console.error('Error closing the connection:', err);
+      throw err;
     }
   }
-
 }
-
-

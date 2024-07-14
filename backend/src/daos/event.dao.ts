@@ -1,6 +1,7 @@
-import { Event, EventAttributes, EventStatus } from '../models/event.model';
+import { Event } from '../models/event/index';
+import {  EventAttributes, EventStatus} from '../types/event.types';
 import { UniqueConstraintError } from 'sequelize';
-import { Invitation } from '../models/invitation.model';
+import { Invitation } from '../models/invitation/invitation.model';
 
 export default class EventDAO {
   private constructor() {}
