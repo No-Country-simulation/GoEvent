@@ -40,6 +40,7 @@ Guest.init(
       },
     },
     event_id: {
+      primaryKey: true,
       type: DataTypes.STRING,
       allowNull: true, // en proceso ( despues dejar en false)
       // references: {

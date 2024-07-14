@@ -3,13 +3,13 @@ import guestController from "../controllers/guest.controller";
 import { errorHandler } from "../middlewares/error.middleware";
 
 
-// API ROUTE /api/v1/guest
+// API ROUTE /api/v1/event/{vid}/guest
 const router = Router();
 
 // ------ GET ----------------------------
 router
-    .get("/", guestController.getAll)
-    .get("/event/:eid", guestController.getAllInEvent)
+    .get("/test/all", guestController.getAll)
+    .get("/", guestController.getAllInEvent)
     .get("/:gid", guestController.getOne);
 
 // ------ POST ----------------------------
@@ -23,7 +23,7 @@ router
 // ------ DELETE ----------------------------
 router
     .delete("/:gid", guestController.deleteOne)
-    .delete("/event/:eid", guestController.deleteAll);
+    .delete("/all", guestController.deleteAll);
 
 // ------ ERROR HANDLER ----------------------------
 router.use(errorHandler);

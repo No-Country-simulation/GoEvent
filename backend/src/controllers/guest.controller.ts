@@ -19,7 +19,7 @@ class GuestController {
     async getAllInEvent(req: Request, res: Response, next: NextFunction) {
         try {
             const { eid } = req.params
-            const guests = await guestService.getAllInEvent(eid);
+            const guests = await guestService.getAllInEvent(Number(eid));
             res.status(HTTP_STATUS.OK).json(guests);
         } catch (error) {
             next(error);
@@ -28,8 +28,8 @@ class GuestController {
 
     async getOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const { gid } = req.params
-            const guest = await guestService.getOne(gid);
+            const { eid, gid } = req.params
+            const guest = await guestService.getOne(+eid, Number(gid));
             res.status(HTTP_STATUS.OK).json(guest);
         } catch (error) {
             next(error);
@@ -38,7 +38,8 @@ class GuestController {
 
     async createOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const guest = await guestService.createOne(req.body);
+            const { eid } = req.params
+            const guest = await guestService.createOne(+eid, req.body);
             res.status(HTTP_STATUS.CREATED).json(guest);
         } catch (error) {
             next(error);
@@ -47,8 +48,8 @@ class GuestController {
 
     async updateOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const { gid } = req.params
-            const guestUpdate = await guestService.updateOne(gid, req.body)
+            const { vid, gid } = req.params
+            const guestUpdate = await guestService.updateOne(+vid, Number(gid), req.body)
             res.status(HTTP_STATUS.OK).json(guestUpdate)
         } catch (error) {
             next(error);
@@ -57,8 +58,8 @@ class GuestController {
 
     async deleteOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const { gid } = req.params
-            const guestDelete = await guestService.deleteOne(gid)
+            const { vid, gid } = req.params
+            const guestDelete = await guestService.deleteOne(+vid, Number(gid))
             res.status(HTTP_STATUS.OK).json(guestDelete)
         } catch (error) {
             next(error);
@@ -68,7 +69,7 @@ class GuestController {
     async deleteAll(req: Request, res: Response, next: NextFunction) {
         try {
             const { eid } = req.params
-            const guestsDelete = await guestService.deleteAll(eid)
+            const guestsDelete = await guestService.deleteAll(Number(eid))
             res.status(HTTP_STATUS.OK).json(guestsDelete)
         } catch (error) {
             next(error);
