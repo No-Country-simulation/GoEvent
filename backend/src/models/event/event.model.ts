@@ -1,11 +1,9 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../../config/db';
-import { EventAttributes } from './event.interface';
-import { EventStatus } from './event.status';
-import { EventType } from './event.type';
+import { EventAttributes, EventStatus, EventType } from '../../types/event.types';
 import { User } from '../index';
 
-interface EventCreationAttributes extends Optional<EventAttributes, 'id'> {}
+interface EventCreationAttributes extends Optional<EventAttributes, 'id'> { }
 
 export class Event extends Model<EventAttributes, EventCreationAttributes> implements EventAttributes {
   public id!: string;

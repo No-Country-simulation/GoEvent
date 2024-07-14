@@ -1,5 +1,14 @@
-import { EventStatus } from "./event.status";
-import { EventType } from "./event.type";
+export enum EventStatus {
+    SCHEDULED = 'scheduled',
+    ONGOING = 'ongoing',
+    COMPLETED = 'completed',
+    CANCELLED = 'cancelled',
+}
+
+export enum EventType {
+    FREE = 'free',
+    PAID = 'paid',
+}
 
 export interface EventAttributes {
     id: string;

@@ -1,11 +1,9 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../../config/db';
-import { InvitationAttributes } from './invitation.interface';
-import { InvitationStatus } from './invitation.status';
-import { InvitationType } from './invitation.type';
+import { InvitationAttributes, InvitationStatus, InvitationType } from '../../types/invitation.types';
 import { Event, Guest } from '../index';
 
-interface InvitationCreationAttributes extends Optional<InvitationAttributes, 'id'> {}
+interface InvitationCreationAttributes extends Optional<InvitationAttributes, 'id'> { }
 
 export class Invitation extends Model<InvitationAttributes, InvitationCreationAttributes> implements InvitationAttributes {
   public id!: string;

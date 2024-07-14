@@ -1,4 +1,7 @@
-import { SubscriptionTypeEnum } from "./subscriptiontype.enum";
+export enum SubscriptionTypeEnum {
+    FREE = 'free',
+    PREMIUM = 'premium',
+}
 
 export interface SubscriptionTypeAttributes {
     id: number;

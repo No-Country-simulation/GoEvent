@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../../config/db'
-import { CreditCardAttributes } from './creditcard.interface';
+import { CreditCardAttributes } from '../../types/creditcard.types';
 
 interface CreditCardCreationAttributes extends Optional<CreditCardAttributes, 'id'> { }
 

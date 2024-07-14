@@ -30,7 +30,8 @@ export default class Server {
   private routes() {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
     this.app.use(`/${API_VERSION}/user`, userRoutes);
-    this.app.use(`/${API_VERSION}/guest`, guestRoutes);
+    
+    this.app.use(`/${API_VERSION}/event/:vid/guest`, guestRoutes);
   }
 
   private listen() {

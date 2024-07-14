@@ -1,11 +1,11 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../../config/db';
-import { GuestAttributes } from './guest.interface';
+import IGuest from '../../types/guest.types';
 import { Event, User } from '../index';
 
-interface GuestCreationAttributes extends Optional<GuestAttributes, 'id'> {}
+interface GuestCreationAttributes extends Optional<IGuest, 'id'> { }
 
-export class Guest extends Model<GuestAttributes, GuestCreationAttributes> implements GuestAttributes {
+export class Guest extends Model<IGuest, GuestCreationAttributes> implements IGuest {
   public id!: number;
   public fullname!: string;
   public description!: string;
@@ -39,8 +39,9 @@ Guest.init(
       },
     },
     event_id: {
+      primaryKey: true,
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false, 
       references: {
         model: Event,
         key: 'id',

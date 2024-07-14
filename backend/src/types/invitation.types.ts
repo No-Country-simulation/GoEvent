@@ -1,5 +1,14 @@
-import { InvitationStatus } from './invitation.status';
-import { InvitationType } from './invitation.type';
+export enum InvitationStatus {
+    ACCEPTED = 'accepted',
+    PENDING = 'pending',
+    REJECTED = 'rejected',
+}
+
+export enum InvitationType {
+    FREE = 'free',
+    PAY = 'pay',
+}
+
 
 export interface InvitationAttributes {
     id: string;
