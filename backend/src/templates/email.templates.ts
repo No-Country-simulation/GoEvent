@@ -36,16 +36,23 @@ export default class EmailTemplates {
 
   static invitation(event: string, address: string, date: string, code: number, name: string) {
     return `
-        <h3>Invitation</h3>
-        <h2>Event: ${event}</h2>
-        <h2>Address: ${address}</h2>
-        <h2>Date: ${date}</h2>
-        <h2>Code: ${code}</h2>
-        <h2>Name: ${name}</h2>
-        <h2>Thank you for using GoEvent</h2>
-        <p>Please find the attached QR code.</p>
-    `
+        <div style="width: 100%; display: flex; justify-content: center;">
+            <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; width: 400px;">
+                <div style="text-align: center;">
+                    <h3 style="font-size: 24px; font-weight: bold; color: #1f2d3d; margin-bottom: 10px;">Invitation</h3>
+                    <h2 style="font-size: 22px; font-weight: bold; color: #1f2d3d; margin: 5px 0;">Event: ${event}</h2>
+                    <h2 style="font-size: 20px; color: #3b3f44; margin: 5px 0;">Address: ${address}</h2>
+                    <h2 style="font-size: 20px; color: #3b3f44; margin: 5px 0;">Date: ${date}</h2>
+                    <h2 style="font-size: 20px; color: #3b3f44; margin: 5px 0;">Code: ${code}</h2>
+                    <h2 style="font-size: 20px; color: #3b3f44; margin: 5px 0;">Name: ${name}</h2>
+                    <h2 style="font-size: 20px; color: #3b3f44; margin: 20px 0;">Thank you for using GoEvent</h2>
+                    <p style="font-size: 18px; color: #3b3f44;">Please find the attached QR code.</p>
+                </div>
+            </div>
+        </div>
+    `;
   }
+
 
 
 }
