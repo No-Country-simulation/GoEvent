@@ -1,18 +1,5 @@
-import pg from 'pg';
-import { Sequelize } from 'sequelize';
-import { DB_URL } from './environment';
+import { sequelize } from './sequelize.config';
 import { defineAssociations } from '../models';
-
-export const sequelize = new Sequelize(DB_URL, {
-  dialect: 'postgres',
-  dialectModule: pg,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
-  }
-});
 
 export default class PostgreDB {
   private static instance: PostgreDB | null = null;

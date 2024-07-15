@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../../config/db';
+import { sequelize } from '../../config/sequelize.config';
 import { EventAttributes, EventStatus, EventType } from '../../types/event.types';
 import { User } from '../index';
 

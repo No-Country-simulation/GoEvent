@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../../config/db';
+import { sequelize } from '../../config/sequelize.config';
 import IGuest from '../../types/guest.types';
 import { Event, User } from '../index';
 
@@ -41,7 +41,7 @@ Guest.init(
     event_id: {
       primaryKey: true,
       type: DataTypes.STRING,
-      allowNull: false, 
+      allowNull: false,
       references: {
         model: Event,
         key: 'id',

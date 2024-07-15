@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../../config/db'
+import { sequelize } from '../../config/sequelize.config';
 import { SubscriptionTypeAttributes, SubscriptionTypeEnum } from '../../types/subscription.types';
 
 interface SubscriptionTypeCreationAttributes extends Optional<SubscriptionTypeAttributes, 'id'> { }

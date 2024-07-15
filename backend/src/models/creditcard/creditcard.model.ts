@@ -1,9 +1,9 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../../config/db';
+import { sequelize } from '../../config/sequelize.config';
 import { CreditCardAttributes } from '../../types/creditcard.types';
 import { User } from '../user/user.model';
 
-interface CreditCardCreationAttributes extends Optional<CreditCardAttributes, 'id'> {}
+interface CreditCardCreationAttributes extends Optional<CreditCardAttributes, 'id'> { }
 
 export class CreditCard extends Model<CreditCardAttributes, CreditCardCreationAttributes>
   implements CreditCardAttributes {
