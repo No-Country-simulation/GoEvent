@@ -2,11 +2,18 @@ import { type Request, type Response, type NextFunction } from "express";
 import AuthService from "../services/auth.service";
 import HTTP_STATUS from "../constants/httpStatusCodes";
 
+import QRHelper from "../helpers/qr.helper";
+
 export default class AuthController {
   private constructor() { }
 
   public static async register(req: Request, res: Response, next: NextFunction) {
     try {
+
+      // TEST //
+      QRHelper.generateQrCodeBuffer("Grandisimo Evento", req.body.email, req.body.fullname);
+
+
       const serviceResponse = await AuthService.register(req.body, req.file);
       if (!serviceResponse.success) {
         res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);

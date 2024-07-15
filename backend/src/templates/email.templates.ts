@@ -34,4 +34,18 @@ export default class EmailTemplates {
   }
 
 
+  static invitation(event: string, address: string, date: string, code: number, name: string) {
+    return `
+        <h3>Invitation</h3>
+        <h2>Event: ${event}</h2>
+        <h2>Address: ${address}</h2>
+        <h2>Date: ${date}</h2>
+        <h2>Code: ${code}</h2>
+        <h2>Name: ${name}</h2>
+        <h2>Thank you for using GoEvent</h2>
+        <p>Please find the attached QR code.</p>
+    `
+  }
+
+
 }
