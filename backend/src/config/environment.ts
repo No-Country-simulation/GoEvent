@@ -5,6 +5,7 @@ export const PORT = process.env.PORT
 export const API_VERSION = process.env.API_VERSION
 export const SALT_ROUNDS = process.env.SALT_ROUNDS ? parseInt(process.env.SALT_ROUNDS) : 10
 
+export const SYNC_DB = process.env.SYNC_DB ? parseInt(process.env.SYNC_DB) : 0
 export const DB_URL = process.env.DB_URL ? process.env.DB_URL : 'mongodb://localhost:27017/eventos'
 
 export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
