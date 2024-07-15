@@ -27,7 +27,6 @@ export default class Server {
       } catch (err) {
         console.error('Unable to sync the database:', err);
       }
-      await db.sync()
     }
   }
 
