@@ -15,9 +15,10 @@ export class SubscriptionType extends Model<SubscriptionTypeAttributes, Subscrip
 SubscriptionType.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false,
     },
     type: {
       type: DataTypes.ENUM(...Object.values(SubscriptionTypeEnum)),

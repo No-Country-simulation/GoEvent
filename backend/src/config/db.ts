@@ -27,8 +27,7 @@ export default class PostgreDB {
 
   public async sync(): Promise<void> {
     try {
-      await sequelize.sync({ alter: false });
-      console.log('Database synchronized successfully.');
+      await sequelize.sync({ alter: true });
     } catch (err) {
       console.error('Unable to sync the database:', err);
       throw err;

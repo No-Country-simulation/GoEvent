@@ -21,6 +21,8 @@ Guest.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false,
+      unique: true,
     },
     fullname: {
       type: DataTypes.STRING,
@@ -31,7 +33,7 @@ Guest.init(
       allowNull: true,
     },
     user_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: User,
@@ -40,7 +42,7 @@ Guest.init(
     },
     event_id: {
       primaryKey: true,
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Event,

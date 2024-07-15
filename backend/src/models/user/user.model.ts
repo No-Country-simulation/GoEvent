@@ -26,6 +26,7 @@ User.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false,
     },
     fullname: {
       type: DataTypes.STRING,
@@ -57,7 +58,7 @@ User.init(
       defaultValue: 0,
     },
     subscription_type_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       references: {
         model: SubscriptionType,
         key: 'id',
