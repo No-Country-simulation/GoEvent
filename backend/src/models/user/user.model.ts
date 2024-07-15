@@ -13,7 +13,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public profile_image!: string;
   public credit_card!: string;
   public phone!: string;
-  public subscription_type_id!: number;
+  public subscription_type_id!: string;
   public role!: UserRole;
   public is_active!: boolean;
   public created_at!: Date;

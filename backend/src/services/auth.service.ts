@@ -2,7 +2,8 @@ import UserDAO from '../daos/user.dao';
 import { UserAttributes } from '../types/user.types';
 import AuthHelper from '../helpers/auth.helper';
 import EmailHelper from '../helpers/email.helper';
-
+import Print from "../utils/print";
+import { DEFAULT_SUBSCRIPTION_TYPE } from '../config/environment';
 
 export default class AuthService {
   private constructor() { }
@@ -20,7 +21,7 @@ export default class AuthService {
     try {
       // Create user
       user.password = await AuthHelper.hashPassword(user.password);
-      user.subscription_type_id = 2; // Default subscription type free
+      user.subscription_type_id = DEFAULT_SUBSCRIPTION_TYPE;
       const createdUser = await UserDAO.register(user);
       let message = 'User created successfully.'
 
@@ -34,13 +35,13 @@ export default class AuthService {
       const code = AuthHelper.generateCode();
       const response = await EmailHelper.sendVerificationEmail(user.email, code);
       if (!response.success) message += ` Error sending verification email.`;
-      return { success: true, message: 'User created successfully.', user: { ...createdUser, password: undefined } };
+      return { success: true, message: message, user: { ...createdUser, password: undefined } };
 
     } catch (error) {
-      console.error('Error os Service creating user:', error);
+      Print.error('Service creating user [AuthService] ' + error);
       return {
         success: false,
-        message: `Internal server error creating user. ${error}`
+        message: '' + error,
       };
     }
   }
@@ -67,10 +68,10 @@ export default class AuthService {
       };
 
     } catch (error) {
-      console.log('Error logging in user [AuthService]:', error);
+      Print.error('Logging user [AuthService] ' + error);
       return {
         success: false,
-        message: `Internal server error logging user. ${error}`
+        message: error
       };
     }
   }
@@ -88,7 +89,7 @@ export default class AuthService {
         token: newToken
       };
     } catch (error) {
-      console.error('Error refreshing token:', error);
+      Print.error('Error refreshing token: ' + error);
       return {
         success: false,
         message: `Internal server error refreshing token. ${error}`

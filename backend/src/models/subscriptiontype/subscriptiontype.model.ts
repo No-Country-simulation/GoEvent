@@ -6,7 +6,7 @@ interface SubscriptionTypeCreationAttributes extends Optional<SubscriptionTypeAt
 
 export class SubscriptionType extends Model<SubscriptionTypeAttributes, SubscriptionTypeCreationAttributes>
   implements SubscriptionTypeAttributes {
-  public id!: number;
+  public id!: string;
   public type!: SubscriptionTypeEnum;
   public max_events!: number;
   public price!: number;

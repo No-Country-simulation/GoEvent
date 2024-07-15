@@ -6,7 +6,7 @@ import { Event, User } from '../index';
 interface GuestCreationAttributes extends Optional<IGuest, 'id'> { }
 
 export class Guest extends Model<IGuest, GuestCreationAttributes> implements IGuest {
-  public id!: number;
+  public id!: string;
   public fullname!: string;
   public description!: string;
   public user_id!: string;
@@ -22,7 +22,6 @@ Guest.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
-      unique: true,
     },
     fullname: {
       type: DataTypes.STRING,
@@ -41,7 +40,6 @@ Guest.init(
       },
     },
     event_id: {
-      primaryKey: true,
       type: DataTypes.UUID,
       allowNull: false,
       references: {
