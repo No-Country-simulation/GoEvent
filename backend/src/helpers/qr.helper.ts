@@ -7,7 +7,11 @@ export default class QRHelper {
 
   public static async generateQrCodeBuffer(text: string, email: string, fullname: string): Promise<Buffer> {
     const buffer = await QRCode.toBuffer(text, { type: 'png' });
+
+    // TEST ---
     await EmailHelper.sendInvitation(email, text, 'Calle Falsa 123', '2022-12-12', 123456, fullname, 'qrcode.png', buffer)
+
+
     return buffer
   }
 

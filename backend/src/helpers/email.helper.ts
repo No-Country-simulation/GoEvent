@@ -1,11 +1,26 @@
 import sgMail from '@sendgrid/mail'
 import { SENDGRID_API_KEY } from "../config/environment"
 import EmailTemplates from '../templates/email.templates';
-import ical, { ICalEventRepeatingFreq } from 'ical-generator';
+import { EventAttributes } from '../types/event.types';
+import ical from 'ical-generator';
 
 sgMail.setApiKey(SENDGRID_API_KEY)
 
 export default class EmailHelper {
+  private constructor() { }
+
+  private static createIcalEvent(event: Partial<EventAttributes>) {
+    const icalEvent = ical({ name: event.name })
+    icalEvent.createEvent({
+      start: event.date ? new Date(event.date) : new Date(),
+      end: event.date,
+      summary: event.name,
+      description: event.description,
+      location: event.location
+    })
+    const icsContent = icalEvent.toString()
+    return Buffer.from(icsContent)
+  }
 
   static async sendVerificationEmail(email: string, code: number) {
     try {
@@ -54,21 +69,7 @@ export default class EmailHelper {
 
   static async sendInvitation(email: string, event: string, address: string, date: string, code: number, name: string, filename: string, buffer: Buffer) {
     try {
-
-      const calendar = ical({ name: 'GoEvent Invitation' });
-      calendar.createEvent({
-        start: new Date(date),
-        end: new Date(new Date(date).getTime() + 60 * 60 * 1000),
-        summary: event,
-        description: `Event: ${event}\nAddress: ${address}\nCode: ${code}\nName: ${name}`,
-        location: address,
-        url: 'https://GOEVENT.com',
-        organizer: { name: 'GoEvent', email: 'sync.ideas.group@gmail.com' }
-      });
-      const icsContent = calendar.toString();
-      const icsBuffer = Buffer.from(icsContent);
-
-
+      const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
 
       const msg = {
         to: email,
@@ -91,8 +92,7 @@ export default class EmailHelper {
           }
         ]
       };
-      const response = await sgMail.send(msg);
-      console.log(response)
+      await sgMail.send(msg);
       return {
         success: true
       };
