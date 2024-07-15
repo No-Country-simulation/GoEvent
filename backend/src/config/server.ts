@@ -5,6 +5,7 @@ import PostgreDB from './db';
 import authRoutes from '../routes/auth.routes';
 import userRoutes from '../routes/user.routes';
 import guestRoutes from '../routes/guest.routes';
+import eventRoutes from '../routes/event.routes';
 
 export default class Server {
   public app: express.Application;
@@ -38,7 +39,7 @@ export default class Server {
   private routes() {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
     this.app.use(`/${API_VERSION}/user`, userRoutes);
-
+    this.app.use(`/${API_VERSION}/event`, eventRoutes);
     this.app.use(`/${API_VERSION}/event/:vid/guest`, guestRoutes);
   }
 

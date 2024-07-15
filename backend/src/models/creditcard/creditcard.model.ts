@@ -18,8 +18,9 @@ export class CreditCard extends Model<CreditCardAttributes, CreditCardCreationAt
 CreditCard.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
       primaryKey: true,
     },
     number: {
