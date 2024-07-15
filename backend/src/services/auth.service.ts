@@ -8,6 +8,12 @@ import { DEFAULT_SUBSCRIPTION_TYPE } from '../config/environment';
 export default class AuthService {
   private constructor() { }
 
+  // ERROR HANDLING -------------------------------------------------------------
+  private static handleError(error: any, success: boolean, console: string) {
+    Print.error(console);
+    return { success, message: '' + error }
+  }
+
   // REGISTER USER -------------------------------------------------------------
   public static async register(user: UserAttributes, profile_image?: any) {
     // Check required fields
@@ -38,11 +44,7 @@ export default class AuthService {
       return { success: true, message: message, user: { ...createdUser, password: undefined } };
 
     } catch (error) {
-      Print.error('Service creating user [AuthService] ' + error);
-      return {
-        success: false,
-        message: '' + error,
-      };
+      return this.handleError(error, false, 'Service creating user [AuthService]');
     }
   }
 
@@ -68,11 +70,7 @@ export default class AuthService {
       };
 
     } catch (error) {
-      Print.error('Logging user [AuthService] ' + error);
-      return {
-        success: false,
-        message: error
-      };
+      return this.handleError(error, false, 'Service logging user [AuthService]');
     }
   }
 
@@ -89,11 +87,7 @@ export default class AuthService {
         token: newToken
       };
     } catch (error) {
-      Print.error('Error refreshing token: ' + error);
-      return {
-        success: false,
-        message: `Internal server error refreshing token. ${error}`
-      };
+      return this.handleError(error, false, 'Service refreshing token [AuthService]');
     }
   }
 
