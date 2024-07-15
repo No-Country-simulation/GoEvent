@@ -4,7 +4,7 @@ export enum SubscriptionTypeEnum {
 }
 
 export interface SubscriptionTypeAttributes {
-    id: number;
+    id: string;
     type: SubscriptionTypeEnum;
     max_events: number;
     price: number;

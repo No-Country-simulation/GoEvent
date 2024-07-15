@@ -7,7 +7,7 @@ export default class AuthController {
   public static async register(req: Request, res: Response) {
     try {
       const serviceResponse = await AuthService.register(req.body, req.file);
-      if (serviceResponse.success === false) {
+      if (!serviceResponse.success) {
         res.status(400).json(serviceResponse);
         return;
       }

@@ -1,5 +1,5 @@
 export default interface IGuest {
-    id: number,
+    id: string,
     fullname: string,
     description: string,
     email: string,

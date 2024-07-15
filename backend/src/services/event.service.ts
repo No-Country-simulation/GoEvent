@@ -1,9 +1,10 @@
 import EventDAO from '../daos/event.dao';
+import { DEFAULT_SUBSCRIPTION_TYPE } from '../config/environment';
 import { EventAttributes, EventType } from '../types/event.types';
-import { User} from '../models//user/user.model';
+import { User } from '../models//user/user.model';
 
 export default class EventService {
-  private constructor() {}
+  private constructor() { }
 
   // Create Event -------------------------------------------------------------
   public static async create(event: EventAttributes) {
@@ -33,8 +34,8 @@ export default class EventService {
         return { success: false, message: 'User not found.' };
       }
 
-      // Compare subscription type 2 is free
-      if (user.subscription_type_id !== 2) {
+      // Compare subscription type DEFAULT_SUBSCRIPTION_TYPE is free
+      if (user.subscription_type_id !== DEFAULT_SUBSCRIPTION_TYPE) {
         event.type = EventType.PAID;
       }
 
