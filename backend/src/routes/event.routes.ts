@@ -9,6 +9,6 @@ const upload = multer();
 export default express
   .Router()
   .post("/create", EventController.create)
-  .get("/update/:id", EventController.findEventByUserId)
-  .put("/update/:id", EventController.update)
-  .delete("/delete",  EventController.delete)
+  .get("/find/:id", EventController.findEventByUserId)
+  .put("/update", EventController.update)
+  .delete("/delete/:id",  EventController.delete)

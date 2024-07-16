@@ -4,10 +4,10 @@ import { EventAttributes, EventType } from '../types/event.types';
 import { User } from '../models//user/user.model';
 
 export default class EventService {
-  private constructor() { }
+  private constructor() {}
 
   // Create Event -------------------------------------------------------------
-  public static async create(event: EventAttributes) {
+  public static async create(event: any) {
     // Check required fields
     if (!event.name) {
       return { success: false, message: 'The required name field is missing.' };
@@ -69,13 +69,13 @@ export default class EventService {
   }
 
   // Update Event ---------------------------------------------------------------
-  public static async update(event: Partial<EventAttributes>, eventId: string) {
+  public static async update(event: Partial<EventAttributes>) {
     try {
       if (!event) {
         return { success: false, message: 'No data to update.' };
       }
 
-      const updatedEvent = await EventDAO.update(event, eventId);
+      const updatedEvent = await EventDAO.update(event);
       return { success: true, message: 'Event updated successfully.', event: updatedEvent };
     } catch (error: any) {
       console.error('Error on service updating event:', error);

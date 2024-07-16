@@ -1,5 +1,5 @@
 import { Event } from '../models/event/index';
-import {  EventAttributes, EventStatus} from '../types/event.types';
+import { EventAttributes, EventStatus } from '../types/event.types';
 import { UniqueConstraintError } from 'sequelize';
 import { Invitation } from '../models/invitation/invitation.model';
 
@@ -25,8 +25,9 @@ export default class EventDAO {
     }
   }
 
-  public static async update(event: Partial<EventAttributes>, id: string) {
+  public static async update(event: Partial<EventAttributes>) {
     try {
+      const id = event.id as string;
       const updatedEvent = await Event.update(event, { where: { id } });
       return updatedEvent;
     } catch (error: UniqueConstraintError | any) {
