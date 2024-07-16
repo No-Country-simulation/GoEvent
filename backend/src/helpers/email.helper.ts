@@ -3,6 +3,7 @@ import { SENDGRID_API_KEY } from "../config/environment"
 import EmailTemplates from '../templates/email.templates';
 import { EventAttributes } from '../types/event.types';
 import ical from 'ical-generator';
+import * as QRCode from 'qrcode';
 
 sgMail.setApiKey(SENDGRID_API_KEY)
 
@@ -20,6 +21,11 @@ export default class EmailHelper {
     })
     const icsContent = icalEvent.toString()
     return Buffer.from(icsContent)
+  }
+
+  private static async createQRCodeBuffer(text: string) {
+    const buffer = await QRCode.toBuffer(text, { type: 'png' })
+    return buffer
   }
 
   static async sendVerificationEmail(email: string, code: number) {
@@ -70,6 +76,7 @@ export default class EmailHelper {
   static async sendInvitation(email: string, event: string, address: string, date: string, code: number, name: string, filename: string, buffer: Buffer) {
     try {
       const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
+      const qrCodeBuffer = await this.createQRCodeBuffer(code.toString())
 
       const msg = {
         to: email,
@@ -79,7 +86,7 @@ export default class EmailHelper {
         html: EmailTemplates.invitation(event, address, date, code, name),
         attachments: [
           {
-            content: buffer.toString('base64'),
+            content: qrCodeBuffer.toString('base64'),
             filename: filename,
             type: 'image/png',
             disposition: 'attachment'
