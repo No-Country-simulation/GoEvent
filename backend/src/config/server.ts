@@ -1,11 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import { PORT, API_VERSION, CORS_ORIGIN, SYNC_DB } from './environment';
+import { errorHandler } from '../middlewares/error.middleware';
 import PostgreDB from './db';
 import authRoutes from '../routes/auth.routes';
 import userRoutes from '../routes/user.routes';
 import guestRoutes from '../routes/guest.routes';
 import eventRoutes from '../routes/event.routes';
+import subscriptiontypeRoutes from '../routes/subscriptiontype.routes';
 
 export default class Server {
   public app: express.Application;
@@ -16,6 +18,7 @@ export default class Server {
     this.database();
     this.middlewares();
     this.routes();
+    this.errorHandler();
     this.listen();
   }
 
@@ -41,6 +44,11 @@ export default class Server {
     this.app.use(`/${API_VERSION}/user`, userRoutes);
     this.app.use(`/${API_VERSION}/event`, eventRoutes);
     this.app.use(`/${API_VERSION}/event/:vid/guest`, guestRoutes);
+    this.app.use(`/${API_VERSION}/subscriptiontype`, subscriptiontypeRoutes);
+  }
+
+  private errorHandler() {
+    this.app.use(errorHandler);
   }
 
   private listen() {
