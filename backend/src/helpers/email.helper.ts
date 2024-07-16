@@ -73,7 +73,7 @@ export default class EmailHelper {
 
 
 
-  static async sendInvitation(email: string, event: string, address: string, date: string, code: number, name: string, filename: string, buffer: Buffer) {
+  static async sendInvitation(email: string, event: string, address: string, date: string, code: number, name: string) {
     try {
       const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
       const qrCodeBuffer = await this.createQRCodeBuffer(code.toString())
@@ -87,7 +87,7 @@ export default class EmailHelper {
         attachments: [
           {
             content: qrCodeBuffer.toString('base64'),
-            filename: filename,
+            filename: 'qr.png',
             type: 'image/png',
             disposition: 'attachment'
           },
