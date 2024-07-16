@@ -1,5 +1,6 @@
 import { type Request, type Response } from 'express';
 import EventService from '../services/event.service';
+import { EventAttributes, EventStatus } from '../types/event.types';
 
 export default class EventController {
   private constructor() {}
@@ -7,7 +8,10 @@ export default class EventController {
   // Create Event -------------------------------------------------------------
   public static async create(req: Request, res: Response) {
     try {
-      const serviceResponse = await EventService.create(req.body);
+      const { name, description, location, time, date, user_id } = req.body;
+
+      const serviceResponse = await EventService.create({ name, description, location, time, date, user_id });
+
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;
@@ -18,24 +22,30 @@ export default class EventController {
     }
   }
   // Find Event By User Id---------------------------------------------------------------
- public static async findEventByUserId(req: Request, res: Response) {
-  try {
-    const serviceResponse = await EventService.findEventByUserId(req.body);
-    if (serviceResponse.success === false) {
-      res.status(400).json(serviceResponse);
-      return;
+  public static async findEventByUserId(req: Request, res: Response) {
+    try {
+      const user_id = req.params.id
+
+      if (!user_id) {
+        res.status(400).json({ success: false, message: 'User ID is required' });
+        return;
+      }
+
+      const serviceResponse = await EventService.findEventByUserId(user_id);
+      if (serviceResponse.success === false) {
+        res.status(400).json(serviceResponse);
+        return;
+      }
+      res.status(201).json(serviceResponse);
+    } catch (error) {
+      res.status(500).json({ error });
     }
-    res.status(201).json(serviceResponse);
-  } catch (error) {
-    res.status(500).json({ error });
   }
-}
 
   // Update Event ---------------------------------------------------------------
   public static async update(req: Request, res: Response) {
     try {
-      const eventId = req.query.eventId as string;
-      const serviceResponse = await EventService.update(req.body, eventId);
+      const serviceResponse = await EventService.update(req.body);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;
@@ -49,7 +59,7 @@ export default class EventController {
   // Delete Event ---------------------------------------------------------------
   public static async delete(req: Request, res: Response) {
     try {
-      const eventId = req.query.eventId as string;
+      const eventId = req.params.id as string;
       const serviceResponse = await EventService.delete(eventId);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
