@@ -24,9 +24,6 @@ export default class AuthService {
       return { success: false, message: 'Password must be at least 8 characters long.' }
     }
 
-    /////////////////////TEST SEND INVITATION EMAIL///////////////////////////
-    EmailHelper.sendInvitation(user.email, 'Conferencia episcopal', 'Calle Falsa 123', '2022-12-12', 123456, user.fullname)
-
     try {
       // Create user
       user.password = await AuthHelper.hashPassword(user.password);

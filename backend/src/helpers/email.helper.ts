@@ -73,7 +73,7 @@ export default class EmailHelper {
 
 
 
-  static async sendInvitation(email: string, event: string, address: string, date: string, code: number, name: string) {
+  static async sendInvitation(email: string, event: string, address: string, date: string, code: number, name: string, invitationId: string) {
     try {
       const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
       const qrCodeBuffer = await this.createQRCodeBuffer(code.toString())
@@ -83,7 +83,7 @@ export default class EmailHelper {
         from: 'sync.ideas.group@gmail.com',
         subject: 'Invitation to ' + event + ' on ' + date + ' at ' + address,
         text: 'Please find the attached QR code.',
-        html: EmailTemplates.invitation(event, address, date, code, name),
+        html: EmailTemplates.invitation(event, address, date, code, name, invitationId),
         attachments: [
           {
             content: qrCodeBuffer.toString('base64'),
