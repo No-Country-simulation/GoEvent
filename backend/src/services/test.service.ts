@@ -53,7 +53,7 @@ export default class TestService {
     try {
       const guests = await EventDAO.getGuestsByEventId(event_id);
       if (!guests[0] || !guests[0].length) return { success: false, message: 'Event not found' };
-      return { success: true, guests };
+      return { success: true, guests: guests[0] };
     } catch (error) {
       return this.handleError(error, false, 'Service getting guests by event ID [TestService]');
     }
