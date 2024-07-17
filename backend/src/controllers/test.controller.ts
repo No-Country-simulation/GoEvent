@@ -37,11 +37,20 @@ export default class TestController {
 
   public static async updateInvitationStatus(req: Request, res: Response, next: NextFunction) {
     try {
-      const serviceResponse = await TestService.updateInvitationStatus(req.params.id, req.params.status);
+      const serviceResponse = await TestService.updateInvitationStatus(req.params.invitation_id, req.params.status);
       if (!serviceResponse.success) {
         res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
         return;
       }
+      res.status(HTTP_STATUS.OK).json(serviceResponse);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public static async registerAttendance(req: Request, res: Response, next: NextFunction) {
+    try {
+      const serviceResponse = await TestService.registerAttendance(req.params.invitation_id, req.params.qr_code)
       res.status(HTTP_STATUS.OK).json(serviceResponse);
     } catch (error) {
       next(error);

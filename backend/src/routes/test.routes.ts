@@ -7,7 +7,8 @@ import TestController from "../controllers/test.controller";
 export default express
   .Router()
   .post("/create_invitation", TestController.createInvitation)
-  .get("/update_invitation/:id/:status", TestController.updateInvitationStatus)
+  .get("/update_invitation/:invitation_id/:status", TestController.updateInvitationStatus)
+  .get("/register_attendance/:invitation_id/:qr_code", TestController.registerAttendance)
 
   // cron jobs
   .get("/send_event_reminders", TestController.sendEventReminders)
