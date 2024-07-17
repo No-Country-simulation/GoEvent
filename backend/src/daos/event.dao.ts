@@ -25,9 +25,11 @@ export default class EventDAO {
     }
   }
 
-  public static async findAll() {
+  public static async findByStatus(status: string) {
     try {
-      const events = await Event.findAll();
+      const events = await Event.findAll(
+        { where: { status } }
+      );
       return events.map((event) => event.toJSON());
     } catch (error) {
       console.error('Error on DAO find events:', error);

@@ -39,7 +39,7 @@ export default class TestService {
   public static async sendEventReminders() {
     try {
       const nowDate = new Date();
-      const events = await EventDAO.findAll();
+      const events = await EventDAO.findByStatus('scheduled');
 
       for (let event of events) {
         const eventDate = new Date(event.date);
