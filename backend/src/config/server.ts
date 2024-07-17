@@ -44,7 +44,7 @@ export default class Server {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
     this.app.use(`/${API_VERSION}/user`, userRoutes);
     this.app.use(`/${API_VERSION}/event`, eventRoutes);
-    this.app.use(`/${API_VERSION}/event/:vid/guest`, guestRoutes);
+    this.app.use(`/${API_VERSION}/guest`, guestRoutes);
     this.app.use(`/${API_VERSION}/subscriptiontype`, subscriptiontypeRoutes);
     this.app.use(`/${API_VERSION}/test`, testRoutes);
   }

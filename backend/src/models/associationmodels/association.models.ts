@@ -18,8 +18,8 @@ export const defineAssociations = () => {
     Guest.belongsTo(User, { foreignKey: 'user_id' });
 
     // Event and Guest
-    Event.hasMany(Guest, { foreignKey: 'event_id' });
-    Guest.belongsTo(Event, { foreignKey: 'event_id' });
+    // Event.hasMany(Guest, { foreignKey: 'event_id' });
+    // Guest.belongsTo(Event, { foreignKey: 'event_id' });
 
     // Event and Invitation
     Event.hasMany(Invitation, { foreignKey: 'event_id' });

@@ -1,16 +1,19 @@
 import { Router } from "express";
 import guestController from "../controllers/guest.controller";
-import { errorHandler } from "../middlewares/error.middleware";
+import passport from "../middlewares/auth.mid";
 
 
-// API ROUTE /api/v1/event/{vid}/guest
+// API ROUTE /api/v1/guest
 const router = Router();
+
+// ------ MIDDLEWARE ----------------------------
+router.use(passport.authenticate("userJWT", { session: false }));
 
 // ------ GET ----------------------------
 router
-    .get("/test/all", guestController.getAll)
-    .get("/", guestController.getAllInEvent)
-    .get("/:gid", guestController.getOne);
+    .get("/test/all", guestController.getAllTest)
+    .get("/", guestController.getAll)
+    .get("/:id", guestController.getOne);
 
 // ------ POST ----------------------------
 router
@@ -18,15 +21,13 @@ router
 
 // ------ PATCH ----------------------------
 router
-    .patch("/:gid", guestController.updateOne);
+    .patch("/:id", guestController.updateOne);
 
 // ------ DELETE ----------------------------
 router
-    .delete("/:gid", guestController.deleteOne)
-    .delete("/all", guestController.deleteAll);
+    .delete("/:id", guestController.deleteOne)
+    .delete("/all/guests", guestController.deleteAll);
 
-// ------ ERROR HANDLER ----------------------------
-router.use(errorHandler);
 
 // ------ EXPORT ----------------------------
 export default router
