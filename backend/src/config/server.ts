@@ -7,6 +7,7 @@ import authRoutes from '../routes/auth.routes';
 import userRoutes from '../routes/user.routes';
 import guestRoutes from '../routes/guest.routes';
 import eventRoutes from '../routes/event.routes';
+import testRoutes from '../routes/test.routes';
 import subscriptiontypeRoutes from '../routes/subscriptiontype.routes';
 
 export default class Server {
@@ -45,6 +46,7 @@ export default class Server {
     this.app.use(`/${API_VERSION}/event`, eventRoutes);
     this.app.use(`/${API_VERSION}/event/:vid/guest`, guestRoutes);
     this.app.use(`/${API_VERSION}/subscriptiontype`, subscriptiontypeRoutes);
+    this.app.use(`/${API_VERSION}/test`, testRoutes);
   }
 
   private errorHandler() {
