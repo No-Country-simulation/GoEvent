@@ -48,6 +48,17 @@ export default class TestService {
     }
   }
 
+  // GET GUESTS BY EVENT ID -----------------------------------------------------
+  public static async getGuestsByEventId(event_id: string) {
+    try {
+      const guests = await EventDAO.getGuestsByEventId(event_id);
+      if (!guests[0] || !guests[0].length) return { success: false, message: 'Event not found' };
+      return { success: true, guests };
+    } catch (error) {
+      return this.handleError(error, false, 'Service getting guests by event ID [TestService]');
+    }
+  }
+
 
   // CRON JOBS -------------------------------------------------------------------
   // Check events and send reminders
