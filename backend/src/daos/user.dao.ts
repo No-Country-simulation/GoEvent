@@ -27,6 +27,17 @@ export default class UserDAO {
     }
   }
 
+  public static async getById(id: string) {
+    try {
+      const foundUser = await User.findOne({ where: { id: id, is_active: true } });
+      if (!foundUser) return null
+      return foundUser.toJSON();
+    } catch (error: UniqueConstraintError | any) {
+      Print.error('Error fetching user [DAO]: ' + error.errors);
+      throw new Error(`Get by ID -> ${error.errors.map((e: any) => e.message).join(', ')}`);
+    }
+  }
+
   public static async update(user: Partial<UserAttributes>, id: string, profile_image?: any) {
     try {
       const updatedUser = await User.update(user, { where: { id } });
