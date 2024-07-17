@@ -67,6 +67,28 @@ export default class EventService {
       };
     }
   }
+  // Find Event By User Id---------------------------------------------------------------
+  public static async findEventByStatus(status: string, userId: string) {
+    try {
+      const events = await EventDAO.findByStatus(status, userId);
+      if (!status ) {
+        throw new Error('Status are required');
+      }
+      if ( !userId) {
+        throw new Error('User Id are required');
+      }
+      if (!events) {
+        return { success: false, message: 'There are no events associated with that id.' };
+      }
+      return { events };
+    } catch (error: any) {
+      console.error('Error getting event service:', error);
+      return {
+        success: false,
+        message: `Internal server error get event. ${error.message}`,
+      };
+    }
+  }
 
   // Update Event ---------------------------------------------------------------
   public static async update(event: Partial<EventAttributes>) {

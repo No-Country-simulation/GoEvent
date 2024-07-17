@@ -41,6 +41,21 @@ export default class EventController {
       res.status(500).json({ error });
     }
   }
+  // Find Event By Starus---------------------------------------------------------------
+
+  public static async findEventByStatus(req: Request, res: Response) {
+    try {
+      const { status, user_id } = req.body;
+      const serviceResponse = await EventService.findEventByStatus(status, user_id);
+      if (serviceResponse.success === false) {
+        res.status(400).json(serviceResponse);
+        return;
+      }
+      res.status(201).json(serviceResponse);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
 
   // Update Event ---------------------------------------------------------------
   public static async update(req: Request, res: Response) {

@@ -10,5 +10,6 @@ export default express
   .Router()
   .post("/create", EventController.create)
   .get("/find/:id", EventController.findEventByUserId)
+  .get("/findStatus", EventController.findEventByStatus)
   .put("/update", EventController.update)
   .delete("/delete/:id",  EventController.delete)

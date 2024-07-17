@@ -70,7 +70,8 @@ export default class TestController {
 
   public static async sendEventReminders(req: Request, res: Response, next: NextFunction) {
     try {
-      const serviceResponse = await TestService.sendEventReminders();
+      const user_id = req.user as string;
+      const serviceResponse = await TestService.sendEventReminders(user_id);
       res.status(HTTP_STATUS.OK).json(serviceResponse);
     } catch (error) {
       next(error);
