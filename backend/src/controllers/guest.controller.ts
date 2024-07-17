@@ -7,19 +7,19 @@ class GuestController {
     constructor() {
     }
 
-    async getAll(req: Request, res: Response, next: NextFunction) {
+    async getAllTest(req: Request, res: Response, next: NextFunction) {
         try {
-            const guests = await guestService.getAll();
+            const guests = await guestService.getAllTest();
             res.status(HTTP_STATUS.OK).json(guests);
         } catch (error) {
             next(error);
         }
     }
 
-    async getAllInEvent(req: Request, res: Response, next: NextFunction) {
+    async getAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const { eid } = req.params
-            const guests = await guestService.getAllInEvent(Number(eid));
+            const user_id = req.user as string
+            const guests = await guestService.getAll(user_id);
             res.status(HTTP_STATUS.OK).json(guests);
         } catch (error) {
             next(error);
@@ -28,8 +28,9 @@ class GuestController {
 
     async getOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const { eid, gid } = req.params
-            const guest = await guestService.getOne(+eid, Number(gid));
+            const { id } = req.params
+            const user_id = req.user as string
+            const guest = await guestService.getOne({ id, user_id });
             res.status(HTTP_STATUS.OK).json(guest);
         } catch (error) {
             next(error);
@@ -38,8 +39,8 @@ class GuestController {
 
     async createOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const { eid } = req.params
-            const guest = await guestService.createOne(+eid, req.body);
+            const user_id = req.user as string
+            const guest = await guestService.createOne(user_id, req.body);
             res.status(HTTP_STATUS.CREATED).json(guest);
         } catch (error) {
             next(error);
@@ -48,8 +49,9 @@ class GuestController {
 
     async updateOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const { vid, gid } = req.params
-            const guestUpdate = await guestService.updateOne(+vid, Number(gid), req.body)
+            const user_id = req.user as string
+            const { id } = req.params
+            const guestUpdate = await guestService.updateOne({ id, user_id }, req.body)
             res.status(HTTP_STATUS.OK).json(guestUpdate)
         } catch (error) {
             next(error);
@@ -58,8 +60,9 @@ class GuestController {
 
     async deleteOne(req: Request, res: Response, next: NextFunction) {
         try {
-            const { vid, gid } = req.params
-            const guestDelete = await guestService.deleteOne(+vid, Number(gid))
+            const user_id = req.user as string
+            const { id } = req.params
+            const guestDelete = await guestService.deleteOne({ id, user_id })
             res.status(HTTP_STATUS.OK).json(guestDelete)
         } catch (error) {
             next(error);
@@ -68,8 +71,8 @@ class GuestController {
 
     async deleteAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const { eid } = req.params
-            const guestsDelete = await guestService.deleteAll(Number(eid))
+            const user_id = req.user as string
+            const guestsDelete = await guestService.deleteAll(user_id)
             res.status(HTTP_STATUS.OK).json(guestsDelete)
         } catch (error) {
             next(error);

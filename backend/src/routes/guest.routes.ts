@@ -1,16 +1,15 @@
 import { Router } from "express";
 import guestController from "../controllers/guest.controller";
-import { errorHandler } from "../middlewares/error.middleware";
 
 
-// API ROUTE /api/v1/event/{vid}/guest
+// API ROUTE /api/v1/guest
 const router = Router();
 
 // ------ GET ----------------------------
 router
-    .get("/test/all", guestController.getAll)
-    .get("/", guestController.getAllInEvent)
-    .get("/:gid", guestController.getOne);
+    .get("/test/all", guestController.getAllTest)
+    .get("/", guestController.getAll)
+    .get("/:id", guestController.getOne);
 
 // ------ POST ----------------------------
 router
@@ -18,15 +17,13 @@ router
 
 // ------ PATCH ----------------------------
 router
-    .patch("/:gid", guestController.updateOne);
+    .patch("/:id", guestController.updateOne);
 
 // ------ DELETE ----------------------------
 router
-    .delete("/:gid", guestController.deleteOne)
+    .delete("/:id", guestController.deleteOne)
     .delete("/all", guestController.deleteAll);
 
-// ------ ERROR HANDLER ----------------------------
-router.use(errorHandler);
 
 // ------ EXPORT ----------------------------
 export default router

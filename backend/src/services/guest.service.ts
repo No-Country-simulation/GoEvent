@@ -1,5 +1,5 @@
 import { Guest } from "../models/guest/guest.model"
-import { ICreateGuest, IGuestResponse, IUpdateGuest } from "../types/guest.types";
+import { ICreateGuest, IFindGuest, IGuestResponse, IUpdateGuest } from "../types/guest.types";
 
 
 class GuestService {
@@ -13,7 +13,7 @@ class GuestService {
     }
 
 
-    async getAll(): Promise<Guest[] | undefined> {
+    async getAllTest(): Promise<Guest[] | undefined> {
         try {
             return await this.guestModel.findAll();
         } catch (error: any) {
@@ -21,34 +21,33 @@ class GuestService {
         }
     }
 
-    async getAllInEvent(eid: number): Promise<Guest[] | undefined> {
+    async getAll(user_id: string): Promise<Guest[] | undefined> {
         try {
-            const getAllInEvent = await this.guestModel.findAll({ where: { event_id: eid } })
-            return getAllInEvent;
+            const guestFromUser = await this.guestModel.findAll({ where: { user_id } })
+            return guestFromUser;
         } catch (error: any) {
             this.#handleError(error, "getting");
         }
     }
 
-    async getOne(eid: number, gid: number): Promise<Guest | undefined> {
+    async getOne(guest: IFindGuest): Promise<Guest | undefined> {
         try {
-            const guest = await this.guestModel.findOne({
-                where: {
-                    event_id: eid,
-                    id: gid
-                }
+            const guestFinded = await this.guestModel.findOne({
+                where: guest
             });
-            if (!guest) { throw new Error(`Guest with id:${gid} not found.`) };
-            return guest;
+            if (!guestFinded) { throw new Error(`Guest with id:${guest.id} not found.`) };
+            return guestFinded;
         } catch (error: any) {
             this.#handleError(error, "getting");
         }
     }
 
-    async createOne(eid: number, guest: ICreateGuest): Promise<IGuestResponse | undefined> {
+    async createOne(user_id: string, guest: ICreateGuest): Promise<IGuestResponse | undefined> {
         try {
-            const guestInEvent = await this.getAllInEvent(eid);
-            if (guestInEvent?.find(g => g.email === guest.email)) { throw new Error(`Guest with email:${guest.email} already exists.`) }
+            const alreadyExist = await this.guestModel.findOne(
+                { where: { email: guest.email, user_id } }
+            );
+            if (alreadyExist) { throw new Error(`Guest with email:${guest.email} already exists.`) }
             const createGuest = await this.guestModel.create(guest);
             return {
                 success: true,
@@ -60,9 +59,9 @@ class GuestService {
         }
     }
 
-    async updateOne(vid: number, gid: number, data: IUpdateGuest): Promise<IGuestResponse | undefined> {
+    async updateOne(guest: IFindGuest, data: IUpdateGuest): Promise<IGuestResponse | undefined> {
         try {
-            const updateThis = await this.getOne(vid, gid)
+            const updateThis = await this.getOne(guest)
             const updateGuest = await updateThis?.update(data);
 
             return {
@@ -75,10 +74,10 @@ class GuestService {
         }
     }
 
-    async deleteOne(vid: number, gid: number): Promise<IGuestResponse | undefined> {
+    async deleteOne(guest: IFindGuest): Promise<IGuestResponse | undefined> {
         try {
-            const guest = await this.getOne(vid, gid)
-            const deleteOne = await guest?.destroy();
+            const guestFinded = await this.getOne(guest)
+            const deleteOne = await guestFinded?.destroy();
             return {
                 success: true,
                 message: "Guest deleted successfully",
@@ -89,9 +88,9 @@ class GuestService {
         }
     }
 
-    async deleteAll(eid: number): Promise<IGuestResponse | undefined> {
+    async deleteAll(user_id: string): Promise<IGuestResponse | undefined> {
         try {
-            const deleteAll = await this.guestModel.destroy({ where: { event_id: eid } })
+            const deleteAll = await this.guestModel.destroy({ where: { user_id } })
             return {
                 success: true,
                 message: "Guest deleted successfully",

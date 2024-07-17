@@ -1,16 +1,14 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../../config/sequelize.config';
 import IGuest from '../../types/guest.types';
-import { Event, User } from '../index';
+import { User } from '../index';
 
 interface GuestCreationAttributes extends Optional<IGuest, 'id'> { }
 
 export class Guest extends Model<IGuest, GuestCreationAttributes> implements IGuest {
   public id!: string;
   public fullname!: string;
-  public description!: string;
   public user_id!: string;
-  public event_id!: string;
   public email!: string;
   public phone!: string;
 }
@@ -27,23 +25,11 @@ Guest.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     user_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: User,
-        key: 'id',
-      },
-    },
-    event_id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: Event,
         key: 'id',
       },
     },
