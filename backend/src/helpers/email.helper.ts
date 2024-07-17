@@ -76,7 +76,8 @@ export default class EmailHelper {
   static async sendInvitation(email: string, event: string, address: string, date: string, code: number, name: string, invitationId: string) {
     try {
       const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
-      const qrCodeBuffer = await this.createQRCodeBuffer(code.toString())
+      const qrInfo = { event: event, code: code, name: name, invitationId: invitationId }
+      const qrCodeBuffer = await this.createQRCodeBuffer(JSON.stringify(qrInfo))
 
       const msg = {
         to: email,
