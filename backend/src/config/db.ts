@@ -1,5 +1,5 @@
 import { sequelize } from './sequelize.config';
-import { defineAssociations } from '../models';
+import { defineAssociations, defineViews } from '../models';
 
 export default class PostgreDB {
   private static instance: PostgreDB | null = null;
@@ -27,6 +27,7 @@ export default class PostgreDB {
 
   public async sync(): Promise<void> {
     try {
+      defineViews();
       await sequelize.sync({ alter: true });
     } catch (err) {
       console.error('Unable to sync the database:', err);

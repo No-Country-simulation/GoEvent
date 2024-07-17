@@ -2,6 +2,7 @@ import { Event } from '../models/event/index';
 import { EventAttributes, EventStatus } from '../types/event.types';
 import { UniqueConstraintError } from 'sequelize';
 import { Invitation } from '../models/invitation/invitation.model';
+import { sequelize } from '../config/sequelize.config';
 
 export default class EventDAO {
   private constructor() { }
@@ -47,6 +48,22 @@ export default class EventDAO {
       throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
     }
   }
+
+  public static async getGuestsByEventId(event_id: string) {
+    try {
+      const query = `SELECT * FROM event_guests WHERE event_id = :event_id`;
+
+      const guests = await sequelize.query(query, {
+        replacements: { event_id }
+      });
+      return guests;
+    } catch (error) {
+      console.error('Error on DAO get guests by event ID:', error);
+      throw new Error('Error fetching guests for the given event ID');
+    }
+  }
+
+
   public static async delete(eventId: string) {
     try {
       // Check if invitations exist for the event
