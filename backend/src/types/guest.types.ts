@@ -7,7 +7,7 @@ export default interface IGuest {
     user_id: string,
 }
 
-export interface ICreateGuest extends Omit<IGuest, "id"> { }
+export interface ICreateGuest extends Omit<IGuest, "id" | "user_id"> { }
 export interface IUpdateGuest extends Partial<ICreateGuest> { }
 export interface IFindGuest extends Pick<IGuest, "id" | "user_id"> { }
 

@@ -48,7 +48,7 @@ class GuestService {
                 { where: { email: guest.email, user_id } }
             );
             if (alreadyExist) { throw new Error(`Guest with email:${guest.email} already exists.`) }
-            const createGuest = await this.guestModel.create(guest);
+            const createGuest = await this.guestModel.create({ ...guest, user_id });
             return {
                 success: true,
                 message: "Guest created successfully",
