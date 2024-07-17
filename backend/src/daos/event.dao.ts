@@ -4,7 +4,7 @@ import { UniqueConstraintError } from 'sequelize';
 import { Invitation } from '../models/invitation/invitation.model';
 
 export default class EventDAO {
-  private constructor() {}
+  private constructor() { }
 
   public static async create(event: EventAttributes) {
     try {
@@ -22,6 +22,16 @@ export default class EventDAO {
     } catch (error) {
       console.error('Error on DAO find events by user ID:', error);
       throw new Error('Error fetching events for the given user ID');
+    }
+  }
+
+  public static async findAll() {
+    try {
+      const events = await Event.findAll();
+      return events.map((event) => event.toJSON());
+    } catch (error) {
+      console.error('Error on DAO find events:', error);
+      throw new Error('Error fetching events');
     }
   }
 

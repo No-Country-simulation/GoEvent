@@ -27,7 +27,7 @@ export default class TestController {
         "Elba Surero",
         serviceResponse.invitation.id
       );
-      console.log(serviceResponse2);
+
 
       res.status(HTTP_STATUS.CREATED).json(serviceResponse);
     } catch (error) {
@@ -42,6 +42,15 @@ export default class TestController {
         res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
         return;
       }
+      res.status(HTTP_STATUS.OK).json(serviceResponse);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public static async sendEventReminders(req: Request, res: Response, next: NextFunction) {
+    try {
+      const serviceResponse = await TestService.sendEventReminders();
       res.status(HTTP_STATUS.OK).json(serviceResponse);
     } catch (error) {
       next(error);
