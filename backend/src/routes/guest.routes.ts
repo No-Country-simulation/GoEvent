@@ -1,17 +1,32 @@
-import express from "express";
-import multer from "multer";
-// import AuthController from "../controllers/auth.controller";
+import { Router } from "express";
+import guestController from "../controllers/guest.controller";
+import { errorHandler } from "../middlewares/error.middleware";
 
-const upload = multer();
-// API /api/v1/guest
 
-export default express
-    .Router()
-    .post("/", (req, res) => res.send("CREATE"))
-    .get("/", (req, res) => res.send("READ"))
-    .patch("/:gid", (req, res) => res.send("UPDATE"))
-    .delete("/:gid", (req, res) => res.send("DELETE"))
+// API ROUTE /api/v1/event/{vid}/guest
+const router = Router();
 
-//   .post("/register", upload.single("profile_image"), AuthController.register)
-//   .post("/login", AuthController.login)
-//   .get("/refreshToken/:token", AuthController.refreshToken)
+// ------ GET ----------------------------
+router
+    .get("/test/all", guestController.getAll)
+    .get("/", guestController.getAllInEvent)
+    .get("/:gid", guestController.getOne);
+
+// ------ POST ----------------------------
+router
+    .post("/", guestController.createOne);
+
+// ------ PATCH ----------------------------
+router
+    .patch("/:gid", guestController.updateOne);
+
+// ------ DELETE ----------------------------
+router
+    .delete("/:gid", guestController.deleteOne)
+    .delete("/all", guestController.deleteAll);
+
+// ------ ERROR HANDLER ----------------------------
+router.use(errorHandler);
+
+// ------ EXPORT ----------------------------
+export default router

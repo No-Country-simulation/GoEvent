@@ -1,23 +1,12 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../config/db'
-
-enum SubscriptionTypeEnum {
-  FREE = 'free',
-  PREMIUM = 'premium',
-}
-
-export interface SubscriptionTypeAttributes {
-  id: number;
-  type: SubscriptionTypeEnum;
-  max_events: number;
-  price: number;
-}
+import { sequelize } from '../../config/sequelize.config';
+import { SubscriptionTypeAttributes, SubscriptionTypeEnum } from '../../types/subscription.types';
 
 interface SubscriptionTypeCreationAttributes extends Optional<SubscriptionTypeAttributes, 'id'> { }
 
 export class SubscriptionType extends Model<SubscriptionTypeAttributes, SubscriptionTypeCreationAttributes>
   implements SubscriptionTypeAttributes {
-  public id!: number;
+  public id!: string;
   public type!: SubscriptionTypeEnum;
   public max_events!: number;
   public price!: number;
@@ -26,9 +15,10 @@ export class SubscriptionType extends Model<SubscriptionTypeAttributes, Subscrip
 SubscriptionType.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false,
     },
     type: {
       type: DataTypes.ENUM(...Object.values(SubscriptionTypeEnum)),

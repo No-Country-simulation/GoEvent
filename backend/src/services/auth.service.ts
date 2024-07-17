@@ -1,11 +1,18 @@
 import UserDAO from '../daos/user.dao';
-import { UserAttributes } from '../models/user.model';
+import { UserAttributes } from '../types/user.types';
 import AuthHelper from '../helpers/auth.helper';
 import EmailHelper from '../helpers/email.helper';
-
+import Print from "../utils/print";
+import { DEFAULT_SUBSCRIPTION_TYPE } from '../config/environment';
 
 export default class AuthService {
   private constructor() { }
+
+  // ERROR HANDLING -------------------------------------------------------------
+  private static handleError(error: any, success: boolean, console: string) {
+    Print.error(console);
+    return { success, message: '' + error }
+  }
 
   // REGISTER USER -------------------------------------------------------------
   public static async register(user: UserAttributes, profile_image?: any) {
@@ -17,10 +24,13 @@ export default class AuthService {
       return { success: false, message: 'Password must be at least 8 characters long.' }
     }
 
+    /////////////////////TEST SEND INVITATION EMAIL///////////////////////////
+    EmailHelper.sendInvitation(user.email, 'Conferencia episcopal', 'Calle Falsa 123', '2022-12-12', 123456, user.fullname)
+
     try {
       // Create user
       user.password = await AuthHelper.hashPassword(user.password);
-      user.subscription_type_id = 2; // Default subscription type free
+      user.subscription_type_id = DEFAULT_SUBSCRIPTION_TYPE;
       const createdUser = await UserDAO.register(user);
       let message = 'User created successfully.'
 
@@ -34,14 +44,10 @@ export default class AuthService {
       const code = AuthHelper.generateCode();
       const response = await EmailHelper.sendVerificationEmail(user.email, code);
       if (!response.success) message += ` Error sending verification email.`;
-      return { success: true, message: 'User created successfully.', user: { ...createdUser, password: undefined } };
+      return { success: true, message: message, user: { ...createdUser, password: undefined } };
 
     } catch (error) {
-      console.error('Error os Service creating user:', error);
-      return {
-        success: false,
-        message: `Internal server error creating user. ${error}`
-      };
+      return this.handleError(error, false, 'Service creating user [AuthService]');
     }
   }
 
@@ -67,11 +73,7 @@ export default class AuthService {
       };
 
     } catch (error) {
-      console.log('Error logging in user [AuthService]:', error);
-      return {
-        success: false,
-        message: `Internal server error logging user. ${error}`
-      };
+      return this.handleError(error, false, 'Service logging user [AuthService]');
     }
   }
 
@@ -88,11 +90,7 @@ export default class AuthService {
         token: newToken
       };
     } catch (error) {
-      console.error('Error refreshing token:', error);
-      return {
-        success: false,
-        message: `Internal server error refreshing token. ${error}`
-      };
+      return this.handleError(error, false, 'Service refreshing token [AuthService]');
     }
   }
 

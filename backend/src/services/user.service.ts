@@ -1,11 +1,18 @@
 import UserDAO from '../daos/user.dao';
-import { UserAttributes } from '../models/user.model';
+import { UserAttributes } from '../types/user.types';
 import AuthHelper from '../helpers/auth.helper';
+import Print from "../utils/print";
 //import EmailHelper from '../helpers/email.helper';
 
 
 export default class UserService {
   private constructor() { }
+
+  // ERROR HANDLING -------------------------------------------------------------
+  private static handleError(error: any, success: boolean, console: string) {
+    Print.error(console);
+    return { success, message: '' + error }
+  }
 
 
   // UPDATE USER ---------------------------------------------------------------
@@ -18,12 +25,11 @@ export default class UserService {
       }
       if (user) {
         const updatedUser = await UserDAO.update(user, userId, profile_image);
-        return { success: true, message: 'User updated successfully.' }//, user: updatedUser };
+        return { success: true, message: 'User updated successfully.' };
       }
       return { success: false, message: 'No data to update.' }
     } catch (error: any) {
-      console.error('Error on service updating user:', error.errors);
-      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
+      return this.handleError(error, false, 'Service updating user [UserService]');
     }
   }
 
@@ -34,8 +40,7 @@ export default class UserService {
       const deleteUser = await UserDAO.delete(userId)
       return { success: true, message: 'User deleted successfully.' };
     } catch (error: any) {
-      console.error('Error on service deleting user:', error.errors);
-      throw new Error(`Unique constraint error: ${error.errors.map((e: any) => e.message).join(', ')}`);
+      return this.handleError(error, false, 'Service deleting user [UserService]');
     }
   }
 

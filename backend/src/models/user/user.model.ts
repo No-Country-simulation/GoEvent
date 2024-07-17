@@ -1,39 +1,19 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../config/db'
-import { SubscriptionType } from './subscriptiontype.model'
-import { CreditCard } from './creditcard.model'
-
-enum UserRole {
-  USER = 'user',
-  ADMIN = 'admin',
-}
-
-export interface UserAttributes {
-  id: string;
-  fullname: string;
-  email: string;
-  password: string;
-  profile_image: string;
-  phone: string;
-  subscription_type_id: number;
-  credit: number;
-  role: UserRole;
-  is_active: boolean;
-  created_at: Date;
-  updated_at: Date;
-}
+import { sequelize } from '../../config/sequelize.config';
+import { UserAttributes, UserRole } from '../../types/user.types';
+import { SubscriptionType } from '../index';
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> { }
 
-class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: string;
   public fullname!: string;
   public email!: string;
   public password!: string;
   public profile_image!: string;
+  public credit_card!: string;
   public phone!: string;
-  public subscription_type_id!: number;
-  public credit!: number;
+  public subscription_type_id!: string;
   public role!: UserRole;
   public is_active!: boolean;
   public created_at!: Date;
@@ -46,6 +26,7 @@ User.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false,
     },
     fullname: {
       type: DataTypes.STRING,
@@ -71,13 +52,13 @@ User.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    credit: {
-      type: DataTypes.FLOAT,
+    credit_card: {
+      type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 0,
     },
     subscription_type_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       references: {
         model: SubscriptionType,
         key: 'id',
@@ -111,12 +92,3 @@ User.init(
     timestamps: false,
   }
 );
-
-// Define associations
-User.belongsTo(SubscriptionType, { foreignKey: 'subscription_type_id' });
-SubscriptionType.hasMany(User, { foreignKey: 'subscription_type_id' });
-
-CreditCard.belongsTo(User, { foreignKey: 'user_id' });
-User.hasMany(CreditCard, { foreignKey: 'user_id' });
-
-export { SubscriptionType, CreditCard, User };

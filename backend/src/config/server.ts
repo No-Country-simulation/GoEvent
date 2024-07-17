@@ -1,10 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import { PORT, API_VERSION, CORS_ORIGIN } from './environment';
+import { PORT, API_VERSION, CORS_ORIGIN, SYNC_DB } from './environment';
+import { errorHandler } from '../middlewares/error.middleware';
 import PostgreDB from './db';
 import authRoutes from '../routes/auth.routes';
 import userRoutes from '../routes/user.routes';
 import guestRoutes from '../routes/guest.routes';
+import eventRoutes from '../routes/event.routes';
+import subscriptiontypeRoutes from '../routes/subscriptiontype.routes';
 
 export default class Server {
   public app: express.Application;
@@ -15,11 +18,20 @@ export default class Server {
     this.database();
     this.middlewares();
     this.routes();
+    this.errorHandler();
     this.listen();
   }
 
-  private database() {
-    PostgreDB.getInstance();
+  private async database() {
+    const db = await PostgreDB.getInstance();
+    if (SYNC_DB === 1) {
+      try {
+        await db.sync();
+        console.log('Database synchronized successfully.');
+      } catch (err) {
+        console.error('Unable to sync the database:', err);
+      }
+    }
   }
 
   private middlewares() {
@@ -30,7 +42,13 @@ export default class Server {
   private routes() {
     this.app.use(`/${API_VERSION}/auth`, authRoutes);
     this.app.use(`/${API_VERSION}/user`, userRoutes);
-    this.app.use(`/${API_VERSION}/guest`, guestRoutes);
+    this.app.use(`/${API_VERSION}/event`, eventRoutes);
+    this.app.use(`/${API_VERSION}/event/:vid/guest`, guestRoutes);
+    this.app.use(`/${API_VERSION}/subscriptiontype`, subscriptiontypeRoutes);
+  }
+
+  private errorHandler() {
+    this.app.use(errorHandler);
   }
 
   private listen() {
