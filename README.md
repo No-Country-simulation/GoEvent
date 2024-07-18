@@ -1,11 +1,12 @@
 # GoEvent
 
 ## Descripción
-Plataforma para crear y gestionar eventos, enviar invitaciones y controlar la asistencia. El organizador del evento contrata el servicio, configura los detalles del evento
-y envía invitaciones a través de correos electrónicos con códigos QR para facilitar el registro y control de asistencia. Características: Creación de Eventos: Los organizadores 
-pueden crear eventos detallados con información como fecha, hora, ubicación y descripción. Envío de Invitaciones: Las invitaciones se envían por correo electrónico con enlaces
-que incluyen códigos QR para confirmar la asistencia. Registro y Control de Asistencia: Los organizadores pueden registrar la asistencia escaneando los códigos QR de los invitados
-en el día del evento. Panel de Control: Los organizadores pueden ver en tiempo real la asistencia al evento y acceder a estadísticas y reportes.
+Plataforma para gestionar invitaciones y controlar la asistencia de eventos. El organizador del evento usa el servicio, para configurar los detalles del evento y enviar las invitaciones a través de correo electrónico con códigos QR para facilitar el registro y control de asistencia.
+
+**Características**:
+- **Envío de Invitaciones**: Las invitaciones se envían por correo electrónico con enlaces que incluyen códigos QR para confirmar la asistencia.
+- **Registro y Control de Asistencia**: Los organizadores pueden registrar la asistencia escaneando los códigos QR de los invitados el día del evento.
+- **Panel de Control**: Los organizadores pueden ver en tiempo real la asistencia al evento y acceder a estadísticas y reportes.
 
 ## Tecnologías empleadas
 
@@ -41,3 +42,5 @@ en el día del evento. Panel de Control: Los organizadores pueden ver en tiempo 
 ### QA
 - Esteban Mendez - Linkedin: https://www.linkedin.com/in/mendez-esteban/
 
+### TL
+- Susana Sandoval - Linkedin: https://www.linkedin.com/in/mariasusanasandoval/
