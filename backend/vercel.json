@@ -10,5 +10,11 @@
       "src": "/(.*)",
       "dest": "dist/app.js"
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/v1/test/send_event_reminders",
+      "schedule": "0 0 * * *"
+    }
   ]
 }
