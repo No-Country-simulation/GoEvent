@@ -73,7 +73,7 @@ export default class InvitationDAO {
             const deleteInvitation = await Invitation.destroy({ where: { id: invitationId } });
             return deleteInvitation;
         } catch (error: UniqueConstraintError | any) {
-            console.error('Error on DAO delete invitation: ', error.erros);
+            console.error('Error on DAO delete invitation: ', error.errors);
             throw new Error(`Unique constrain error: ${error.errors.map((e: any) => e.message).join(', ')}`);
         }
     }
