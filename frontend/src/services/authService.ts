@@ -11,13 +11,11 @@ export const login = async (data: LoginData) => {
     const { user, token } = response.data;
     saveToLocalStorage("user", { user, token });
   }
-  console.log(response, data);
   return response;
 };
 
 export const register = async (data: RegisterData) => {
   let response = await handleApiCall(api.post("/auth/register", data));
-  console.log(response, data);
 
   return response;
 };

@@ -8,7 +8,8 @@ interface userData {
   password: null | string;
   phone: null | string;
   profile_image: null | string;
-  subscription_type_id: Number;
+  subscription_type_id: string;
+  subscription_type: string;
   updated_at: string;
 }
 export interface userAndToken {
