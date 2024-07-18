@@ -1,4 +1,5 @@
 import UserDAO from '../daos/user.dao';
+import SubscriptionTypeDAO from '../daos/subscriptiontype.dao';
 import { UserAttributes } from '../types/user.types';
 import AuthHelper from '../helpers/auth.helper';
 import EmailHelper from '../helpers/email.helper';
@@ -61,11 +62,12 @@ export default class AuthService {
           message: 'Invalid email or password.'
         };
 
+      const subscriptionType = await SubscriptionTypeDAO.getById(user.subscription_type_id);
       const token = AuthHelper.generateToken(user);
       return {
         success: true,
         message: 'User logged in successfully.',
-        user: { ...user, password: null },
+        user: { ...user, password: null, subscription_type: subscriptionType?.type, subscription_max_events: subscriptionType?.max_events },
         token
       };
 

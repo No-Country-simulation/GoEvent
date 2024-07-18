@@ -20,6 +20,16 @@ export default class SubscriptionTypeDAO {
     return SubscriptionType.findAll();
   }
 
+  public static async getById(id: string) {
+    try {
+      const subscriptionType = await SubscriptionType.findByPk(id);
+      return subscriptionType;
+    } catch (error: any) {
+      Print.error('Error on DAO getting subscription type -> ' + error.errors);
+      throw new Error(`Get: ${error.errors.map((e: any) => e.message).join(', ')}`);
+    }
+  }
+
   public static async update(subscriptionType: Partial<SubscriptionTypeAttributes>, id: string) {
     try {
       const updatedSubscriptionType = await SubscriptionType.update(subscriptionType, { where: { id } });

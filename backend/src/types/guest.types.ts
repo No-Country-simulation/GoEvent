@@ -3,7 +3,6 @@ export default interface IGuest {
     fullname: string,
     email: string,
     phone: string,
-
     user_id: string,
 }
 

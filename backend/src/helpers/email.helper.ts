@@ -112,4 +112,24 @@ export default class EmailHelper {
     }
   }
 
+  static async sendEventReminder(email: string, event: string, address: string, date: string, code: number, name: string, invitationId: string) {
+    try {
+      const msg = {
+        to: email,
+        from: 'sync.ideas.group@gmail.com',
+        subject: 'Reminder to ' + event + ' on ' + date + ' at ' + address,
+        html: EmailTemplates.invitationReminder(event, address, date, name, invitationId)
+      }
+      await sgMail.send(msg)
+      return {
+        success: true
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error
+      }
+    }
+  }
+
 }
