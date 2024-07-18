@@ -4,9 +4,11 @@ import EventDAO from "../daos/event.dao";
 import { InvitationStatus } from "../types/invitation.types";
 import EmailHelper from "../helpers/email.helper";
 import Print from "../utils/print";
+import { IEventGuest } from "../types/eventguest.types";
+import { REMINDER_DAYS } from "../config/environment";
 
 export default class TestService {
-  private constructor() {}
+  private constructor() { }
 
   // ERROR HANDLING -------------------------------------------------------------
   private static handleError(error: any, success: boolean, console: string) {
@@ -52,8 +54,8 @@ export default class TestService {
   public static async getGuestsByEventId(event_id: string) {
     try {
       const guests = await EventDAO.getGuestsByEventId(event_id);
-      if (!guests[0] || !guests[0].length) return { success: false, message: 'Event not found' };
-      return { success: true, guests: guests[0] };
+      if (!guests || !guests.length) return { success: false, message: 'Event not found' };
+      return { success: true, guests: guests };
     } catch (error) {
       return this.handleError(error, false, 'Service getting guests by event ID [TestService]');
     }
@@ -62,22 +64,23 @@ export default class TestService {
 
   // CRON JOBS -------------------------------------------------------------------
   // Check events and send reminders
-  public static async sendEventReminders(user_id: string) {
+  public static async sendEventReminders() {
     try {
       const nowDate = new Date();
-      const events = await EventDAO.findByStatus('scheduled', user_id);
+      const events: any = await EventDAO.findAllByStatus('scheduled');
 
       for (let event of events) {
         const eventDate = new Date(event.date);
         const diff = eventDate.getTime() - nowDate.getTime();
         const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
-        if (diffDays === 3) {
-          // SEND REMINDER
+        if (diffDays === REMINDER_DAYS) {
+          const eventGuest: any = await EventDAO.getGuestsByEventId(event.id);
+          for (let guest of eventGuest) {
+            await EmailHelper.sendEventReminder(guest.guest_email, event.name, event.address, event.date, 123456, guest.guest_fullname, guest.invitation_id);
+          }
         }
-        console.log(diffDays, eventDate, nowDate);
-        const invitations = await InvitationDAO.findInvitationByEventId(event.id);
-        console.log(invitations);
       }
+
     } catch (error) {
       return this.handleError(error, false, 'Service sending event reminders [TestService]');
     }

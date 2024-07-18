@@ -5,7 +5,7 @@ import { Invitation } from '../models/invitation/invitation.model';
 import { sequelize } from '../config/sequelize.config';
 
 export default class EventDAO {
-  private constructor() {}
+  private constructor() { }
 
   public static async create(event: EventAttributes) {
     try {
@@ -36,6 +36,16 @@ export default class EventDAO {
     }
   }
 
+  public static async findAllByStatus(status: string) {
+    try {
+      const events = await Event.findAll({ where: { status } });
+      return events.map((event) => event.toJSON());
+    } catch (error) {
+      console.error('Error on DAO find events:', error);
+      throw new Error('Error fetching events');
+    }
+  }
+
   public static async update(event: Partial<EventAttributes>) {
     try {
       const id = event.id as string;
@@ -54,7 +64,7 @@ export default class EventDAO {
       const guests = await sequelize.query(query, {
         replacements: { event_id }
       });
-      return guests;
+      return guests[0];
     } catch (error) {
       console.error('Error on DAO get guests by event ID:', error);
       throw new Error('Error fetching guests for the given event ID');
