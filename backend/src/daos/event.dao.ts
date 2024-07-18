@@ -5,7 +5,7 @@ import { Invitation } from '../models/invitation/invitation.model';
 import { sequelize } from '../config/sequelize.config';
 
 export default class EventDAO {
-  private constructor() { }
+  private constructor() {}
 
   public static async create(event: EventAttributes) {
     try {
@@ -26,11 +26,9 @@ export default class EventDAO {
     }
   }
 
-  public static async findByStatus(status: string) {
+  public static async findByStatus(status: string, user_id: string) {
     try {
-      const events = await Event.findAll(
-        { where: { status } }
-      );
+      const events = await Event.findAll({ where: { user_id, status } });
       return events.map((event) => event.toJSON());
     } catch (error) {
       console.error('Error on DAO find events:', error);
