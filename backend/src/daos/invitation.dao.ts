@@ -1,4 +1,4 @@
-import { Invitation } from "../models";
+import { Invitation, InvitationCreationAttributes } from "../models";
 import { InvitationAttributes, InvitationStatus } from "../types/invitation.types";
 import { UniqueConstraintError } from "sequelize";
 
@@ -6,13 +6,9 @@ export default class InvitationDAO {
     private constructor() { }
 
     //Crear invitación
-    public static async create(invitation: InvitationAttributes) {
+    public static async create(invitation: InvitationCreationAttributes) {
         try {
-            const createdInvitation = await Invitation.create({
-                ...invitation,
-                status: InvitationStatus.PENDING,
-                type: invitation.type
-            });
+            const createdInvitation = await Invitation.create(invitation);
             return createdInvitation.toJSON();
         } catch (error: UniqueConstraintError | any) {
             console.error('Error on DAO create invitation: ', error.errors);

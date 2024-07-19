@@ -26,6 +26,16 @@ export default class EventDAO {
     }
   }
 
+  public static async findEventByUserIdAndEventId(userId: string, eventId: string) {
+    try {
+      const event = await Event.findOne({ where: { user_id: userId, id: eventId } });
+      return event?.toJSON();
+    } catch (error) {
+      console.error('Error on DAO find event by user ID and event ID:', error);
+      throw new Error('Error fetching event for the given user ID and event ID');
+    }
+  }
+
   public static async findByStatus(status: string, user_id: string) {
     try {
       const events = await Event.findAll({ where: { user_id, status } });
@@ -57,12 +67,11 @@ export default class EventDAO {
     }
   }
 
-  public static async getGuestsByEventId(event_id: string) {
+  public static async getGuestsByEventId(event_id: string, user_id: string) {
     try {
-      const query = `SELECT * FROM event_guests WHERE event_id = :event_id`;
-
+      const query = `SELECT * FROM event_guests WHERE event_id = :event_id AND user_id = :user_id`;
       const guests = await sequelize.query(query, {
-        replacements: { event_id }
+        replacements: { event_id, user_id }
       });
       return guests[0];
     } catch (error) {

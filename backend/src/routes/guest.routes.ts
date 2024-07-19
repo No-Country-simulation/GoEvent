@@ -1,8 +1,9 @@
 import { Router } from "express";
 import guestController from "../controllers/guest.controller";
 import passport from "../middlewares/auth.mid";
+import multer from "multer";
 
-
+const upload = multer();
 // API ROUTE /api/v1/guest
 const router = Router();
 
@@ -17,7 +18,8 @@ router
 
 // ------ POST ----------------------------
 router
-    .post("/", guestController.createOne);
+    .post("/", guestController.createOne)
+    .post("/createMany/:event_id", upload.single("file"), guestController.createMany);
 
 // ------ PATCH ----------------------------
 router
