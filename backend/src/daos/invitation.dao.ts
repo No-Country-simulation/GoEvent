@@ -10,7 +10,6 @@ export default class InvitationDAO {
         try {
             const createdInvitation = await Invitation.create({
                 ...invitation,
-                status: InvitationStatus.PENDING,
                 type: invitation.type
             });
             return createdInvitation.toJSON();

@@ -43,6 +43,7 @@ Invitation.init(
     },
     status: {
       type: DataTypes.ENUM(...Object.values(InvitationStatus)),
+      defaultValue: InvitationStatus.NOTSENT,
       allowNull: false,
     },
     type: {

@@ -6,13 +6,13 @@ export const defineViews = () => {
   const queryViewGuestsEvents = `
     CREATE OR REPLACE VIEW event_guests AS
     SELECT
-      g.id as guest_id,
-      g.fullname as guest_fullname,
-      g.description as guest_description,
-      g.email as guest_email,
-      g.phone as guest_phone,
+      u.id as user_id,
       e.id as event_id,
       i.id as invitation_id,
+      g.id as guest_id,
+      g.fullname as guest_fullname,
+      g.email as guest_email,
+      g.phone as guest_phone,
       i.status as invitation_status,
       i.attendance as invitation_attendance
     FROM
@@ -20,7 +20,9 @@ export const defineViews = () => {
     JOIN
       invitations i ON g.id = i.guest_id
     JOIN
-      events e ON e.id = i.event_id;
+      events e ON e.id = i.event_id
+    JOIN
+      users u ON u.id = g.user_id;
   `;
 
   sequelize
