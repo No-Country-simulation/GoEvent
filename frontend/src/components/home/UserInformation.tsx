@@ -1,20 +1,23 @@
+import { Dispatch } from "react";
 import { userAndToken } from "../../types";
 import { userIcon } from "../../utils";
 import getUserDatils from "../../utils/getUserDetailsUtils";
+import { SetStateAction } from "jotai";
 
 interface User {
   userData: userAndToken | null;
+  closeModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const UserInformation: React.FC<User> = ({ userData }) => {
+const UserInformation: React.FC<User> = ({ userData, closeModal }) => {
   let { fullname, email, subscription_type, profile_image } =
     getUserDatils(userData);
   return (
-    <div className="h-screen w-full">
-      <div className="degradado , relative mx-20">
+    <div className="absolute h-screen w-full">
+      <div className="degradado relative h-full lg:mx-20">
         <div className="flex justify-between px-20 py-5 text-2xl font-semibold">
           <h2>Configuracion</h2>
-          <span>x</span>
+          <button onClick={() => closeModal(false)}>x</button>
         </div>
         <div className="flex pt-10">
           <div className="mr-16 flex w-3/12 flex-col items-center space-y-3">
