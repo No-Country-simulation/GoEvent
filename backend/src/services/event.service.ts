@@ -4,7 +4,7 @@ import { EventAttributes, EventType } from '../types/event.types';
 import { User } from '../models//user/user.model';
 
 export default class EventService {
-  private constructor() {}
+  private constructor() { }
 
   // Create Event -------------------------------------------------------------
   public static async create(event: any) {
@@ -67,6 +67,28 @@ export default class EventService {
       };
     }
   }
+  // Find Event By User Id---------------------------------------------------------------
+  public static async findEventByStatus(status: string, userId: string) {
+    try {
+      const events = await EventDAO.findByStatus(status, userId);
+      if (!status) {
+        throw new Error('Status are required');
+      }
+      if (!userId) {
+        throw new Error('User Id are required');
+      }
+      if (!events) {
+        return { success: false, message: 'There are no events associated with that id.' };
+      }
+      return { events };
+    } catch (error: any) {
+      console.error('Error getting event service:', error);
+      return {
+        success: false,
+        message: `Internal server error get event. ${error.message}`,
+      };
+    }
+  }
 
   // Update Event ---------------------------------------------------------------
   public static async update(event: Partial<EventAttributes>) {
@@ -85,6 +107,24 @@ export default class EventService {
       };
     }
   }
+
+  // Get guests by Event id -----------------------------------------------------
+  public static async getGuestsByEventId(eventId: string, userId: string) {
+    try {
+      const guests = await EventDAO.getGuestsByEventId(eventId, userId);
+      if (!guests || !guests.length) {
+        return { success: false, message: 'Event not found' };
+      }
+      return { success: true, guests: guests };
+    } catch (error: any) {
+      console.error('Error on service getting guests by event ID:', error);
+      return {
+        success: false,
+        message: `Internal server error getting guests by event ID. ${error.message}`,
+      };
+    }
+  }
+
 
   // Delete Event ---------------------------------------------------------------
   public static async delete(eventId: string) {

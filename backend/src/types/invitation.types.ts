@@ -1,6 +1,7 @@
 export enum InvitationStatus {
+    NOTSENT = 'notsent',
+    SENT = 'sent',
     ACCEPTED = 'accepted',
-    PENDING = 'pending',
     REJECTED = 'rejected',
 }
 
@@ -8,7 +9,6 @@ export enum InvitationType {
     FREE = 'free',
     PAY = 'pay',
 }
-
 
 export interface InvitationAttributes {
     id: string;
@@ -21,3 +21,4 @@ export interface InvitationAttributes {
     paid: boolean;
     attendance: Date;
 }
+

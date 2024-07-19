@@ -1,4 +1,5 @@
 export enum EventStatus {
+    DRAFT = 'draft',
     SCHEDULED = 'scheduled',
     ONGOING = 'ongoing',
     COMPLETED = 'completed',

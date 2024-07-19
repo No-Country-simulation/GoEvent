@@ -8,5 +8,10 @@ const upload = multer();
 
 export default express
   .Router()
-  .put("/update", passport.authenticate("userJWT", { session: false }), upload.single("profile_image"), UserController.update)
-  .delete("/delete", passport.authenticate("userJWT", { session: false }), UserController.delete)
+
+  // -- Middlewares
+  .use(passport.authenticate("userJWT", { session: false }))
+
+  // -- Routes
+  .put("/update", upload.single("profile_image"), UserController.update)
+  .delete("/delete", UserController.delete)

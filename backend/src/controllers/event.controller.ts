@@ -3,7 +3,7 @@ import EventService from '../services/event.service';
 import { EventAttributes, EventStatus } from '../types/event.types';
 
 export default class EventController {
-  private constructor() {}
+  private constructor() { }
 
   // Create Event -------------------------------------------------------------
   public static async create(req: Request, res: Response) {
@@ -42,10 +42,41 @@ export default class EventController {
     }
   }
 
+  // Find Event By Starus---------------------------------------------------------------
+  public static async findEventByStatus(req: Request, res: Response) {
+    try {
+      const { status, user_id } = req.body;
+      const serviceResponse = await EventService.findEventByStatus(status, user_id);
+      if (serviceResponse.success === false) {
+        res.status(400).json(serviceResponse);
+        return;
+      }
+      res.status(201).json(serviceResponse);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
+
   // Update Event ---------------------------------------------------------------
   public static async update(req: Request, res: Response) {
     try {
       const serviceResponse = await EventService.update(req.body);
+      if (serviceResponse.success === false) {
+        res.status(400).json(serviceResponse);
+        return;
+      }
+      res.status(200).json(serviceResponse);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
+
+  // Get guests by Event id -----------------------------------------------------
+  public static async getGuestsByEventId(req: Request, res: Response) {
+    try {
+      const eventId = req.params.id;
+      const userId = req.user as string
+      const serviceResponse = await EventService.getGuestsByEventId(eventId, userId);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;
