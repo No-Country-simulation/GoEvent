@@ -1,6 +1,8 @@
 import { Guest } from "../models/guest/guest.model"
 import { ICreateGuest, IFindGuest, IGuestResponse, IUpdateGuest } from "../types/guest.types";
-
+import GuestHelper from "../helpers/guest.helper";
+import InvitationDAO from "../daos/invitation.dao";
+import AuthHelper from "../helpers/auth.helper";
 
 class GuestService {
     constructor(private guestModel: typeof Guest) {
@@ -73,6 +75,61 @@ class GuestService {
             this.#handleError(error, "updating");
         }
     }
+
+    async createMany(user_id: string, excelFile: any, dictionary: Record<string, string>, event_id: string): Promise<{ success: boolean; message: string; data: any[] }> {
+        const results: Array<{ guest: Partial<ICreateGuest>, success: boolean, error?: string }> = [];
+
+        try {
+            if (!excelFile || !dictionary || !event_id) this.#handleError("File not found", "uploading");
+
+            const guests = await GuestHelper.excelImport(excelFile, dictionary);
+
+            for (const guest of guests) {
+                if (guest.fullname && guest.email) {
+                    const data = {
+                        fullname: guest.fullname,
+                        email: guest.email,
+                        phone: guest.phone ? guest.phone : '',
+                    };
+
+                    try {
+                        const createGuest = await this.createOne(user_id, data);
+                        if (createGuest) {
+                            const guest_id = createGuest.data.id;
+                            const qr_code = AuthHelper.generateCode();
+                            await InvitationDAO.create({
+                                event_id,
+                                guest_id: guest_id as string,
+                                qr_code: qr_code as unknown as string
+                            });
+
+                            results.push({ guest, success: true });
+                        } else {
+                            throw new Error("Error creating guest");
+                        }
+                    } catch (error: any) {
+                        results.push({ guest, success: false, error: error.message });
+                    }
+                } else {
+                    results.push({ guest, success: false, error: "Missing fullname or email" });
+                }
+            }
+
+            return {
+                success: results.every(result => result.success),
+                message: results.every(result => result.success) ? "All guests and invitations processed successfully" : "Some guests could not be processed",
+                data: results
+            };
+        } catch (error: any) {
+            this.#handleError(error, "creating");
+            return {
+                success: false,
+                message: "An error occurred",
+                data: results
+            };
+        }
+    }
+
 
     async deleteOne(guest: IFindGuest): Promise<IGuestResponse | undefined> {
         try {

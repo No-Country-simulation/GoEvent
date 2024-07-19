@@ -10,7 +10,6 @@ export enum InvitationType {
     PAY = 'pay',
 }
 
-
 export interface InvitationAttributes {
     id: string;
     event_id: string;
@@ -22,3 +21,4 @@ export interface InvitationAttributes {
     paid: boolean;
     attendance: Date;
 }
+

@@ -58,6 +58,17 @@ class GuestController {
         }
     }
 
+    async createMany(req: Request, res: Response, next: NextFunction) {
+        try {
+            const user_id = req.user as string
+            const event_id = req.params.event_id
+            const guests = await guestService.createMany(user_id, req.file, req.body, event_id);
+            res.status(HTTP_STATUS.CREATED).json(guests);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     async deleteOne(req: Request, res: Response, next: NextFunction) {
         try {
             const user_id = req.user as string

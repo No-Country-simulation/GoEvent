@@ -3,7 +3,7 @@ import { sequelize } from '../../config/sequelize.config';
 import { InvitationAttributes, InvitationStatus, InvitationType } from '../../types/invitation.types';
 import { Event, Guest } from '../index';
 
-interface InvitationCreationAttributes extends Optional<InvitationAttributes, 'id'> { }
+export interface InvitationCreationAttributes extends Optional<InvitationAttributes, 'id' | 'attendance' | 'paid' | 'cost' | 'status' | 'type'> { }
 
 export class Invitation extends Model<InvitationAttributes, InvitationCreationAttributes> implements InvitationAttributes {
   public id!: string;
@@ -48,6 +48,7 @@ Invitation.init(
     },
     type: {
       type: DataTypes.ENUM(...Object.values(InvitationType)),
+      defaultValue: InvitationType.FREE,
       allowNull: false,
     },
     qr_code: {
@@ -57,6 +58,7 @@ Invitation.init(
     cost: {
       type: DataTypes.FLOAT,
       allowNull: false,
+      defaultValue: 0,
     },
     paid: {
       type: DataTypes.BOOLEAN,
