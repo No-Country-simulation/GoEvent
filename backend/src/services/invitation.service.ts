@@ -1,5 +1,8 @@
 import InvitationDAO from '../daos/invitation.dao';
+import EventDAO from '../daos/event.dao';
 import { InvitationAttributes } from "../types/invitation.types";
+import EmailHelper from '../helpers/email.helper';
+import { InvitationStatus } from '../types/invitation.types';
 
 export default class InvitationService {
     private constructor() { }
@@ -45,6 +48,37 @@ export default class InvitationService {
             return {
                 success: false,
                 message: `Internal server error updating invitation. ${error.message}`,
+            };
+        }
+    }
+
+    //Enviar invitaciones por evento
+    public static async sendInvitationByEventId(userId: string, eventId: string) {
+        try {
+            const event = await EventDAO.findEventByUserIdAndEventId(userId, eventId);
+            if (!event) return { success: false, message: 'Event not found.' };
+
+            const event_guests = await EventDAO.getGuestsByEventId(eventId, userId);
+            if (!event_guests) return { success: false, message: 'Event or guests not found.' };
+
+            event_guests.forEach(async (guest: any) => { /// <------------ arreglar any
+                if (guest.invitation_status === 'notsent') {
+                    const sendInvitation = await EmailHelper.sendInvitation(
+                        guest.guest_email, event.name, event.location, event.date,
+                        guest.invitation_qr_code, guest.guest_name, guest.invitation_id
+                    );
+                    if (sendInvitation.success) {
+                        await InvitationDAO.update({ status: InvitationStatus.SENT }, guest.invitation_id);
+                    }
+                }
+            })
+
+            return { success: true, data: event_guests };
+        } catch (error: any) {
+            console.error('Error getting invitations service:', error);
+            return {
+                success: false,
+                message: `Internal server error fetching invitations. ${error.message}`,
             };
         }
     }

@@ -11,6 +11,6 @@ export default express
   .post("/create", EventController.create)
   .get("/find/:id", EventController.findEventByUserId)
   .get("/findStatus", EventController.findEventByStatus)
-  .get("/findGuests/:id", passport.authenticate("jwt", { session: false }), EventController.getGuestsByEventId)
+  .get("/findGuests/:id", passport.authenticate("userJWT", { session: false }), EventController.getGuestsByEventId)
   .put("/update", EventController.update)
   .delete("/delete/:id", EventController.delete)

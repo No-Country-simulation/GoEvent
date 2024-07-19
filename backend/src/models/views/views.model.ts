@@ -13,6 +13,7 @@ export const defineViews = () => {
       g.fullname as guest_fullname,
       g.email as guest_email,
       g.phone as guest_phone,
+      i.qr_code as invitation_qr_code,
       i.status as invitation_status,
       i.attendance as invitation_attendance
     FROM

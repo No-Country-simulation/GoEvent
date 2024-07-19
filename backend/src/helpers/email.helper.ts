@@ -4,6 +4,7 @@ import EmailTemplates from '../templates/email.templates';
 import { EventAttributes } from '../types/event.types';
 import ical from 'ical-generator';
 import * as QRCode from 'qrcode';
+import { DateDataType } from 'sequelize';
 
 sgMail.setApiKey(SENDGRID_API_KEY)
 
@@ -73,7 +74,7 @@ export default class EmailHelper {
 
 
 
-  static async sendInvitation(email: string, event: string, address: string, date: string, code: number, name: string, invitationId: string) {
+  static async sendInvitation(email: string, event: string, address: string, date: any, code: number, name: string, invitationId: string) {
     try {
       const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
       const qrInfo = { event: event, code: code, name: name, invitationId: invitationId }

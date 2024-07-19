@@ -50,6 +50,22 @@ export default class InvitationController {
         }
     }
 
+    // Enviar invitaciones por evento
+    public static async sendInvitationByEventId(req: Request, res: Response) {
+        try {
+            const userId = req.user as string;
+            const eventId = req.params.eventId as string;
+            const serviceResponse = await InvitationService.sendInvitationByEventId(userId, eventId);
+            if (serviceResponse.success === false) {
+                res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
+                return;
+            }
+            res.status(HTTP_STATUS.OK).json(serviceResponse);
+        } catch (error) {
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error });
+        }
+    }
+
     // Registrar asistencia de una invitación
     public static async registerAttendance(req: Request, res: Response) {
         try {
