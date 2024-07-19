@@ -15,7 +15,7 @@ export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
 export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY
 export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET
 
-export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY ? process.env.SENDGRID_API_KEY : 'GoEvent'
+export const RESEND_API_KEY = process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY : 'GoEvent'
 export const REMINDER_DAYS = process.env.REMINDER_DAYS ? parseInt(process.env.REMINDER_DAYS) : 3
 
 export const CORS_ORIGIN = process.env.CORS_ORIGIN
