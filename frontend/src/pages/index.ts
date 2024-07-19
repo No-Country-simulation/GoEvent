@@ -3,3 +3,4 @@
 export { default as Home } from "./HomePage";
 export { default as AccessHub } from "./AccessHubPage";
 export { default as Landing } from "./LandingPage";
+export { default as Events } from "./EventPage";
