@@ -2,13 +2,13 @@ import InvitationDAO from '../daos/invitation.dao';
 import { InvitationAttributes } from "../types/invitation.types";
 
 export default class InvitationService {
-    private constructor() {}
+    private constructor() { }
 
     //Crear invitación
     public static async create(invitation: InvitationAttributes) {
         try {
             const createdInvitation = await InvitationDAO.create(invitation);
-            return { success: true, message: 'Invitation created successfully.', invitation: createdInvitation}
+            return { success: true, message: 'Invitation created successfully.', invitation: createdInvitation }
         } catch (error: any) {
             console.error('Error on Service creating invitation:', error);
             return {
@@ -38,7 +38,6 @@ export default class InvitationService {
             if (!invitation) {
                 return { success: false, message: 'No data to update.' };
             }
-
             const updatedInvitation = await InvitationDAO.update(invitation, invitationId);
             return { success: true, message: 'Invitation updated successfully.', invitation: updatedInvitation };
         } catch (error: any) {
@@ -50,11 +49,32 @@ export default class InvitationService {
         }
     }
 
+    //Registrar asistencia de una invitación
+    public static async registerAttendance(invitationId: string, qr_code: string) {
+        try {
+            if (!invitationId || !qr_code) {
+                return { success: false, message: 'Data not found.' };
+            }
+            const registeredAttendance = await InvitationDAO.registerAttendance(invitationId, Number(qr_code));
+            if (!registeredAttendance[1][0]) return { success: false, message: 'Invitation not found.' }
+            return {
+                success: true,
+                message: 'Attendance registered successfully.'
+            }
+        } catch (error: any) {
+            console.error('Error on service registering attendance:', error);
+            return {
+                success: false,
+                message: `Internal server error registering attendance. ${error.message}`,
+            };
+        }
+    }
+
     //Eliminar invitación por ID
     public static async delete(invitationId: string) {
         try {
             const deleteInvitation = await InvitationDAO.delete(invitationId);
-            if(deleteInvitation > 0) {
+            if (deleteInvitation > 0) {
                 return { success: true, message: ' Invitation deleted successfully.' }
             }
             else {

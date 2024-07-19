@@ -6,5 +6,6 @@ export default express
     .post("/create", InvitationController.create)
     .get("/find/:id", InvitationController.findInvitationByEventId)
     .put("/update", InvitationController.update)
+    .post("/register_attendance/:invitation_id/:qr_code", InvitationController.registerAttendance)
     .delete("/delete/:id", InvitationController.delete)
 

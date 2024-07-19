@@ -3,7 +3,7 @@ import InvitationService from '../services/invitation.service';
 import HTTP_STATUS from '../constants/httpStatusCodes';
 
 export default class InvitationController {
-    private constructor() {}
+    private constructor() { }
 
     // Crear una nueva invitación
     public static async create(req: Request, res: Response) {
@@ -11,8 +11,8 @@ export default class InvitationController {
             const serviceResponse = await InvitationService.create(req.body);
             if (serviceResponse.success === false) {
                 res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
-            return;
-        }
+                return;
+            }
             res.status(HTTP_STATUS.CREATED).json(serviceResponse);
         } catch (error) {
             res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error });
@@ -26,14 +26,14 @@ export default class InvitationController {
             const serviceResponse = await InvitationService.findInvitationByEventId(eventId);
             if (serviceResponse.success === false) {
                 res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
-            return;
-        }
+                return;
+            }
             res.status(HTTP_STATUS.OK).json(serviceResponse);
         } catch (error) {
             res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error });
         }
     }
-    
+
 
     // Actualizar invitación por ID
     public static async update(req: Request, res: Response) {
@@ -42,8 +42,26 @@ export default class InvitationController {
             const serviceResponse = await InvitationService.update(req.body, invitationId);
             if (serviceResponse.success === false) {
                 res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
-            return;
+                return;
+            }
+            res.status(HTTP_STATUS.OK).json(serviceResponse);
+        } catch (error) {
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error });
         }
+    }
+
+    // Registrar asistencia de una invitación
+    public static async registerAttendance(req: Request, res: Response) {
+        try {
+            const { invitation_id, qr_code } = req.params;
+            if (!invitation_id || !qr_code) {
+                return { success: false, message: 'Data not found.' };
+            }
+            const serviceResponse = await InvitationService.registerAttendance(invitation_id, qr_code);
+            if (serviceResponse.success === false) {
+                res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
+                return;
+            }
             res.status(HTTP_STATUS.OK).json(serviceResponse);
         } catch (error) {
             res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error });
@@ -57,8 +75,8 @@ export default class InvitationController {
             const serviceResponse = await InvitationService.delete(invitationId);
             if (serviceResponse.success === false) {
                 res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
-            return;
-        }
+                return;
+            }
             res.status(HTTP_STATUS.OK).json(serviceResponse);
         } catch (error) {
             res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error });
