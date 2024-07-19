@@ -1,15 +1,26 @@
-import sgMail from '@sendgrid/mail'
-import { SENDGRID_API_KEY } from "../config/environment"
+import { RESEND_API_KEY } from "../config/environment"
 import EmailTemplates from '../templates/email.templates';
 import { EventAttributes } from '../types/event.types';
 import ical from 'ical-generator';
 import * as QRCode from 'qrcode';
-import { DateDataType } from 'sequelize';
+import { Resend } from 'resend';
 
-sgMail.setApiKey(SENDGRID_API_KEY)
+const resend = new Resend(RESEND_API_KEY)
 
 export default class EmailHelper {
   private constructor() { }
+
+  private static async sendEmail(msg: any) {
+    try {
+      msg.from = 'GoEvent <delivered@resend.dev>'
+      const response = await resend.emails.send(msg)
+      if (response.error) return { success: false, message: response.error }
+      return { success: true, message: 'Email sent.' }
+    } catch (error) {
+      return error
+    }
+  }
+
 
   private static createIcalEvent(event: Partial<EventAttributes>) {
     const icalEvent = ical({ name: event.name })
@@ -29,19 +40,14 @@ export default class EmailHelper {
     return buffer
   }
 
-  static async sendVerificationEmail(email: string, code: number) {
+  static async sendVerificationEmail(email: string, code: number): Promise<any> {
     try {
       const msg = {
         to: email,
-        from: 'sync.ideas.group@gmail.com',
         subject: '¡Welcome to GoEvent!',
         html: EmailTemplates.verifyEmail(code)
       }
-      await sgMail.send(msg)
-      return {
-        success: true,
-        message: 'Verification email sent.'
-      }
+      return await this.sendEmail(msg)
     } catch (error) {
       return {
         success: false,
@@ -52,18 +58,14 @@ export default class EmailHelper {
   }
 
 
-  static async sendResetPasswordEmail(email: string, code: number) {
+  static async sendResetPasswordEmail(email: string, code: number): Promise<any> {
     try {
       const msg = {
         to: email,
-        from: 'sync.ideas.group@gmail.com',
         subject: '¡Reset your password!',
         html: EmailTemplates.resetPassword(code)
       }
-      await sgMail.send(msg)
-      return {
-        success: true
-      }
+      return await this.sendEmail(msg)
     } catch (error) {
       return {
         success: false,
@@ -74,7 +76,7 @@ export default class EmailHelper {
 
 
 
-  static async sendInvitation(email: string, event: string, address: string, date: any, code: number, name: string, invitationId: string) {
+  static async sendInvitation(email: string, event: string, address: string, date: any, code: number, name: string, invitationId: string): Promise<any> {
     try {
       const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
       const qrInfo = { event: event, code: code, name: name, invitationId: invitationId }
@@ -82,7 +84,6 @@ export default class EmailHelper {
 
       const msg = {
         to: email,
-        from: 'sync.ideas.group@gmail.com',
         subject: 'Invitation to ' + event + ' on ' + date + ' at ' + address,
         text: 'Please find the attached QR code.',
         html: EmailTemplates.invitation(event, address, date, code, name, invitationId),
@@ -101,10 +102,7 @@ export default class EmailHelper {
           }
         ]
       };
-      await sgMail.send(msg);
-      return {
-        success: true
-      };
+      return await this.sendEmail(msg)
     } catch (error) {
       return {
         success: false,
@@ -113,18 +111,14 @@ export default class EmailHelper {
     }
   }
 
-  static async sendEventReminder(email: string, event: string, address: string, date: string, code: number, name: string, invitationId: string) {
+  static async sendEventReminder(email: string, event: string, address: string, date: string, code: number, name: string, invitationId: string): Promise<any> {
     try {
       const msg = {
         to: email,
-        from: 'sync.ideas.group@gmail.com',
         subject: 'Reminder to ' + event + ' on ' + date + ' at ' + address,
         html: EmailTemplates.invitationReminder(event, address, date, name, invitationId)
       }
-      await sgMail.send(msg)
-      return {
-        success: true
-      }
+      return await this.sendEmail(msg)
     } catch (error) {
       return {
         success: false,
