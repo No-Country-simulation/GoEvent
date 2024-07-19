@@ -53,7 +53,7 @@ export default class TestService {
   // GET GUESTS BY EVENT ID -----------------------------------------------------
   public static async getGuestsByEventId(event_id: string) {
     try {
-      const guests = await EventDAO.getGuestsByEventId(event_id);
+      const guests = await EventDAO.getGuestsByEventId(event_id, 'hgkhgkjgkj');
       if (!guests || !guests.length) return { success: false, message: 'Event not found' };
       return { success: true, guests: guests };
     } catch (error) {
@@ -74,7 +74,7 @@ export default class TestService {
         const diff = eventDate.getTime() - nowDate.getTime();
         const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
         if (diffDays === REMINDER_DAYS) {
-          const eventGuest: any = await EventDAO.getGuestsByEventId(event.id);
+          const eventGuest: any = await EventDAO.getGuestsByEventId(event.id, 'jfgfhg');
           for (let guest of eventGuest) {
             await EmailHelper.sendEventReminder(guest.guest_email, event.name, event.address, event.date, 123456, guest.guest_fullname, guest.invitation_id);
           }

@@ -57,12 +57,12 @@ export default class EventDAO {
     }
   }
 
-  public static async getGuestsByEventId(event_id: string) {
+  public static async getGuestsByEventId(eventId: string, userId: string) {
     try {
-      const query = `SELECT * FROM event_guests WHERE event_id = :event_id`;
+      const query = `SELECT * FROM event_guests WHERE event_id = :event_id AND user_id = :user_id`;
 
       const guests = await sequelize.query(query, {
-        replacements: { event_id }
+        replacements: { eventId, userId }
       });
       return guests[0];
     } catch (error) {
