@@ -65,7 +65,7 @@ export default class InvitationService {
                 if (guest.invitation_status === 'notsent') {
                     const sendInvitation = await EmailHelper.sendInvitation(
                         guest.guest_email, event.name, event.location, event.date,
-                        guest.invitation_qr_code, guest.guest_name, guest.invitation_id
+                        guest.invitation_qr_code, guest.guest_fullname, guest.invitation_id
                     );
                     if (sendInvitation.success) {
                         await InvitationDAO.update({ status: InvitationStatus.SENT }, guest.invitation_id);
