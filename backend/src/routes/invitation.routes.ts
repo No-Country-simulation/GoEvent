@@ -1,6 +1,8 @@
 import express from 'express';
 import InvitationController from '../controllers/invitation.controller';
 
+// API /api/v1/invitation
+
 export default express
     .Router()
     .post("/create", InvitationController.create)
