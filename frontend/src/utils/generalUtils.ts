@@ -29,3 +29,16 @@ export const dateFormat = (dateISO: string) => {
 
   return `${days[date.day()]} ${date.date()} de ${months[date.month()]}`;
 };
+
+export const generateUniqueCode = (): string => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabc0123456789defghijkUVWXYZabc01234lmnopqrstuvwxyz0123456789JKLMNOPQRSTUV";
+  const length = 6;
+  let code: string;
+
+  code = Array.from({ length }, () =>
+    characters.charAt(Math.floor(Math.random() * characters.length)),
+  ).join("");
+
+  return code;
+};

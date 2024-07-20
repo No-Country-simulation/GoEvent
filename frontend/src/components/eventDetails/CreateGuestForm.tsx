@@ -14,6 +14,9 @@ const CreateGuestForm = () => {
     e.preventDefault();
     let response = await createGuest(formData);
     console.log(response);
+    response.success
+      ? alert("Invitado agregado correctamente")
+      : alert("No se pudo agregar el invitado");
   };
 
   return (
