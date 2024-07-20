@@ -5,12 +5,14 @@ import getUserDatils from "../../utils/getUserDetailsUtils";
 import { getOneEvent } from "../../services";
 import { useEffect, useState } from "react";
 import { EventType } from "../../types";
+import CreateGuestForm from "./CreateGuestForm";
 
 const EventDetails = () => {
   let [user] = useAtom(userAtom);
   let { id } = getUserDatils(user);
   let [event, setEvent] = useState<EventType | {}>({});
   let [guestByEvent, setGuestByEvent] = useState([]);
+  let [isOpenCreateGuest, setIsOpenCreateGuest] = useState<boolean>(false);
 
   let { eventId } = useParams();
 
@@ -36,11 +38,14 @@ const EventDetails = () => {
           <div className="space-x-4">
             <button>Opciones de invitados</button>
             <button>Enviar mensaje</button>
-            <button>Agregar invitados</button>
+            <button onClick={() => setIsOpenCreateGuest(true)}>
+              Agregar invitados
+            </button>
           </div>
         </div>
         <div className="border-2 border-blue-900"></div>
       </div>
+      {isOpenCreateGuest && <CreateGuestForm />}
     </div>
   );
 };

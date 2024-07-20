@@ -1,5 +1,6 @@
 import { GuestType } from "../types";
+import { handleApiCall } from "../utils";
 import api from "./api";
 
 export const createGuest = async (guestData: GuestType) =>
-  await api.post("/guest", guestData);
+  await handleApiCall(api.post("/guest", guestData));
