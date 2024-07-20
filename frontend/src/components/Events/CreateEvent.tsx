@@ -1,8 +1,8 @@
-import { ChangeEvent, useState } from "react";
 import { useFormState } from "../../hooks/useFormState";
 import { useAtom } from "jotai";
 import { userAtom } from "../../context/atoms";
 import getUserDatils from "../../utils/getUserDetailsUtils";
+import { createEvent } from "../../services";
 
 const CreateEvent = () => {
   const [user] = useAtom(userAtom);
@@ -17,9 +17,14 @@ const CreateEvent = () => {
     user_id: id,
   });
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    const response = await createEvent(formData);
+    console.log(response);
+    if (response.success) {
+      alert("El evento ha sido creado correctamente");
+      window.location.reload();
+    } else alert("Hubo un error al crear el evento");
   };
 
   return (
@@ -30,19 +35,23 @@ const CreateEvent = () => {
           onChange={handleChange}
           value={formData.name}
           name="name"
+          placeholder="Nombre del evento"
           required
         />
         <input
           type="text"
           onChange={handleChange}
           value={formData.description}
+          placeholder="Descripcion"
           name="description"
+          required
         />
         <input
           type="text"
           onChange={handleChange}
           value={formData.location}
           name="location"
+          placeholder="Lugar del evento"
           required
         />
         <input type="time" onChange={handleChange} name="time" required />

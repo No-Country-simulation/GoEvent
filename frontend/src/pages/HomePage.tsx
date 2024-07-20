@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <div>
       {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-      <UserMenu />
+      {/* <UserMenu /> */}
     </div>
   );
 };

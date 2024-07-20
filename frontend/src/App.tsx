@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AccessHub, Home } from "./pages";
-import  LandingPage  from "./pages/LandingPage";
+import { AccessHub, Home, Events } from "./pages";
+import LandingPage from "./pages/LandingPage";
 import ProtecteRoute from "./components/ProtecteRoute";
 import QrScanner from "./components/QrScanner";
+import EventDetailsPage from "./pages/EventDetailsPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         />
         <Route path="/scanner" element={<QrScanner />} />
         <Route path="/eventos" element={<Events />} />
+        <Route path="/evento/:eventId" element={<EventDetailsPage />} />
       </Routes>
     </BrowserRouter>
   );

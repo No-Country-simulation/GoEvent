@@ -12,23 +12,27 @@
         background: linear-gradient(180deg, #EB9C64 0%, #EBE2CD 100%);
     }
 
-    .fondo{
+    .fondo {
         background: #FFF;
     }
 
-    .naranja{
+    .naranja {
         background: #EB9C64;
     }
 
-    .boton{
+    .boton {
         background: #FF8789;
     }
 
-    .footer{
+    .footer {
         background: linear-gradient(180deg, rgba(255, 135, 137, 0.75) 9.47%, rgba(245, 145, 119, 0.75) 32.93%, rgba(235, 156, 100, 0.75)80.11%);
     }
 
     .inputStyle {
         @apply rounded-lg border border-[#C2BAA6] bg-[#EBE2CD] px-6 py-2 outline-none
+    }
+
+    .imgStyle {
+        @apply mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6
     }
 }
