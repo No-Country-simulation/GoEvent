@@ -2,7 +2,7 @@ const Navbar = () => {
       
   
     return (
-        <div className="naranja mx-auto flex h-[91px] items-center justify-between shadow-md shadow-gray-500 md:w-[360px] lg:w-full">
+        <div className="naranja mx-auto flex h-[91px] items-center justify-between shadow-md shadow-gray-500 w-full">
         <img
           src="./public/Menu.png"
           className="ml-7 h-[35px] w-[35px]"
