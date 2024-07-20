@@ -1,14 +1,23 @@
 import React from "react";
 import { EventType } from "../../types";
 import { dateFormat } from "../../utils";
+import { deleteEvent } from "../../services";
 
 interface PropsEventCard {
   eventData: EventType;
 }
 
 const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
-  console.log(eventData);
-  let { name, date, time } = eventData;
+  const handleDeleteEvent = async (id: string) => {
+    let response = await deleteEvent(id);
+
+    if (response.success) {
+      alert("El evento ha sido eliminado correctamente");
+      window.location.reload();
+    } else alert("Hubo un error al eliminar el evento");
+  };
+
+  let { name, date, time, id } = eventData;
   return (
     <div className="border-2 border-red-600">
       <div>
@@ -27,7 +36,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
           <button>Gestionar</button>
           <button>Escanear QR</button>
         </div>
-        <button>Eliminar evento</button>
+        <button onClick={() => handleDeleteEvent(id)}>Eliminar evento</button>
       </div>
     </div>
   );

@@ -27,5 +27,5 @@ export const dateFormat = (dateISO: string) => {
     "Diciembre",
   ];
 
-  return `${days[date.day()]} ${date.day()} de ${months[date.month()]}`;
+  return `${days[date.day()]} ${date.date()} de ${months[date.month()]}`;
 };

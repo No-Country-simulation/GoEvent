@@ -12,6 +12,7 @@ import UserInformation from "./UserInformation";
 import getUserDatils from "../../utils/getUserDetailsUtils";
 import React, { Dispatch, useState } from "react";
 import { SetStateAction } from "jotai/vanilla";
+import { useNavigate } from "react-router-dom";
 
 interface UserMenuProps {
   closeMenu: Dispatch<SetStateAction<boolean>>;
@@ -20,13 +21,19 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
   let [user] = useAtom(userAtom);
   let [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  let navigate = useNavigate();
 
   let { fullname, subscription_type } = getUserDatils(user);
 
   let isPay = subscription_type !== "free";
 
   const sections = [
-    { icon: calendarIcon, text: "Mis Eventos", id: "events" },
+    {
+      icon: calendarIcon,
+      text: "Mis Eventos",
+      id: "events",
+      onClick: () => navigate("/eventos"),
+    },
     {
       icon: membershipCardIcon,
       text: "Tipo de suscripción",
