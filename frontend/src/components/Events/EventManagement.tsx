@@ -1,16 +1,16 @@
 import { useAtom } from "jotai";
 import { getEvents } from "../../services";
-import EventCard from "./EventCard";
 import { userAtom } from "../../context/atoms";
 import getUserDatils from "../../utils/getUserDetailsUtils";
 import { useEffect, useState } from "react";
 import { EventType } from "../../types";
+import EventCard from "./EventCard";
 import CreateEvent from "./CreateEvent";
 
 const EventManagement = () => {
   let [user] = useAtom(userAtom);
   let [events, setEvents] = useState<EventType[] | []>([]);
-  let [isCreateEventOpen, SetIsCreateEventOpen] = useState<boolean>(false);
+  let [isCreateEventOpen, setIsCreateEventOpen] = useState<boolean>(false);
 
   let { id } = getUserDatils(user);
 
@@ -32,7 +32,7 @@ const EventManagement = () => {
       <div>
         <div>
           <select name="" id=""></select>
-          <button onClick={() => SetIsCreateEventOpen(true)}>
+          <button onClick={() => setIsCreateEventOpen(true)}>
             Crear Evento Nuevo +
           </button>
         </div>

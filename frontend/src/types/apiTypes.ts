@@ -20,3 +20,9 @@ export interface EventType {
   created_at: string;
   updated_at: string;
 }
+
+export interface GuestType {
+  fullname: string;
+  email: string;
+  phone: string;
+}

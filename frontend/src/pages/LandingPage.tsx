@@ -2,6 +2,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState } from "react";
 import UserMenu from "../components/home/UserMenu";
+const imagenes = [
+  { src: "./public/img1.png", alt: "imagen1" },
+  { src: "./public/img2.png", alt: "imagen2" },
+  { src: "./public/img3.png", alt: "imagen3" },
+  { src: "./public/img4.png", alt: "imagen4" },
+  { src: "./public/img5.png", alt: "imagen5" },
+  { src: "./public/img6.png", alt: "imagen6" },
+];
 
 const LandingPage = () => {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
@@ -15,37 +23,10 @@ const LandingPage = () => {
       ) : (
         <div>
           {/*Grid*/}
-          <div className="grid grid-cols-3 items-center justify-between px-[400px] pb-14 pt-7 md:w-[344px] lg:w-full">
-            <img
-              src="./public/img1.png"
-              alt="imagen1"
-              className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
-            />
-            <img
-              src="./public/img2.png"
-              alt="imagen2"
-              className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
-            />
-            <img
-              src="./public/img3.png"
-              alt="imagen3"
-              className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
-            />
-            <img
-              src="./public/img4.png"
-              alt="imagen4"
-              className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
-            />
-            <img
-              src="./public/img5.png"
-              alt="imagen5"
-              className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
-            />
-            <img
-              src="./public/img6.png"
-              alt="imagen6"
-              className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
-            />
+          <div className="grid grid-cols-3 items-center justify-between gap-6 px-[400px] pb-14 pt-7 md:w-[344px] lg:w-full">
+            {imagenes.map((e) => {
+              return <img src={e.src} alt={e.alt} className="imgStyle" />;
+            })}
           </div>
 
           {/*Como funciona GoEvent*/}
