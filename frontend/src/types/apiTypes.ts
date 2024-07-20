@@ -26,3 +26,17 @@ export interface GuestType {
   email: string;
   phone: string;
 }
+
+export interface Guest2Type {
+  id: string;
+  fullname: string;
+  user_id: string;
+  email: string;
+  phone: string;
+}
+
+export interface InvitationType {
+  event_id: string;
+  guest_id: string;
+  qr_code: string;
+}

@@ -23,3 +23,6 @@ export const getOneEvent = async (userId: string, eventId = "") => {
   }
   return response;
 };
+
+export const getGuestsOfEvent = async (eventId: string) =>
+  await handleApiCall(api.get(`/event/findGuests/${eventId}`));
