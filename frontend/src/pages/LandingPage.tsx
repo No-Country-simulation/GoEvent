@@ -23,52 +23,52 @@ const LandingPage = () => {
       ) : (
         <div>
           {/*Grid*/}
-          <div className="grid grid-cols-3 items-center justify-between gap-6 px-[400px] pb-14 pt-7 md:w-[344px] lg:w-full">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 items-center justify-between gap-6 pb-14 pt-7">
             {imagenes.map((e) => {
               return <img src={e.src} alt={e.alt} className="imgStyle" />;
             })}
           </div>
 
           {/*Como funciona GoEvent*/}
-          <div className="via-yellow mx-auto mb-10 h-[455px] w-[1200px] rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] shadow-md shadow-gray-500">
+          <div className="mx-auto mb-10 sm:h-[900px] md:h-[660px] lg:h-[550px] xl:h-[455px]  w-full rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] shadow-md shadow-gray-500">
             <h2 className="ps-[72px] pt-7 text-2xl font-medium">
               Cómo funciona GoEvent?
             </h2>
-            <p className="ps-[168px] pt-[34px] text-xl">
+            <p className="md:ps-[168px] sm:ps-8 pt-[34px] text-xl">
               Selecciona el tipo de evento que vas a realizar
             </p>
-            <p className="ps-[245px] pt-[34px] text-xl">
+            <p className="md:ps-[245px] sm:ps-8 pt-[34px] text-xl">
               Elije entre nuestras plantillas de invitaciones o sube la tuya
             </p>
-            <p className="ps-[290px] pt-[34px] text-xl">
+            <p className="md:ps-[290px] sm:ps-8 pt-[34px] text-xl">
               Carga tu lista de invitados o escribelos desde la web
             </p>
-            <p className="ps-[336px] pt-[34px] text-xl">
+            <p className="md:ps-[336px] sm:ps-8 pt-[34px] text-xl">
               Comparte tu invitación con facilidad, enviales el qr para acceder
               el día del evento
             </p>
-            <p className="ps-[429px] pt-[34px] text-xl">
+            <p className="md:ps-[429px] sm:ps-8 pt-[34px] text-xl">
               Recibe confirmación de asistencia y gestiona tu evento desde la
               web
             </p>
-            <p className="ps-[624px] pt-[34px] text-2xl font-medium">
+            <p className="lg:ps-[624px] md:ps-[450px] sm:ps-8 pt-[34px] text-2xl font-medium">
               ¡Organiza fácilmente tu evento!
             </p>
 
             <img
               src="./public/Character.svg"
               alt="character"
-              className="relative left-[2px] top-[-168px] z-30"
+              className="relative left-[2px] lg:top-[-158px] md:top-[-160px] sm:top-[112px] z-30"
             />
             <img
               src="./public/cellphone.svg"
               alt="cellphone"
-              className="relative left-[116px] top-[-420px] z-20"
+              className="relative left-[116px] md:top-[-410px] sm:top-[-140px] z-20"
             />
             <img
               src="./public/freepik.svg"
               alt="freepik"
-              className="relative left-[5px] top-[-680px] z-10 h-[215px] w-[318px]"
+              className="relative left-[5px] md:top-[-680px] sm:top-[-397px] z-10 h-[215px] w-[318px]"
             />
           </div>
 
@@ -77,8 +77,8 @@ const LandingPage = () => {
           </h3>
 
           {/*Planes*/}
-          <div className="flex justify-center gap-12 pb-12">
-            <div className="degradado2 h-fit-content w-[552px] rounded-3xl border-0 shadow-md shadow-gray-500">
+          <div className="flex lg:flex-row sm:flex-col justify-center gap-12 pb-12 h-fit-content">
+            <div className="degradado2 h-fit-content  md:w-[550px] sm:w-[380px] rounded-3xl border-0 shadow-md shadow-gray-500 mx-auto">
               <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
                 Gratuito:
               </h3>
@@ -117,7 +117,7 @@ const LandingPage = () => {
               </div>
             </div>
 
-            <div className="degradado2 h-fit-content w-[552px] rounded-3xl border-0 shadow-md shadow-gray-500">
+            <div className="degradado2 h-fit-content md:w-[550px] sm:w-[380px] rounded-3xl border-0 shadow-md shadow-gray-500 mx-auto">
               <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
                 Membresía ($2 por mes):
               </h3>
@@ -161,7 +161,7 @@ const LandingPage = () => {
                   Mas de 20 modelos de plantillas o sube tus propias ideas
                 </p>
               </div>
-              <div className="flex justify-center pb-4">
+              <div className="flex justify-center pb-4 sm:pt-5">
                 <button className="boton h-[48px] w-[186px] rounded-xl px-11 font-bold text-[#0D1512] underline decoration-1 hover:bg-orange-500">
                   Registrarse
                 </button>
