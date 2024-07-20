@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AccessHub, Events, Home, Landing } from "./pages";
+import { AccessHub, Home } from "./pages";
+import  LandingPage  from "./pages/LandingPage";
 import ProtecteRoute from "./components/ProtecteRoute";
 import QrScanner from "./components/QrScanner";
 
@@ -7,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<AccessHub />} />
         <Route
           path="/home"
