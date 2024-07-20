@@ -1,102 +1,193 @@
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css"
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
+
 
 const LandingPage = () => {
-
-  const images = [
-    {
-      original : "./public/img1.png",
-    },
-    {
-      original : "./public/img2.png",
-    },
-    {
-      original : "./public/img3.png",
-    },
-    {
-      original : "./public/img4.png",
-    },
-    {
-      original : "./public/img5.png",
-    },
-    {
-      original : "./public/img6.png",
-    }
-    
-  ]
+ 
 
   return (
-    <div className="container bg-gradient-to-b from-[#88B4A8] via-[#F5EEED] to-[#88B4A8] pb-3">
-      {/*Navbar*/}
-      <div className="flex items-center justify-between w-[360px] h-[59px] mx-auto shadow-lg shadow-grey">
-        <img src="./public/Menu.png" className="w-[25px] h-[25px] ml-7" alt="menu" />
-        <img src="./public/Union.svg" className="w-[96px] h-[17px] ml-7" alt="logo" />
-        <p className="text-xs mr-5 mt-1">Iniciar sesión</p>
-      </div>
-
-      {/*Carrousel*/}
-      <div className="carousel bg-[#F5EEED] w-[344px] h-[221px] mx-auto p-0 mt-4">
-        <ImageGallery 
-        items={images}
-        showPlayButton={true}
-        showFullscreenButton={false}
-        showBullets={true}
-        autoPlay={true}
-        slideInterval={5500}
+    <div className="fondo">
+      
+      <Navbar />
+      
+      {/*Grid*/}
+      <div className="grid grid-cols-3 items-center justify-between px-[400px] pb-14 pt-7 md:w-[344px] lg:w-full">
+        <img
+          src="./public/img1.png"
+          alt="imagen1"
+          className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
+        />
+        <img
+          src="./public/img2.png"
+          alt="imagen2"
+          className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
+        />
+        <img
+          src="./public/img3.png"
+          alt="imagen3"
+          className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
+        />
+        <img
+          src="./public/img4.png"
+          alt="imagen4"
+          className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
+        />
+        <img
+          src="./public/img5.png"
+          alt="imagen5"
+          className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
+        />
+        <img
+          src="./public/img6.png"
+          alt="imagen6"
+          className="mx-auto h-[250px] w-[380px] rounded-sm border-none px-0 pt-6"
         />
       </div>
-      <h3 className="text-center pt-5 pb-3 px-6">Elegí el plan que mejor se adapte a tus necesidades</h3>
-      
-      {/*Contenedor de planes1*/}
-      <div className="plan1 w-[328px] h-fit-content mx-auto border-0 rounded-3xl bg-gradient-to-b from-[#A5C3BA] via-[#A5C3BA] to-[#43534E] shadow-lg shadow-grey">
-        <h3 className="font-weight:500 text-[#0D1512] pt-3 pl-3">Gratuito:</h3>
-        <div className="flex items-center">
-          <img src="./public/Confetti.png" className="pl-2 pr-2 py-4" alt="confetti" />
-          <p className="text-[#0D1512] text-sm pr-8">Máximo 50 invitaciones</p>
+
+      {/*Como funciona GoEvent*/}
+      <div className="via-yellow mx-auto mb-10 h-[455px] w-[1200px] rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] shadow-md shadow-gray-500">
+        <h2 className="ps-[72px] pt-7 text-2xl font-medium">
+          Cómo funciona GoEvent?
+        </h2>
+        <p className="ps-[168px] pt-[34px] text-xl">
+          Selecciona el tipo de evento que vas a realizar
+        </p>
+        <p className="ps-[245px] pt-[34px] text-xl">
+          Elije entre nuestras plantillas de invitaciones o sube la tuya
+        </p>
+        <p className="ps-[290px] pt-[34px] text-xl">
+          Carga tu lista de invitados o escribelos desde la web
+        </p>
+        <p className="ps-[336px] pt-[34px] text-xl">
+          Comparte tu invitación con facilidad, enviales el qr para acceder el
+          día del evento
+        </p>
+        <p className="ps-[429px] pt-[34px] text-xl">
+          Recibe confirmación de asistencia y gestiona tu evento desde la web
+        </p>
+        <p className="ps-[624px] pt-[34px] text-2xl font-medium">
+          ¡Organiza fácilmente tu evento!
+        </p>
+
+        <img
+          src="./public/Character.svg"
+          alt="character"
+          className="relative left-[2px] top-[-168px] z-30"
+        />
+        <img
+          src="./public/cellphone.svg"
+          alt="cellphone"
+          className="relative left-[116px] top-[-420px] z-20"
+        />
+        <img
+          src="./public/freepik.svg"
+          alt="freepik"
+          className="relative left-[5px] top-[-680px] z-10 h-[215px] w-[318px]"
+        />
+      </div>
+
+      <h3 className="px-6 pb-[53px] pt-5 text-center text-3xl">
+        Elegí el plan que mejor se adapte a tus necesidades
+      </h3>
+
+      {/*Planes*/}
+      <div className="flex justify-center gap-12 pb-12">
+        <div className="degradado2 h-fit-content w-[552px] rounded-3xl border-0 shadow-md shadow-gray-500">
+          <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
+            Gratuito:
+          </h3>
+          <div className="flex items-center ps-8 pt-10">
+            <img
+              src="./public/Confetti.png"
+              className="h[50px] w-[50px] pr-4"
+              alt="confetti"
+            />
+            <p className="text-lg text-[#0D1512]">Máximo 50 invitaciones</p>
+          </div>
+          <div className="flex items-center ps-8 pt-10">
+            <img
+              src="./public/Confetti.png"
+              className="h[50px] w-[50px] pr-4"
+              alt="confetti"
+            />
+            <p className="pr-8 text-lg text-[#0D1512]">
+              15 modelos distintos de plantillas para tus tarjetas
+            </p>
+          </div>
+          <div className="flex items-center ps-8 pt-10">
+            <img
+              src="./public/Confetti.png"
+              className="h[50px] w-[50px] pr-4"
+              alt="confetti"
+            />
+            <p className="pr-8 text-lg text-[#0D1512]">
+              Podes crear hasta un evento mensual
+            </p>
+          </div>
+          <div className="flex justify-center pb-4 pt-[60px]">
+            <button className="boton h-[48px] w-[186px] rounded-xl px-11 font-bold text-[#0D1512] underline decoration-1 hover:bg-orange-500">
+              Registrarse
+            </button>
+          </div>
         </div>
-        <div className="flex items-center">
-          <img src="./public/Confetti.png" className="pl-2 pr-2 py-4" alt="confetti" />
-          <p className="text-[#0D1512] text-sm pr-8">15 modelos distintos de plantillas para tus tarjetas</p>
-        </div>
-        <div className="flex items-center">
-          <img src="./public/Confetti.png" className="pl-2 pr-2 py-4" alt="confetti" />
-          <p className="text-[#0D1512] text-sm pr-8">Podes crear hasta un evento mensual</p>
-        </div>
-        <div className="flex justify-center pb-3">
-          <button className= "bg-gradient-to-b from-[#A5C3BA] via-[#F5EEED] to-[#C9D6D1] hover:bg-green-700 text-[#0D1512] font-bold underline decoration-1 py-3 px-11 rounded-full">  
-          Registrarse
-          </button>
+
+        <div className="degradado2 h-fit-content w-[552px] rounded-3xl border-0 shadow-md shadow-gray-500">
+          <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
+            Membresía ($2 por mes):
+          </h3>
+          <div className="flex items-center ps-8 pt-8">
+            <img
+              src="./public/Diamond.png"
+              className="h[50px] w-[50px] pr-4"
+              alt="confetti"
+            />
+            <p className="pr-8 text-lg text-[#0D1512]">
+              Sin límite de eventos por mes
+            </p>
+          </div>
+          <div className="flex items-center ps-8 pt-8">
+            <img
+              src="./public/Diamond.png"
+              className="h[50px] w-[50px] pr-4"
+              alt="confetti"
+            />
+            <p className="pr-8 text-lg text-[#0D1512]">
+              Sin limite de invitaciones
+            </p>
+          </div>
+          <div className="flex items-center ps-8 pt-8">
+            <img
+              src="./public/Diamond.png"
+              className="h[50px] w-[50px] pr-4"
+              alt="confetti"
+            />
+            <p className="pr-8 text-lg text-[#0D1512]">
+              Base de datos para futuros eventos
+            </p>
+          </div>
+          <div className="flex items-center ps-8 pt-8">
+            <img
+              src="./public/Diamond.png"
+              className="h[50px] w-[50px] pr-4"
+              alt="confetti"
+            />
+            <p className="pr-8 text-lg text-[#0D1512]">
+              Mas de 20 modelos de plantillas o sube tus propias ideas
+            </p>
+          </div>
+          <div className="flex justify-center pb-4">
+            <button className="boton h-[48px] w-[186px] rounded-xl px-11 font-bold text-[#0D1512] underline decoration-1 hover:bg-orange-500">
+              Registrarse
+            </button>
+          </div>
         </div>
       </div>
 
-       {/*Contenedor de planes2*/}
-       <div className="plan1 w-[328px] h-fit-content mx-auto border-0 rounded-3xl bg-gradient-to-b from-[#A5C3BA] via-[#A5C3BA] to-[#43534E] shadow-lg shadow-grey my-4">
-        <h3 className="font-weight:500 text-[#0D1512] pt-3 pl-3">Membresía ($2 por mes):</h3>
-        <div className="flex items-center">
-          <img src="./public/Diamond.png" className="pl-2 pr-2 py-4" alt="confetti" />
-          <p className="text-[#0D1512] text-sm pr-8">Sin límite de eventos por mes</p>
-        </div>
-        <div className="flex items-center">
-          <img src="./public/Diamond.png" className="pl-2 pr-2 py-4" alt="confetti" />
-          <p className="text-[#0D1512] text-sm pr-8">Sin limite de invitaciones</p>
-        </div>
-        <div className="flex items-center">
-          <img src="./public/Diamond.png" className="pl-2 pr-2 py-4" alt="confetti" />
-          <p className="text-[#0D1512] text-sm pr-8">Base de datos para futuros eventos</p>
-        </div>
-        <div className="flex items-center">
-          <img src="./public/Diamond.png" className="pl-2 pr-2 py-4" alt="confetti" />
-          <p className="text-[#0D1512] text-sm pr-8">Mas de 20 modelos de plantillas o sube tus propias ideas</p>
-        </div>
-        <div className="flex justify-center pb-3">
-          <button className= "bg-gradient-to-b from-[#A5C3BA] via-[#F5EEED] to-[#C9D6D1] hover:bg-green-700 text-[#0D1512] font-bold underline decoration-1 py-3 px-11 rounded-full">  
-          Registrarse
-          </button>
-        </div>
-      </div>
-    </div>
+      <Footer />
     
-  )
+    </div>
+  );
 };
 
 export default LandingPage;
