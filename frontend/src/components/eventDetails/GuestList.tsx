@@ -16,7 +16,10 @@ const GuestList = ({ event_id }: { event_id: string }) => {
   const addGuestToEvent = async (guest_id: string) => {
     let qr_code = generateUniqueCode();
     let response = await createInvitation({ event_id, guest_id, qr_code });
-    console.log(response);
+
+    response.success
+      ? alert("Invitado agregado correctamente")
+      : alert("No se pudo agreagar el invitado");
   };
 
   useEffect(() => {
