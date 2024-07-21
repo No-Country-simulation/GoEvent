@@ -4,7 +4,9 @@ export interface LoginData {
 }
 
 export interface RegisterData extends LoginData {
-  fullname: string;
+  fullname?: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 export interface EventType {

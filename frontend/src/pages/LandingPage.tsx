@@ -21,54 +21,54 @@ const LandingPage = () => {
       {isOpenMenu ? (
         <UserMenu closeMenu={setIsOpenMenu} />
       ) : (
-        <div className="xl:w-[1100px] lg:w-[900px] md:w-[700px] sm:w-[400px] mx-auto">
+        <div className="mx-auto sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
           {/*Grid*/}
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 items-center justify-between gap-6 pb-14 pt-7">
-            {imagenes.map((e) => {
-              return <img src={e.src} alt={e.alt} className="imgStyle" />;
-            })}
+          <div className="grid items-center justify-between gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
+            {imagenes.map((e) => (
+              <img src={e.src} alt={e.alt} className="imgStyle" />
+            ))}
           </div>
 
           {/*Como funciona GoEvent*/}
-          <div className="mx-auto mb-10 sm:h-[900px] md:h-[660px] lg:h-[550px] xl:h-[455px]  w-full rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] shadow-md shadow-gray-500">
+          <div className="mb-10 w-full rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] px-6 shadow-md shadow-gray-500 sm:h-[900px] md:h-[660px] lg:h-[550px] xl:h-[455px]">
             <h2 className="ps-[72px] pt-7 text-2xl font-medium">
               Cómo funciona GoEvent?
             </h2>
-            <p className="md:ps-[168px] sm:ps-8 pt-[34px] text-xl">
+            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[168px]">
               Selecciona el tipo de evento que vas a realizar
             </p>
-            <p className="md:ps-[245px] sm:ps-8 pt-[34px] text-xl">
+            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[245px]">
               Elije entre nuestras plantillas de invitaciones o sube la tuya
             </p>
-            <p className="md:ps-[290px] sm:ps-8 pt-[34px] text-xl">
+            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[290px]">
               Carga tu lista de invitados o escribelos desde la web
             </p>
-            <p className="md:ps-[336px] sm:ps-8 pt-[34px] text-xl">
+            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[336px]">
               Comparte tu invitación con facilidad, enviales el qr para acceder
               el día del evento
             </p>
-            <p className="md:ps-[429px] sm:ps-8 pt-[34px] text-xl">
+            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[429px]">
               Recibe confirmación de asistencia y gestiona tu evento desde la
               web
             </p>
-            <p className="lg:ps-[624px] md:ps-[450px] sm:ps-8 pt-[34px] text-2xl font-medium">
+            <p className="pt-[34px] text-2xl font-medium sm:ps-8 md:ps-[450px] lg:ps-[624px]">
               ¡Organiza fácilmente tu evento!
             </p>
 
             <img
               src="./public/Character.svg"
               alt="character"
-              className="relative left-[2px] lg:top-[-158px] md:top-[-160px] sm:top-[112px] z-30"
+              className="relative left-[2px] z-30 sm:top-[112px] md:top-[-160px] lg:top-[-158px]"
             />
             <img
               src="./public/cellphone.svg"
               alt="cellphone"
-              className="relative left-[116px] md:top-[-410px] sm:top-[-140px] z-20"
+              className="relative left-[116px] z-20 sm:top-[-140px] md:top-[-410px]"
             />
             <img
               src="./public/freepik.svg"
               alt="freepik"
-              className="relative left-[5px] md:top-[-680px] sm:top-[-397px] z-10 h-[215px] w-[318px]"
+              className="relative left-[5px] z-10 h-[215px] w-[318px] sm:top-[-397px] md:top-[-680px]"
             />
           </div>
 
@@ -77,8 +77,8 @@ const LandingPage = () => {
           </h3>
 
           {/*Planes*/}
-          <div className="flex lg:flex-row sm:flex-col justify-center gap-12 pb-12 h-fit-content">
-            <div className="degradado2 h-fit-content  md:w-[550px] sm:w-[380px] rounded-3xl border-0 shadow-md shadow-gray-500 mx-auto">
+          <div className="h-fit-content flex justify-center gap-12 pb-12 sm:flex-col lg:flex-row">
+            <div className="degradado2 h-fit-content mx-auto rounded-3xl border-0 shadow-md shadow-gray-500 sm:w-[380px] md:w-[550px]">
               <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
                 Gratuito:
               </h3>
@@ -117,7 +117,7 @@ const LandingPage = () => {
               </div>
             </div>
 
-            <div className="degradado2 h-fit-content md:w-[550px] sm:w-[380px] rounded-3xl border-0 shadow-md shadow-gray-500 mx-auto">
+            <div className="degradado2 h-fit-content mx-auto rounded-3xl border-0 shadow-md shadow-gray-500 sm:w-[380px] md:w-[550px]">
               <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
                 Membresía ($2 por mes):
               </h3>
@@ -168,8 +168,6 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-
-          
         </div>
       )}
       <Footer />
