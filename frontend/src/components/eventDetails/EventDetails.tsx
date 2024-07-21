@@ -2,7 +2,12 @@ import { useAtom } from "jotai";
 import { useParams } from "react-router-dom";
 import { userAtom } from "../../context/atoms";
 import getUserDatils from "../../utils/getUserDetailsUtils";
-import { getAllGuests, getGuestsOfEvent, getOneEvent } from "../../services";
+import {
+  getAllGuests,
+  getGuestsOfEvent,
+  getOneEvent,
+  sendInvitationByEvent,
+} from "../../services";
 import { useEffect, useState } from "react";
 import { EventType } from "../../types";
 import CreateGuestForm from "./CreateGuestForm";
@@ -32,6 +37,13 @@ const EventDetails = () => {
     if (response.success) setGuestByEvent(response.data.guests);
   };
 
+  const sendAllInvitations = async () => {
+    if (eventId) {
+      let response = await sendInvitationByEvent(eventId);
+      console.log(response);
+    }
+  };
+
   useEffect(() => {
     getEvent();
   }, []);
@@ -48,7 +60,7 @@ const EventDetails = () => {
             <button onClick={() => setIsOpenGuestList(true)}>
               Opciones de invitados
             </button>
-            <button>Enviar mensaje</button>
+            <button onClick={sendAllInvitations}>Enviar mensaje</button>
             <button onClick={() => setIsOpenCreateGuest(true)}>
               Agregar invitados
             </button>

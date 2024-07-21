@@ -62,7 +62,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
   ];
 
   return (
-    <div className="flex h-[calc(100vh-91px)]">
+    <div className="flex h-[calc(100vh-60px)]">
       {!isUserMenuOpen ? (
         <div className="degradado flex h-full w-full flex-col lg:mx-20">
           <div className="mx-10 flex justify-between pb-16 pt-5 text-2xl font-semibold">

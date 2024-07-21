@@ -26,3 +26,9 @@ export const getOneEvent = async (userId: string, eventId = "") => {
 
 export const getGuestsOfEvent = async (eventId: string) =>
   await handleApiCall(api.get(`/event/findGuests/${eventId}`));
+
+export const sendInvitationByEvent = async (eventId: string) =>
+  await handleApiCall(
+    api.get(`/invitation/sendInvitationByEventId/${eventId}`),
+  );
+  

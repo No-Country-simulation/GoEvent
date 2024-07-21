@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useZxing } from "react-zxing";
 
-const QrScanner: React.FC = () => {
+const QrScanner: React.FC<{ eventId: string }> = ({ eventId }) => {
   const [result, setResult] = useState<string>("");
+  const [allGuests, SetAllGuests] = useState([]);
 
   const { ref } = useZxing({
     onDecodeResult(result) {
