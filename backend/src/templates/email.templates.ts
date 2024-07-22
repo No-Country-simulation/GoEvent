@@ -2,7 +2,7 @@ import { DEPLOY_URL, API_VERSION } from "../config/environment";
 
 export default class EmailTemplates {
 
-    static verifyEmail(code: number) {
+    static verifyEmail(code: string) {
         return `
     <p>Welcome to GoEvent!</p>
     <p>To verify your account, use the key provided below:</p>

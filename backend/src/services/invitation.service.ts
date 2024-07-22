@@ -90,9 +90,12 @@ export default class InvitationService {
     }
 
     //Registrar asistencia de una invitación
-    public static async registerAttendance(eventId: string, qr_code: string) {
+    public static async registerAttendance(event_id: string, qr_code: string) {
         try {
-            const registeredAttendance = await InvitationDAO.registerAttendance(eventId, Number(qr_code));
+            if (!event_id || !qr_code) {
+                return { success: false, message: 'Event ID or QR code not found.' };
+            }
+            const registeredAttendance = await InvitationDAO.registerAttendance(event_id, qr_code);
             if (!registeredAttendance[1][0]) return { success: false, message: 'Invitation not found.' }
             return {
                 success: true,

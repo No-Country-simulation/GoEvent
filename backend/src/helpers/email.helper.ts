@@ -42,7 +42,7 @@ export default class EmailHelper {
     return buffer
   }
 
-  static async sendVerificationEmail(email: string, code: number): Promise<any> {
+  static async sendVerificationEmail(email: string, code: string): Promise<any> {
     try {
       const msg = {
         to: email,
