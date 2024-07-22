@@ -43,7 +43,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
         </div>
         <button onClick={() => handleDeleteEvent(id)}>Eliminar evento</button>
       </div>
-      {isOpenScanner && <QrScanner />}
+      {isOpenScanner && <QrScanner eventId={id} />}
     </div>
   );
 };
