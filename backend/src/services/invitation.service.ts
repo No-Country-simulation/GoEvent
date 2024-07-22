@@ -10,6 +10,10 @@ export default class InvitationService {
     //Crear invitación
     public static async create(invitation: InvitationAttributes) {
         try {
+            const alreadyExist = await InvitationDAO.findInvitationByGuestAndEvent(invitation.guest_id, invitation.event_id);
+            if (alreadyExist.length > 0) {
+                return { success: false, message: 'Invitation already exist.' };
+            }
             const createdInvitation = await InvitationDAO.create(invitation);
             return { success: true, message: 'Invitation created successfully.', invitation: createdInvitation }
         } catch (error: any) {
@@ -65,7 +69,7 @@ export default class InvitationService {
                 if (guest.invitation_status === 'notsent') {
                     const sendInvitation = await EmailHelper.sendInvitation(
                         guest.guest_email, event.name, event.location, event.date,
-                        guest.invitation_qr_code, guest.guest_name, guest.invitation_id
+                        guest.invitation_qr_code, guest.guest_fullname, guest.invitation_id
                     );
                     if (sendInvitation.success) {
                         await InvitationDAO.update({ status: InvitationStatus.SENT }, guest.invitation_id);
@@ -84,12 +88,9 @@ export default class InvitationService {
     }
 
     //Registrar asistencia de una invitación
-    public static async registerAttendance(invitationId: string, qr_code: string) {
+    public static async registerAttendance(eventId: string, qr_code: string) {
         try {
-            if (!invitationId || !qr_code) {
-                return { success: false, message: 'Data not found.' };
-            }
-            const registeredAttendance = await InvitationDAO.registerAttendance(invitationId, Number(qr_code));
+            const registeredAttendance = await InvitationDAO.registerAttendance(eventId, Number(qr_code));
             if (!registeredAttendance[1][0]) return { success: false, message: 'Invitation not found.' }
             return {
                 success: true,

@@ -21,12 +21,14 @@ export default class EmailHelper {
     }
   }
 
-
   private static createIcalEvent(event: Partial<EventAttributes>) {
     const icalEvent = ical({ name: event.name })
+    const startTime = event.date ? new Date(event.date) : new Date()
+    const endTime = new Date(startTime.getTime() + 30 * 60 * 1000)
+
     icalEvent.createEvent({
-      start: event.date ? new Date(event.date) : new Date(),
-      end: event.date,
+      start: startTime,
+      end: endTime,
       summary: event.name,
       description: event.description,
       location: event.location
@@ -76,7 +78,7 @@ export default class EmailHelper {
 
 
 
-  static async sendInvitation(email: string, event: string, address: string, date: any, code: number, name: string, invitationId: string): Promise<any> {
+  static async sendInvitation(email: string, event: string, address: string, date: Date, code: number, name: string, invitationId: string): Promise<any> {
     try {
       const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
       const qrInfo = { event: event, code: code, name: name, invitationId: invitationId }
@@ -86,7 +88,7 @@ export default class EmailHelper {
         to: email,
         subject: 'Invitation to ' + event + ' on ' + date + ' at ' + address,
         text: 'Please find the attached QR code.',
-        html: EmailTemplates.invitation(event, address, date, code, name, invitationId),
+        html: EmailTemplates.invitation(event, address, date.toLocaleString(), code, name, invitationId),
         attachments: [
           {
             content: qrCodeBuffer.toString('base64'),
