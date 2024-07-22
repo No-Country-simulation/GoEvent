@@ -10,6 +10,6 @@ export default express
     .get("/find/:id", InvitationController.findInvitationByEventId)
     .put("/update", InvitationController.update)
     .get("/sendInvitationByEventId/:eventId", passport.authenticate('userJWT', { session: false }), InvitationController.sendInvitationByEventId)
-    .post("/registerAttendance/:invitation_id/:qr_code", InvitationController.registerAttendance)
+    .post("/registerAttendance/:event_id/:qr_code", InvitationController.registerAttendance)
     .delete("/delete/:id", InvitationController.delete)
 
