@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { EventType } from "../../types";
 import { dateFormat } from "../../utils";
 import { deleteEvent } from "../../services";
 import { useNavigate } from "react-router-dom";
+import QrScanner from "../QrScanner";
 
 interface PropsEventCard {
   eventData: EventType;
@@ -10,6 +11,8 @@ interface PropsEventCard {
 
 const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
   let navigate = useNavigate();
+  let [isOpenScanner, setIsOpenScanner] = useState<boolean>(false);
+
   const handleDeleteEvent = async (id: string) => {
     let response = await deleteEvent(id);
 
@@ -36,10 +39,11 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
       <div>
         <div>
           <button onClick={() => navigate(`/evento/${id}`)}>Gestionar</button>
-          <button>Escanear QR</button>
+          <button onClick={() => setIsOpenScanner(true)}>Escanear QR</button>
         </div>
         <button onClick={() => handleDeleteEvent(id)}>Eliminar evento</button>
       </div>
+      {isOpenScanner && <QrScanner />}
     </div>
   );
 };
