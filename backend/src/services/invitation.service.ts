@@ -3,6 +3,7 @@ import EventDAO from '../daos/event.dao';
 import { InvitationAttributes } from "../types/invitation.types";
 import EmailHelper from '../helpers/email.helper';
 import { InvitationStatus } from '../types/invitation.types';
+import AuthHelper from '../helpers/auth.helper';
 
 export default class InvitationService {
     private constructor() { }
@@ -14,7 +15,8 @@ export default class InvitationService {
             if (alreadyExist.length > 0) {
                 return { success: false, message: 'Invitation already exist.' };
             }
-            const createdInvitation = await InvitationDAO.create(invitation);
+            const qr_code = AuthHelper.generateCode();
+            const createdInvitation = await InvitationDAO.create({ ...invitation, qr_code: qr_code as unknown as string });
             return { success: true, message: 'Invitation created successfully.', invitation: createdInvitation }
         } catch (error: any) {
             console.error('Error on Service creating invitation:', error);
