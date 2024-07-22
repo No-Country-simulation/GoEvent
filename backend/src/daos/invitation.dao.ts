@@ -27,6 +27,17 @@ export default class InvitationDAO {
         }
     }
 
+    //Buscar invitación por guest and event
+    public static async findInvitationByGuestAndEvent(guestId: string, eventId: string) {
+        try {
+            const invitations = await Invitation.findAll({ where: { guest_id: guestId, event_id: eventId } });
+            return invitations.map((invitation) => invitation.toJSON());
+        } catch (error) {
+            console.error('Error on DAO find invitation by guest and event: ', error);
+            throw new Error('Error fetching invitations for the given guest and event');
+        }
+    }
+
     //Actualizar invitación por ID
     public static async update(invitation: Partial<InvitationAttributes>, id: string) {
         try {
@@ -43,7 +54,7 @@ export default class InvitationDAO {
     }
 
     //Registrar asistencia
-    public static async registerAttendance(invitationId: string, qr_code: number) {
+    public static async registerAttendance(eventId: string, qr_code: number) {
         try {
             const invitation = await Invitation.update(
                 {
@@ -52,7 +63,7 @@ export default class InvitationDAO {
                 },
                 {
                     where:
-                        { id: invitationId, qr_code },
+                        { event_id: eventId, qr_code },
                     returning: true
                 }
             );
