@@ -26,7 +26,7 @@ const EventManagement = () => {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className="degradado h-screen text-[#0D1512]">
         <div className="flex justify-between px-12">
@@ -59,18 +59,17 @@ const EventManagement = () => {
             </button>
           </div>
           {/*Card*/}
-          <div className="fondo3 mt-[100px] flex items-center justify-between p-6 rounded-xl">
+          <div className="fondo3 mt-[100px] flex items-center justify-between rounded-xl p-6">
             <div className="flex items-center">
               <div className="mr-4">
                 <img
                   src="./public/Jamie4.png"
                   alt="Invitation card"
-                  className="border-4 border-yellow-300 w[217px] h-[348px]"
-                  
+                  className="w[217px] h-[348px] border-4 border-yellow-300"
                 />
               </div>
               <div className="text-xl">
-                <h2 className="text-2xl font-bold pb-10">Cumpleaños</h2>
+                <h2 className="pb-10 text-2xl font-bold">Cumpleaños</h2>
                 <p className="mt-2">Viernes 9 de Agosto</p>
                 <p className="pb-10">Comienza: 22.00 hs</p>
                 <p className="pb-12">Chacabuco 123, CABA.</p>
@@ -78,15 +77,17 @@ const EventManagement = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <button className="boton mb-2 rounded-xl px-4 py-4 text-xl w-[363px] h-[68px] hover:bg-orange-500">
+              <button className="boton mb-2 h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl hover:bg-orange-500">
                 Gestionar Invitados
               </button>
-              <button className="boton mt-3 mb-3 flex text-xl items-center justify-center rounded-xl px-4 py-4 w-[363px] h-[68px] hover:bg-orange-500">
+              <button className="boton mb-3 mt-3 flex h-[68px] w-[363px] items-center justify-center rounded-xl px-4 py-4 text-xl hover:bg-orange-500">
                 <img src="./public/Qr_Code.png" alt="" />
                 <p className="ps-4">Escanear QR</p>
               </button>
               <button className="flex px-4">
-                <p className="text-xl underline decoration-1 pt-[100px] ps-12">Eliminar evento</p>
+                <p className="ps-12 pt-[100px] text-xl underline decoration-1">
+                  Eliminar evento
+                </p>
               </button>
             </div>
           </div>
@@ -104,11 +105,10 @@ const EventManagement = () => {
 
           {/*Cerrar sesion*/}
 
-          <button className="ps-7 flex pt-[150px]">
+          <button className="flex ps-7 pt-[150px]">
             <img src="./public/icons/Logout.png" alt="" />
-              <p className="text-xl ps-4 pt-1">Cerrar sesion</p>
+            <p className="ps-4 pt-1 text-xl">Cerrar sesion</p>
           </button>
-          
         </div>
       </div>
     </div>
