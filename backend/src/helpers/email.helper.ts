@@ -1,32 +1,37 @@
-import { RESEND_API_KEY } from "../config/environment"
+import { SENDGRID_API_KEY, RESEND_API_KEY } from "../config/environment"
 import EmailTemplates from '../templates/email.templates';
 import { EventAttributes } from '../types/event.types';
 import ical from 'ical-generator';
 import * as QRCode from 'qrcode';
 import { Resend } from 'resend';
+import sgMail from '@sendgrid/mail'
 
-const resend = new Resend(RESEND_API_KEY)
+//const resend = new Resend(RESEND_API_KEY)
+sgMail.setApiKey(SENDGRID_API_KEY)
 
 export default class EmailHelper {
   private constructor() { }
 
   private static async sendEmail(msg: any) {
     try {
-      msg.from = 'GoEvent <delivered@resend.dev>'
-      const response = await resend.emails.send(msg)
-      if (response.error) return { success: false, message: response.error }
+      msg.from = 'GoEvent <sync.ideas.group@gmail.com>'
+      //const response = await resend.emails.send(msg)
+      const response = await sgMail.send(msg)
+      if (response[0].statusCode !== 202) return { success: false, message: 'Email not sent' }
       return { success: true, message: 'Email sent.' }
     } catch (error) {
       return error
     }
   }
 
-
   private static createIcalEvent(event: Partial<EventAttributes>) {
     const icalEvent = ical({ name: event.name })
+    const startTime = event.date ? new Date(event.date) : new Date()
+    const endTime = new Date(startTime.getTime() + 30 * 60 * 1000)
+
     icalEvent.createEvent({
-      start: event.date ? new Date(event.date) : new Date(),
-      end: event.date,
+      start: startTime,
+      end: endTime,
       summary: event.name,
       description: event.description,
       location: event.location
@@ -40,7 +45,7 @@ export default class EmailHelper {
     return buffer
   }
 
-  static async sendVerificationEmail(email: string, code: number): Promise<any> {
+  static async sendVerificationEmail(email: string, code: string): Promise<any> {
     try {
       const msg = {
         to: email,
@@ -76,7 +81,7 @@ export default class EmailHelper {
 
 
 
-  static async sendInvitation(email: string, event: string, address: string, date: any, code: number, name: string, invitationId: string): Promise<any> {
+  static async sendInvitation(email: string, event: string, address: string, date: Date, code: number, name: string, invitationId: string): Promise<any> {
     try {
       const icsBuffer = this.createIcalEvent({ name: event, date: new Date(date), description: event, location: address })
       const qrInfo = { event: event, code: code, name: name, invitationId: invitationId }
@@ -86,7 +91,7 @@ export default class EmailHelper {
         to: email,
         subject: 'Invitation to ' + event + ' on ' + date + ' at ' + address,
         text: 'Please find the attached QR code.',
-        html: EmailTemplates.invitation(event, address, date, code, name, invitationId),
+        html: EmailTemplates.invitation(event, address, date.toLocaleString(), code, name, invitationId),
         attachments: [
           {
             content: qrCodeBuffer.toString('base64'),
@@ -102,7 +107,8 @@ export default class EmailHelper {
           }
         ]
       };
-      return await this.sendEmail(msg)
+      const response = await this.sendEmail(msg)
+      return response
     } catch (error) {
       return {
         success: false,

@@ -44,16 +44,29 @@ class GuestService {
         }
     }
 
-    async createOne(user_id: string, guest: ICreateGuest): Promise<IGuestResponse | undefined> {
+    async createOne(user_id: string, guest: ICreateGuest, event_id: string): Promise<IGuestResponse | undefined> {
         try {
             const alreadyExist = await this.guestModel.findOne(
                 { where: { email: guest.email, user_id } }
             );
             if (alreadyExist) { throw new Error(`Guest with email:${guest.email} already exists.`) }
             const createGuest = await this.guestModel.create({ ...guest, user_id });
+            let message = "Guest created successfully";
+
+            // Si tiene id de evento, crea la invitacion
+            if (event_id) {
+                const qr_code = AuthHelper.generateCode();
+                await InvitationDAO.create({
+                    guest_id: createGuest.id,
+                    event_id,
+                    qr_code: qr_code as unknown as string,
+                })
+                message = "Guest and invitation created successfully"
+            }
+
             return {
                 success: true,
-                message: "Guest created successfully",
+                message,
                 data: createGuest
             }
         } catch (error: any) {
@@ -93,16 +106,8 @@ class GuestService {
                     };
 
                     try {
-                        const createGuest = await this.createOne(user_id, data);
+                        const createGuest = await this.createOne(user_id, data, event_id);
                         if (createGuest) {
-                            const guest_id = createGuest.data.id;
-                            const qr_code = AuthHelper.generateCode();
-                            await InvitationDAO.create({
-                                event_id,
-                                guest_id: guest_id as string,
-                                qr_code: qr_code as unknown as string
-                            });
-
                             results.push({ guest, success: true });
                         } else {
                             throw new Error("Error creating guest");

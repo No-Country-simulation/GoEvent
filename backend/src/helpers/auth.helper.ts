@@ -26,8 +26,8 @@ export default class AuthHelper {
     return password.length >= 8;
   }
 
-  public static generateCode() {
-    return Math.floor(100000 + Math.random() * 900000);
+  public static generateCode(): string {
+    return Math.floor(100000 + Math.random() * 900000) as unknown as string;
   }
 
   private static validateProfileImage(profile_image: any) {
