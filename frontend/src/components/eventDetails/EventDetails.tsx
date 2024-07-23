@@ -38,7 +38,7 @@ const EventDetails = () => {
 
   return (
     <div>
-      <pre className="border-2 border-red-400">
+      <pre className="border-2 border-red-400 h-fit-content">
         {JSON.stringify(event, null, 2)}
       </pre>
       <div>
