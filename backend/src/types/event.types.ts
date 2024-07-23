@@ -14,6 +14,7 @@ export enum EventType {
 export interface EventAttributes {
     id: string;
     name: string;
+    template_image: string;
     description: string;
     location: string;
     time: Date;

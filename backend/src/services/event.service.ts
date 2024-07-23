@@ -2,9 +2,10 @@ import EventDAO from '../daos/event.dao';
 import { DEFAULT_SUBSCRIPTION_TYPE } from '../config/environment';
 import { EventAttributes, EventType } from '../types/event.types';
 import { User } from '../models//user/user.model';
+import UploadHelper from '../helpers/upload.helper';
 
 export default class EventService {
-  private constructor() { }
+  private constructor() {}
 
   // Create Event -------------------------------------------------------------
   public static async create(event: any) {
@@ -107,6 +108,25 @@ export default class EventService {
       };
     }
   }
+  public static async updateImage(template_image: any) {
+    try {
+      if (!template_image) {
+        return { success: false, message: 'No Template to update.' };
+      }
+      const profile_image_url = await UploadHelper.uploadImage(template_image.buffer);
+      const event: Partial<EventAttributes> = {
+        template_image: profile_image_url,
+      };
+      const updatedEvent = await EventDAO.update(event);
+      return { success: true, message: 'Event updated successfully.', event: updatedEvent };
+    } catch (error: any) {
+      console.error('Error on service updating event:', error);
+      return {
+        success: false,
+        message: `Internal server error updating event. ${error.message}`,
+      };
+    }
+  }
 
   // Get guests by Event id -----------------------------------------------------
   public static async getGuestsByEventId(eventId: string, userId: string) {
@@ -124,7 +144,6 @@ export default class EventService {
       };
     }
   }
-
 
   // Delete Event ---------------------------------------------------------------
   public static async delete(eventId: string) {
