@@ -40,5 +40,4 @@ export interface Guest2Type {
 export interface InvitationType {
   event_id: string;
   guest_id: string;
-  qr_code: string;
 }
