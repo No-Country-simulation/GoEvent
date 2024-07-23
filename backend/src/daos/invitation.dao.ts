@@ -54,7 +54,7 @@ export default class InvitationDAO {
     }
 
     //Registrar asistencia
-    public static async registerAttendance(eventId: string, qr_code: number) {
+    public static async registerAttendance(event_id: string, qr_code: string) {
         try {
             const invitation = await Invitation.update(
                 {
@@ -63,7 +63,7 @@ export default class InvitationDAO {
                 },
                 {
                     where:
-                        { event_id: eventId, qr_code },
+                        { event_id, qr_code },
                     returning: true
                 }
             );
