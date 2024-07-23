@@ -11,7 +11,7 @@ interface NavBarProps {
 const Navbar: React.FC<NavBarProps> = ({ openMenu }) => {
   const [user] = useAtom(userAtom);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (user) openMenu(true);

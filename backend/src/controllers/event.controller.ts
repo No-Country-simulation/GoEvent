@@ -70,6 +70,19 @@ export default class EventController {
       res.status(500).json({ error });
     }
   }
+  // Update EventImage ---------------------------------------------------------------
+  public static async updateTemplate(req: Request, res: Response) {
+    try {
+      const serviceResponse = await EventService.updateImage(req.file);
+      if (serviceResponse.success === false) {
+        res.status(400).json(serviceResponse);
+        return;
+      }
+      res.status(200).json(serviceResponse);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
 
   // Get guests by Event id -----------------------------------------------------
   public static async getGuestsByEventId(req: Request, res: Response) {

@@ -10,6 +10,7 @@ import eventRoutes from '../routes/event.routes';
 import utilsRoutes from '../routes/utils.routes';
 import subscriptiontypeRoutes from '../routes/subscriptiontype.routes';
 import invitationRoutes from '../routes/invitation.routes';
+import templateRoutes from '../routes/template.routes';
 
 export default class Server {
   public app: express.Application;
@@ -49,6 +50,7 @@ export default class Server {
     this.app.use(`/${API_VERSION}/subscriptiontype`, subscriptiontypeRoutes);
     this.app.use(`/${API_VERSION}/invitation`, invitationRoutes)
     this.app.use(`/${API_VERSION}/utils`, utilsRoutes);
+    this.app.use(`/${API_VERSION}/template`, templateRoutes);
   }
 
   private errorHandler() {
