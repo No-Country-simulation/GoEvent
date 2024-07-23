@@ -58,16 +58,18 @@ export default class InvitationService {
         }
     }
 
-    //Enviar invitaciones por evento
+    //Enviar invitaciones por eventopublic static async sendInvitationByEventId(userId: string, eventId: string) {
     public static async sendInvitationByEventId(userId: string, eventId: string) {
         try {
             const event = await EventDAO.findEventByUserIdAndEventId(userId, eventId);
             if (!event) return { success: false, message: 'Event not found.' };
 
-            const event_guests = await EventDAO.getGuestsByEventId(eventId, userId);
+            const event_guests: any = await EventDAO.getGuestsByEventId(eventId, userId); //<-----------any
             if (!event_guests) return { success: false, message: 'Event or guests not found.' };
 
-            event_guests.forEach(async (guest: any) => { /// <------------ arreglar any
+            let sent_invitations: any = []; //<-----------any
+
+            for (const guest of event_guests) {
                 if (guest.invitation_status === 'notsent') {
                     const sendInvitation = await EmailHelper.sendInvitation(
                         guest.guest_email, event.name, event.location, event.date,
@@ -75,11 +77,12 @@ export default class InvitationService {
                     );
                     if (sendInvitation.success) {
                         await InvitationDAO.update({ status: InvitationStatus.SENT }, guest.invitation_id);
+                        sent_invitations.push({ ...guest, invitation_status: InvitationStatus.SENT });
                     }
                 }
-            })
+            }
 
-            return { success: true, data: event_guests };
+            return { success: true, data: sent_invitations };
         } catch (error: any) {
             console.error('Error getting invitations service:', error);
             return {
@@ -88,6 +91,7 @@ export default class InvitationService {
             };
         }
     }
+
 
     //Registrar asistencia de una invitación
     public static async registerAttendance(event_id: string, qr_code: string) {
