@@ -3,6 +3,7 @@ import { AccessHub, Home, Events } from "./pages";
 import LandingPage from "./pages/LandingPage";
 import ProtecteRoute from "./components/ProtecteRoute";
 import EventDetailsPage from "./pages/EventDetailsPage";
+import InvitationEditor from "./components/invitationTemplate/InvitationEdit";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<AccessHub />} />
+        <Route path="/invitationEdit" element={<InvitationEditor/>} />
         <Route
           path="/home"
           element={<ProtecteRoute element={<Home />} redirectTo={"/login"} />}

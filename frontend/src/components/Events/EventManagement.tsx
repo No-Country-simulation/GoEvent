@@ -20,15 +20,17 @@ const EventManagement = () => {
     if (response.success) setEvents(response.data.events);
   };
 
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+
   useEffect(() => {
     getAllEvents();
   }, []);
 
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar openMenu={setIsOpenMenu} />
 
-      <div className="degradado h-screen text-[#0D1512]">
+      <div className="degradado h-fit-content pb-12 text-[#0D1512]">
         <div className="flex justify-between px-12">
           <h2 className="mb-4 py-12 text-3xl font-semibold">Mis Eventos</h2>
           <button className="text-3xl text-gray-600">
@@ -57,39 +59,6 @@ const EventManagement = () => {
               <p className="ps-5">Crear evento nuevo</p>
               <img src="../public/icons/Multiply.png" alt="" />
             </button>
-          </div>
-          {/*Card*/}
-          <div className="fondo3 mt-[100px] flex items-center justify-between rounded-xl p-6">
-            <div className="flex items-center">
-              <div className="mr-4">
-                <img
-                  src="./public/Jamie4.png"
-                  alt="Invitation card"
-                  className="w[217px] h-[348px] border-4 border-yellow-300"
-                />
-              </div>
-              <div className="text-xl">
-                <h2 className="pb-10 text-2xl font-bold">Cumpleaños</h2>
-                <p className="mt-2">Viernes 9 de Agosto</p>
-                <p className="pb-10">Comienza: 22.00 hs</p>
-                <p className="pb-12">Chacabuco 123, CABA.</p>
-                <p className="mt-4">Invitaciones enviadas</p>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <button className="boton mb-2 h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl hover:bg-orange-500">
-                Gestionar Invitados
-              </button>
-              <button className="boton mb-3 mt-3 flex h-[68px] w-[363px] items-center justify-center rounded-xl px-4 py-4 text-xl hover:bg-orange-500">
-                <img src="./public/Qr_Code.png" alt="" />
-                <p className="ps-4">Escanear QR</p>
-              </button>
-              <button className="flex px-4">
-                <p className="ps-12 pt-[100px] text-xl underline decoration-1">
-                  Eliminar evento
-                </p>
-              </button>
-            </div>
           </div>
 
           <div>
