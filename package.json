@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "node-xls": "^0.0.8",
-    "node-xlsx": "^0.24.0"
-  }
-}
