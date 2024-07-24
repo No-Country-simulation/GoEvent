@@ -3,21 +3,15 @@ import { handleApiCall } from "../utils";
 import { saveToLocalStorage } from "../utils/localStorageUtils";
 import api from "./api";
 
-export const login = async (data: LoginData) => {
+export const login = async (data: LoginData, setUser: any) => {
   let response = await handleApiCall(api.post("/auth/login", data));
 
-  // luego se puede hacer lo que desee con la informacion
   if (response.success) {
     const { user, token } = response.data;
-    saveToLocalStorage("user", { user, token });
+    setUser({ user, token });
   }
-  console.log(response, data);
   return response;
 };
 
-export const register = async (data: RegisterData) => {
-  let response = await handleApiCall(api.post("/auth/register", data));
-  console.log(response, data);
-
-  return response;
-};
+export const register = async (data: RegisterData) =>
+  await handleApiCall(api.post("/auth/register", data));

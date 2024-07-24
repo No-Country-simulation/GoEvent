@@ -3,11 +3,12 @@ import { sequelize } from '../../config/sequelize.config';
 import { EventAttributes, EventStatus, EventType } from '../../types/event.types';
 import { User } from '../index';
 
-interface EventCreationAttributes extends Optional<EventAttributes, 'id'> { }
+interface EventCreationAttributes extends Optional<EventAttributes, 'id'> {}
 
 export class Event extends Model<EventAttributes, EventCreationAttributes> implements EventAttributes {
   public id!: string;
   public name!: string;
+  public template_image!: string;
   public description!: string;
   public location!: string;
   public time!: Date;
@@ -30,6 +31,10 @@ Event.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    template_image: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     description: {
       type: DataTypes.STRING,

@@ -69,11 +69,8 @@ export default class InvitationController {
     // Registrar asistencia de una invitación
     public static async registerAttendance(req: Request, res: Response) {
         try {
-            const { invitation_id, qr_code } = req.params;
-            if (!invitation_id || !qr_code) {
-                return { success: false, message: 'Data not found.' };
-            }
-            const serviceResponse = await InvitationService.registerAttendance(invitation_id, qr_code);
+            const { event_id, qr_code } = req.params;
+            const serviceResponse = await InvitationService.registerAttendance(event_id, qr_code);
             if (serviceResponse.success === false) {
                 res.status(HTTP_STATUS.BAD_REQUEST).json(serviceResponse);
                 return;

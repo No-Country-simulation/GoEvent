@@ -40,7 +40,8 @@ class GuestController {
     async createOne(req: Request, res: Response, next: NextFunction) {
         try {
             const user_id = req.user as string
-            const guest = await guestService.createOne(user_id, req.body);
+            const event_id = req.body.event_id
+            const guest = await guestService.createOne(user_id, req.body, event_id);
             res.status(HTTP_STATUS.CREATED).json(guest);
         } catch (error) {
             next(error);
