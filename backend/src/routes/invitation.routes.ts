@@ -7,9 +7,9 @@ import passport from '../middlewares/auth.mid';
 export default express
     .Router()
     .post("/create", InvitationController.create)
-    .get("/find/:id", InvitationController.findInvitationByEventId)
-    .put("/update", InvitationController.update)
+    .get("/find/:eventId", InvitationController.findInvitationByEventId)
+    .put("/update/:invitationId", InvitationController.update)
     .get("/sendInvitationByEventId/:eventId", passport.authenticate('userJWT', { session: false }), InvitationController.sendInvitationByEventId)
     .post("/registerAttendance/:event_id/:qr_code", InvitationController.registerAttendance)
-    .delete("/delete/:id", InvitationController.delete)
+    .delete("/delete/:invitationId", InvitationController.delete)
 

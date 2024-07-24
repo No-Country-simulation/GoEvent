@@ -1,20 +1,23 @@
-import { RESEND_API_KEY } from "../config/environment"
+import { SENDGRID_API_KEY, RESEND_API_KEY } from "../config/environment"
 import EmailTemplates from '../templates/email.templates';
 import { EventAttributes } from '../types/event.types';
 import ical from 'ical-generator';
 import * as QRCode from 'qrcode';
 import { Resend } from 'resend';
+import sgMail from '@sendgrid/mail'
 
-const resend = new Resend(RESEND_API_KEY)
+//const resend = new Resend(RESEND_API_KEY)
+sgMail.setApiKey(SENDGRID_API_KEY)
 
 export default class EmailHelper {
   private constructor() { }
 
   private static async sendEmail(msg: any) {
     try {
-      msg.from = 'GoEvent <delivered@resend.dev>'
-      const response = await resend.emails.send(msg)
-      if (response.error) return { success: false, message: response.error }
+      msg.from = 'GoEvent <sync.ideas.group@gmail.com>'
+      //const response = await resend.emails.send(msg)
+      const response = await sgMail.send(msg)
+      if (response[0].statusCode !== 202) return { success: false, message: 'Email not sent' }
       return { success: true, message: 'Email sent.' }
     } catch (error) {
       return error
@@ -42,7 +45,7 @@ export default class EmailHelper {
     return buffer
   }
 
-  static async sendVerificationEmail(email: string, code: number): Promise<any> {
+  static async sendVerificationEmail(email: string, code: string): Promise<any> {
     try {
       const msg = {
         to: email,
@@ -104,7 +107,8 @@ export default class EmailHelper {
           }
         ]
       };
-      return await this.sendEmail(msg)
+      const response = await this.sendEmail(msg)
+      return response
     } catch (error) {
       return {
         success: false,

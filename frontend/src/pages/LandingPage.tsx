@@ -23,10 +23,10 @@ const LandingPage = () => {
       ) : (
         <div className="mx-auto sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
           {/*Grid*/}
-          <div className="grid items-center justify-between gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
-            {imagenes.map((e) => (
-              <img src={e.src} alt={e.alt} className="imgStyle" />
-            ))}
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 items-center justify-between gap-6 pb-14 pt-7">
+            {imagenes.map((e, i) => {
+              return <img key={i} src={e.src} alt={e.alt} className="imgStyle" />;
+            })}
           </div>
 
           {/*Como funciona GoEvent*/}

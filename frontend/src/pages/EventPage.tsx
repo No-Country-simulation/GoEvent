@@ -1,4 +1,4 @@
-import EventManagement from "../components/events/EventManagement";
+import EventManagement from "../components/Events/EventManagement";
 
 const EventPage = () => {
   return (

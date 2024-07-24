@@ -13,4 +13,5 @@ export default express
   .get("/findStatus", EventController.findEventByStatus)
   .get("/findGuests/:id", passport.authenticate("userJWT", { session: false }), EventController.getGuestsByEventId)
   .put("/update", EventController.update)
+  .put("/updateTemplate", upload.single("template_image"), EventController.updateTemplate)
   .delete("/delete/:id", EventController.delete)
