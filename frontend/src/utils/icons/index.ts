@@ -7,3 +7,5 @@ export { default as magneticCardIcon } from "./magneticCardIcon.png";
 export { default as membershipCardIcon } from "./membershipCardIcon.png";
 export { default as closeIcon } from "./closeIcon.png";
 export { default as googleIcon } from "./googleIcon.png";
+export { default as successGif } from "./successGif.gif";
+export { default as errorGif } from "./errorGit.gif";

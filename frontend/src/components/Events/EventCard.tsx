@@ -37,11 +37,10 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
           <h2 className="pb-10 text-2xl font-bold">{name}</h2>
           <p className="py-5">Detalles: {description}</p>
           <time dateTime={date}>
-            Fecha: {dateFormat(date)} 
+            Fecha: {dateFormat(date)}
             <p>comienza: {time.slice(0, 5)} hs</p>
           </time>
-          
-          
+
           <p className="pb-12">Lugar: {location}</p>
           <p className="mt-4">Invitaciones enviadas</p>
         </div>
@@ -54,19 +53,21 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
           Gestionar Invitados
         </button>
         <button
+          onClick={() => setIsOpenScanner(true)}
           className="boton mb-3 mt-3 flex h-[68px] w-[363px] items-center justify-center rounded-xl px-4 py-4 text-xl hover:bg-orange-500"
-          onClick={() => handleDeleteEvent(id)}
         >
           <img src="./public/Qr_Code.png" alt="" />
           <p className="ps-4">Escanear QR</p>
         </button>
-        <button className="flex px-4">
+        <button className="flex px-4" onClick={() => handleDeleteEvent(id)}>
           <p className="ps-12 pt-[100px] text-xl underline decoration-1">
             Eliminar evento
           </p>
         </button>
       </div>
-      {isOpenScanner && <QrScanner eventId={id} />}
+      {isOpenScanner && (
+        <QrScanner eventId={id} closeScanner={setIsOpenScanner} />
+      )}
     </div>
   );
 };
