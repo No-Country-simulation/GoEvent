@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EventType } from "../../types";
+import { EventStatus, EventType } from "../../types";
 import { dateFormat } from "../../utils";
 import { deleteEvent } from "../../services";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
     } else alert("Hubo un error al eliminar el evento");
   };
 
-  let { name, date, time, id, location, description } = eventData; // destructuring eventData
+  let { name, date, time, id, location, description, status } = eventData; // destructuring eventData
   return (
     <div className="fondo3 mt-[100px] flex items-center justify-between rounded-xl p-6">
       <div className="flex items-center">
@@ -52,13 +52,15 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
         >
           Gestionar Invitados
         </button>
-        <button
-          onClick={() => setIsOpenScanner(true)}
-          className="boton mb-3 mt-3 flex h-[68px] w-[363px] items-center justify-center rounded-xl px-4 py-4 text-xl hover:bg-orange-500"
-        >
-          <img src="./public/Qr_Code.png" alt="" />
-          <p className="ps-4">Escanear QR</p>
-        </button>
+        {status === EventStatus.ONGOING && (
+          <button
+            onClick={() => setIsOpenScanner(true)}
+            className="boton mb-3 mt-3 flex h-[68px] w-[363px] items-center justify-center rounded-xl px-4 py-4 text-xl hover:bg-orange-500"
+          >
+            <img src="./public/Qr_Code.png" alt="" />
+            <p className="ps-4">Escanear QR</p>
+          </button>
+        )}
         <button className="flex px-4" onClick={() => handleDeleteEvent(id)}>
           <p className="ps-12 pt-[100px] text-xl underline decoration-1">
             Eliminar evento

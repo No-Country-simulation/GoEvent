@@ -47,7 +47,11 @@ const EventManagement = () => {
                 id="filter"
                 className="fondo2 orangeshadow w-[576px] rounded-xl border border-gray-300 p-8 text-base"
               >
-                <option>Filtrar por: Todos los eventos (1)</option>
+                <option>Filtrar por: Todos los eventos </option>
+                <option>Filtrar por: En Curso</option>
+                <option>Filtrar por: Proximos </option>
+                <option>Filtrar por: Finalizados</option>
+                <option>Filtrar por: Cancelados</option>
               </select>
             </div>
 
