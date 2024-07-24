@@ -12,9 +12,9 @@ export const deleteEvent = async (eventId: string) =>
   await handleApiCall(api.delete(`/event/delete/${eventId}`));
 
 export const getOneEvent = async (userId: string, eventId = "") => {
-  let response = await handleApiCall(api.get(`/event/find/${userId}`));
+  const response = await handleApiCall(api.get(`/event/find/${userId}`));
   if (response.success) {
-    let filterOfEvents = response.data.events.find(
+    const filterOfEvents = response.data.events.find(
       (e: EventType) => e.id === eventId,
     );
     return filterOfEvents
