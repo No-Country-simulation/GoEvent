@@ -1,9 +1,10 @@
 import { type Request, type Response } from 'express';
 import EventService from '../services/event.service';
 import { EventAttributes, EventStatus } from '../types/event.types';
-
+import multer from 'multer';
+const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } }); // Limitar el tamaño del archivo a 50MB
 export default class EventController {
-  private constructor() { }
+  private constructor() {}
 
   // Create Event -------------------------------------------------------------
   public static async create(req: Request, res: Response) {
@@ -24,7 +25,7 @@ export default class EventController {
   // Find Event By User Id---------------------------------------------------------------
   public static async findEventByUserId(req: Request, res: Response) {
     try {
-      const user_id = req.params.id
+      const user_id = req.params.id;
 
       if (!user_id) {
         res.status(400).json({ success: false, message: 'User ID is required' });
@@ -73,7 +74,11 @@ export default class EventController {
   // Update EventImage ---------------------------------------------------------------
   public static async updateTemplate(req: Request, res: Response) {
     try {
-      const serviceResponse = await EventService.updateImage(req.file);
+      console.log(req.body);
+      const  id  = req.body.id;
+      const template_image = req.file
+
+      const serviceResponse = await EventService.updateImage(id, template_image);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);
         return;
@@ -88,7 +93,7 @@ export default class EventController {
   public static async getGuestsByEventId(req: Request, res: Response) {
     try {
       const eventId = req.params.id;
-      const userId = req.user as string
+      const userId = req.user as string;
       const serviceResponse = await EventService.getGuestsByEventId(eventId, userId);
       if (serviceResponse.success === false) {
         res.status(400).json(serviceResponse);

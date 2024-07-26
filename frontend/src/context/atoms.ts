@@ -3,7 +3,9 @@ import {
   loadFromLocalStorage,
   saveToLocalStorage,
 } from "../utils/localStorageUtils";
-import { userAndToken } from "../types";
+import { Event, userAndToken } from "../types";
+import { Template } from '../types';
+
 
 const createPersistedAtom = <T>(key: string, initilValue: T) => {
   const baseAtom = atom<T>(loadFromLocalStorage<T>(key) || initilValue);
@@ -18,4 +20,6 @@ const createPersistedAtom = <T>(key: string, initilValue: T) => {
   return persistedAtom;
 };
 
+export const selectedTemplateAtom = createPersistedAtom<Template | null>('selectedTemplate', null);
+export const selectedEventAtom = createPersistedAtom<Event | null>('selectedEvent', null);
 export const userAtom = createPersistedAtom<userAndToken | null>("user", null);

@@ -39,7 +39,8 @@ export default class Server {
 
   private middlewares() {
     this.app.use(cors({ origin: CORS_ORIGIN }));
-    this.app.use(express.json());
+    this.app.use(express.json({ limit: '50mb' }));
+    this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
   }
 
   private routes() {
@@ -48,7 +49,7 @@ export default class Server {
     this.app.use(`/${API_VERSION}/event`, eventRoutes);
     this.app.use(`/${API_VERSION}/guest`, guestRoutes);
     this.app.use(`/${API_VERSION}/subscriptiontype`, subscriptiontypeRoutes);
-    this.app.use(`/${API_VERSION}/invitation`, invitationRoutes)
+    this.app.use(`/${API_VERSION}/invitation`, invitationRoutes);
     this.app.use(`/${API_VERSION}/utils`, utilsRoutes);
     this.app.use(`/${API_VERSION}/template`, templateRoutes);
   }
