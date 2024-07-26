@@ -56,11 +56,11 @@ const EventDetails = () => {
       <div className="fondo3 mt-[100px] flex items-center justify-between rounded-xl p-6">
         <div className="flex items-center">
           <div className="mr-4">
-            {/* <img
-            src={event.template_image}
-            alt="Invitation card"
-            className="w[217px] h-[348px] border-4 border-yellow-300"
-          /> */}
+            <img
+              src={event?.template_image || ""}
+              alt="Invitation card"
+              className="h-[348px] w-[217px] border-4 border-yellow-300"
+            />
           </div>
           <div className="text-xl">
             <h2 className="pb-10 text-2xl font-bold">{event?.name}</h2>

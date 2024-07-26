@@ -3,7 +3,6 @@ import { loadFromLocalStorage } from "../utils";
 import { userAndToken } from "../types";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
-console.log(baseUrl);
 // instancia de axios para predefinir valores
 
 const api = axios.create({
