@@ -21,7 +21,7 @@ const LandingPage = () => {
       {isOpenMenu ? (
         <UserMenu closeMenu={setIsOpenMenu} />
       ) : (
-        <div className="xl:w-[1100px] lg:w-[900px] md:w-[700px] sm:w-[400px] mx-auto">
+        <div className="font-gotic xl:w-[1100px] lg:w-[900px] md:w-[700px] sm:w-[400px] mx-auto">
           {/*Grid*/}
           <div className="grid md:grid-cols-2 xl:grid-cols-3 items-center justify-between gap-6 pb-14 pt-7">
             {imagenes.map((e, i) => {

@@ -28,9 +28,9 @@ const EventManagement = () => {
 
   return (
     <div>
-      <Navbar openMenu={setIsOpenMenu} />
+      <Navbar openMenu={setIsOpenMenu}/>
 
-      <div className="degradado h-fit-content text-[#0D1512] pb-12">
+      <div className="font-vietnam degradado h-fit-content text-[#0D1512] pb-12">
         <div className="flex justify-between px-12">
           <h2 className="mb-4 py-12 text-3xl font-semibold">Mis Eventos</h2>
           <button className="text-3xl text-gray-600">
