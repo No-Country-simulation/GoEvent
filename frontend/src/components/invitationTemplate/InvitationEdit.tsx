@@ -15,7 +15,7 @@ const InvitationEditor: React.FC = () => {
   const [fontSize, setFontSize] = useState(24);
   const invitationRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const [event, setEvent] = useAtom(selectedEventAtom);
+  const [event] = useAtom(selectedEventAtom);
   if (!event) {
     navigate(-1);
   }

@@ -37,7 +37,7 @@ export const dateFormat = (dateISO: string | undefined) => {
 // Verifica si la fecha actual es la misma que la del evento, y si es así
 // cambia su estado a "En curso"
 // Si el estado del evento es "En curso" pero su fecha es distinta a la actual
-// cambia su estado por "Completado"
+// cambia su estado a "Completado"
 
 export const eventIsToday = async (
   dateISO: string,

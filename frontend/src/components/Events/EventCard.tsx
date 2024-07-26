@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EventStatus, EventType } from "../../types";
 import { dateFormat, eventIsToday } from "../../utils";
 import { deleteEvent } from "../../services";
@@ -23,6 +23,10 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
   };
 
   let { name, date, time, id, location, description, status } = eventData; // destructuring eventData
+
+  useEffect(() => {
+    eventIsToday(date, status, id);
+  }, []);
   return (
     <div className="fondo3 mt-[100px] flex items-center justify-between rounded-xl p-6">
       <div className="flex items-center">
@@ -70,7 +74,6 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
       {isOpenScanner && (
         <QrScanner eventId={id} closeScanner={setIsOpenScanner} />
       )}
-      <button onClick={() => eventIsToday(date, status, id)}>Pruebas </button>
     </div>
   );
 };

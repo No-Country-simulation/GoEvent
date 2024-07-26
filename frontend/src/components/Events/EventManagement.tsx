@@ -2,17 +2,19 @@ import { useAtom } from "jotai";
 import { filterEvents, getEvents } from "../../services";
 import { userAtom } from "../../context/atoms";
 import getUserDatils from "../../utils/getUserDetailsUtils";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { EventStatus, EventType } from "../../types";
 import Navbar from "../Navbar";
 import EventCard from "./EventCard";
 import CreateEvent from "./CreateEvent";
 import UserMenu from "../home/UserMenu";
+import autoAnimate from "@formkit/auto-animate";
 
 const EventManagement = () => {
-  let [user] = useAtom(userAtom);
-  let [events, setEvents] = useState<EventType[] | []>([]);
-  let [isCreateEventOpen, setIsCreateEventOpen] = useState<boolean>(false);
+  const [user] = useAtom(userAtom);
+  const [events, setEvents] = useState<EventType[] | []>([]);
+  const [isCreateEventOpen, setIsCreateEventOpen] = useState<boolean>(false);
+  const parent = useRef(null);
 
   let { id } = getUserDatils(user);
 
@@ -34,16 +36,17 @@ const EventManagement = () => {
     getAllEvents();
   }, []);
 
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
+
   return (
     <div>
       <Navbar openMenu={setIsOpenMenu} />
       {!isOpenMenu ? (
-        <div className="degradado h-fit-content pb-12 text-[#0D1512]">
-          <div className="flex justify-between px-12">
+        <div className="degradado min-h-[calc(100vh-60px)] pb-12 text-[#0D1512]">
+          <div className="flex justify-between px-20">
             <h2 className="mb-4 py-12 text-3xl font-semibold">Mis Eventos</h2>
-            <button className="text-3xl text-gray-600">
-              <img src="../public/icons/Close.png" alt="" />
-            </button>
           </div>
           <div className="px-[200px]">
             {/*Linea filtro y botón crear evento */}
@@ -83,7 +86,7 @@ const EventManagement = () => {
             </div>
 
             <div>
-              <ul>
+              <ul ref={parent}>
                 {events.map((event) => (
                   <li key={event.id}>
                     <EventCard eventData={event} />
@@ -93,12 +96,12 @@ const EventManagement = () => {
             </div>
             {isCreateEventOpen && <CreateEvent />}
 
-            {/*Cerrar sesion*/}
+            {/* Cerrar sesion
 
             <button className="flex ps-7 pt-[150px]">
               <img src="./public/icons/Logout.png" alt="" />
               <p className="ps-4 pt-1 text-xl">Cerrar sesion</p>
-            </button>
+            </button> */}
           </div>
         </div>
       ) : (
