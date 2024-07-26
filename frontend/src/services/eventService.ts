@@ -5,6 +5,9 @@ import api from "./api";
 export const createEvent = async (dataEvent: any) =>
   await handleApiCall(api.post("/event/create", dataEvent));
 
+export const updateEventImage = async (dataEvent: any) =>
+  await handleApiCall(api.put(`/event/updateTemplate`, dataEvent));
+
 export const getEvents = async (userId: string) =>
   await handleApiCall(api.get(`/event/find/${userId}`));
 
