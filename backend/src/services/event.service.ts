@@ -108,13 +108,14 @@ export default class EventService {
       };
     }
   }
-  public static async updateImage(template_image: any) {
+  public static async updateImage(evenId: string, template_image: any) {
     try {
       if (!template_image) {
         return { success: false, message: 'No Template to update.' };
       }
       const profile_image_url = await UploadHelper.uploadImage(template_image.buffer);
       const event: Partial<EventAttributes> = {
+        id: evenId,
         template_image: profile_image_url,
       };
       const updatedEvent = await EventDAO.update(event);

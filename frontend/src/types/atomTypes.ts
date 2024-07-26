@@ -12,6 +12,20 @@ interface userData {
   subscription_type: string;
   updated_at: string;
 }
+export interface Event{
+  id: string;
+  name: string;
+  description: string;
+  location: string;
+  template_image: null | string;
+  time: string;
+  date: string;
+  user_id: string;
+  status: string;
+  type: string;
+  created_at: null | string;
+  updated_at: null | string;
+}
 export interface userAndToken {
   token: string;
   user: userData;
