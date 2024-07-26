@@ -1,6 +1,7 @@
 import moment from "moment";
 
-export const dateFormat = (dateISO: string) => {
+export const dateFormat = (dateISO: string | undefined) => {
+  if (!dateISO) return "No disponible";
   const date = moment(dateISO);
 
   const days = [

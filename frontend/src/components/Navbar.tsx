@@ -2,23 +2,22 @@ import { useAtom } from "jotai";
 import { userAtom } from "../context/atoms";
 import { useNavigate } from "react-router-dom";
 import UserMenu from "./home/UserMenu";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
+import { SetStateAction } from "jotai/vanilla";
 
-// interface NavBarProps {
-//   openMenu: Dispatch<SetStateAction<boolean>>;
-// }
+interface NavBarProps {
+  openMenu: Dispatch<SetStateAction<boolean>>;
+}
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<NavBarProps> = ({ openMenu }) => {
   const [user] = useAtom(userAtom);
 
   const navigate = useNavigate();
 
-  // const handleClick = () => {
-  //   if (user) openMenu(true);
-  //   else navigate("/login");
-  // };
-
-  let [openMenu, setOpenMenu] = useState(false);
+  const handleClick = () => {
+    if (user) openMenu(true);
+    else navigate("/login");
+  };
 
   return (
     <div>
@@ -27,6 +26,7 @@ const Navbar: React.FC = () => {
           src="./public/Menu.png"
           className="curs ml-7 h-[25px] w-[25px]"
           alt="menu"
+          onClick={handleClick}
         />
         <img
           src="./public/Union.svg"
@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
         />
         <p className="mr-5 mt-1 text-sm">Iniciar sesión</p>
       </div>
-      <UserMenu closeMenu={setOpenMenu} />
+      {/* <UserMenu closeMenu={setOpenMenu} />   */}
     </div>
   );
 };

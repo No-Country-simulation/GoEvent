@@ -13,14 +13,25 @@ const TemplateSelector: React.FC = () => {
 
   useEffect(() => {
     const fetchTemplates = async () => {
-      try {
-        const templates = await getTemplates();
-        setTemplates(templates.data.templates);
-      } catch (error) {
-        console.error("Error fetching templates:", error);
-      } finally {
-        setLoading(false);
-      }
+      // try {
+      //   const templates = await getTemplates();
+      //   setTemplates(templates.data.templates);
+      //   console.error("Error fetching templates:", error);
+      // } finally {
+      //   setLoading(false);
+      // }
+
+      // Si no estoy mal, no es necesario en uso de tryCatch porque
+      // ya estamos manejando los errores dentro de la llamada, solo
+      // tenemos que preguntar por templates.success
+
+      const templates = await getTemplates();
+
+      templates.success
+        ? setTemplates(templates.data.templates)
+        : console.error("Error fetching templates:", templates.error);
+
+      setLoading(false);
     };
 
     fetchTemplates();
@@ -32,7 +43,9 @@ const TemplateSelector: React.FC = () => {
 
   return (
     <div className="p-4">
-      <h2 className="mb-4 text-center text-xl font-bold">Selecciona una Plantilla</h2>
+      <h2 className="mb-4 text-center text-xl font-bold">
+        Selecciona una Plantilla
+      </h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {templates.map((template) => (
           <div
@@ -44,7 +57,7 @@ const TemplateSelector: React.FC = () => {
               alt={`Plantilla ${template.id}`}
               onClick={() => {
                 setSelectedTemplate(template);
-                navigate('/invitationEdit');
+                navigate("/invitationEdit");
               }}
               className="h-auto w-full cursor-pointer"
             />

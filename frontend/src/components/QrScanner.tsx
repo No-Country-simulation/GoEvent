@@ -74,7 +74,7 @@ const QrScanner: React.FC<QrScannerProps> = ({ eventId, closeScanner }) => {
         </div>
       </div>
 
-      <div className="fixed inset-0 z-40 bg-black opacity-50"></div>
+      <div className="fixed inset-0 z-40 bg-black opacity-10"></div>
     </div>
   );
 };
