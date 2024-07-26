@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { EventStatus, EventType } from "../../types";
-import { dateFormat } from "../../utils";
+import { dateFormat, eventIsToday } from "../../utils";
 import { deleteEvent } from "../../services";
 import { useNavigate } from "react-router-dom";
 import QrScanner from "../QrScanner";
@@ -70,6 +70,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
       {isOpenScanner && (
         <QrScanner eventId={id} closeScanner={setIsOpenScanner} />
       )}
+      <button onClick={() => eventIsToday(date, status, id)}>Pruebas </button>
     </div>
   );
 };

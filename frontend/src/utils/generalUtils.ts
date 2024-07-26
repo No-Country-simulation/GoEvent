@@ -1,4 +1,7 @@
 import moment from "moment";
+import { EventStatus } from "../types";
+import { Id } from "react-beautiful-dnd";
+import { updateEvent } from "../services";
 
 export const dateFormat = (dateISO: string | undefined) => {
   if (!dateISO) return "No disponible";
@@ -31,15 +34,26 @@ export const dateFormat = (dateISO: string | undefined) => {
   return `${days[date.day()]} ${date.date()} de ${months[date.month()]}`;
 };
 
-export const generateUniqueCode = (): string => {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabc0123456789defghijkUVWXYZabc01234lmnopqrstuvwxyz0123456789JKLMNOPQRSTUV";
-  const length = 6;
-  let code: string;
+// Verifica si la fecha actual es la misma que la del evento, y si es así
+// cambia su estado a "En curso"
+// Si el estado del evento es "En curso" pero su fecha es distinta a la actual
+// cambia su estado por "Completado"
 
-  code = Array.from({ length }, () =>
-    characters.charAt(Math.floor(Math.random() * characters.length)),
-  ).join("");
+export const eventIsToday = async (
+  dateISO: string,
+  eventState: string,
+  eventId: string,
+) => {
+  let today = moment().format("YYYY-MM-DD");
+  let eventDate = moment(dateISO).format("YYYY-MM-DD");
 
-  return code;
+  if (eventState === EventStatus.SCHEDULED) {
+    if (today === eventDate) {
+      await updateEvent({ id: eventId, status: EventStatus.ONGOING });
+    }
+  } else if (eventState === EventStatus.ONGOING) {
+    if (today !== eventDate) {
+      await updateEvent({ id: eventId, status: EventStatus.COMPLETED });
+    }
+  }
 };

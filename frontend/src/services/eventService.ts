@@ -51,3 +51,6 @@ export const filterEvents = async (eventStatus: string, userId: string) => {
 
   return response;
 };
+
+export const updateEvent = async (dataEvent: any) =>
+  await handleApiCall(api.put("/event/update", dataEvent));
