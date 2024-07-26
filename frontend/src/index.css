@@ -16,11 +16,11 @@
         background: #FFF;
     }
 
-    .fondo2{
-        background: #F5ECD7; 
+    .fondo2 {
+        background: #F5ECD7;
     }
 
-    .fondo3{
+    .fondo3 {
         background: #EBE2CD;
     }
 
@@ -35,9 +35,14 @@
     .footer {
         background: linear-gradient(180deg, rgba(255, 135, 137, 0.75) 9.47%, rgba(245, 145, 119, 0.75) 32.93%, rgba(235, 156, 100, 0.75)80.11%);
     }
+
     .orangeshadow {
         box-shadow: 2px 2px 4px 0px #EB9C64;
 
+    }
+
+    .no-scroll {
+        overflow: hidden;
     }
 
     .inputStyle {

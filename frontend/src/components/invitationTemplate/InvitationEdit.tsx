@@ -15,14 +15,14 @@ const InvitationEditor: React.FC = () => {
   const [fontSize, setFontSize] = useState(24);
   const invitationRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const [event, setEvent] = useAtom(selectedEventAtom);
+  const [event] = useAtom(selectedEventAtom);
   if (!event) {
     navigate(-1);
   }
   const [description, setDescription] = useState(event?.description);
 
   const [name, setName] = useState(event?.name);
-  const dateFormatView = dateFormat(event.date);
+  const dateFormatView = dateFormat(event?.date);
   const [date, setDate] = useState(dateFormatView);
   const [time, setTime] = useState(event?.time);
   const [eventLocation, setEventLocation] = useState(event?.location);
@@ -54,7 +54,7 @@ const InvitationEditor: React.FC = () => {
         // Convierte dataUrl a Blob y luego a File
         const blob = await fetch(dataUrl).then((res) => res.blob());
         const file = new File([blob], "invitation.png", { type: "image/png" });
-        
+
         // Prepare FormData
         const formData = new FormData();
         formData.append("id", event?.id || "");

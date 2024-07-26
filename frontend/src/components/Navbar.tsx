@@ -1,7 +1,8 @@
 import { useAtom } from "jotai";
 import { userAtom } from "../context/atoms";
 import { useNavigate } from "react-router-dom";
-import React, { Dispatch, useState } from "react";
+import UserMenu from "./home/UserMenu";
+import { Dispatch, useState } from "react";
 import { SetStateAction } from "jotai/vanilla";
 
 interface NavBarProps {
@@ -19,19 +20,33 @@ const Navbar: React.FC<NavBarProps> = ({ openMenu }) => {
   };
 
   return (
-    <div className="naranja mx-auto flex h-[60px] w-full items-center justify-between shadow-md shadow-gray-500">
-      <img
-        src="./public/Menu.png"
-        className="curs ml-7 h-[25px] w-[25px]"
-        alt="menu"
-        onClick={handleClick}
-      />
-      <img
-        src="./public/Union.svg"
-        className="ml-7 h-[200px] w-[150px]"
-        alt="logo"
-      />
-      <p className="mr-5 mt-1 text-sm">Iniciar sesión</p>
+    <div>
+      <div className="naranja flex h-[60px] w-full items-center px-10 shadow-md shadow-gray-500">
+        {user && (
+          <img
+            src="./public/Menu.png"
+            className="curs h-[25px] w-[25px]"
+            alt="menu"
+            onClick={handleClick}
+          />
+        )}
+        <div className="flex w-full justify-center">
+          <img
+            src="./public/Union.svg"
+            className="ml-7 h-[200px] w-[150px]"
+            alt="logo"
+          />
+        </div>
+        {!user && (
+          <p
+            onClick={() => navigate("/login")}
+            className="rounded-full border-2 border-white px-10 text-sm font-bold text-white"
+          >
+            Iniciar sesión
+          </p>
+        )}
+      </div>
+      {/* <UserMenu closeMenu={setOpenMenu} />   */}
     </div>
   );
 };

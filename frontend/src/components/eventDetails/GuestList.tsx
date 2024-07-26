@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { createInvitation, getAllGuests } from "../../services";
 import { Guest2Type } from "../../types";
-import { generateUniqueCode } from "../../utils";
 
 const GuestList = ({ event_id }: { event_id: string }) => {
   const [allGuests, setAllGuests] = useState([]);
@@ -14,8 +13,7 @@ const GuestList = ({ event_id }: { event_id: string }) => {
   };
 
   const addGuestToEvent = async (guest_id: string) => {
-    let qr_code = generateUniqueCode();
-    let response = await createInvitation({ event_id, guest_id, qr_code });
+    let response = await createInvitation({ event_id, guest_id });
 
     response.success
       ? alert("Invitado agregado correctamente")

@@ -12,20 +12,19 @@ const imagenes = [
 ];
 
 const LandingPage = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
 
   return (
     <div className="fondo">
-      <Navbar openMenu={setIsOpenMenu} />
-
-      {isOpenMenu ? (
-        <UserMenu closeMenu={setIsOpenMenu} />
-      ) : (
+      <Navbar openMenu={setIsOpenUserMenu} />
+      {!isOpenUserMenu ? (
         <div className="mx-auto sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
           {/*Grid*/}
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 items-center justify-between gap-6 pb-14 pt-7">
+          <div className="grid items-center justify-between gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
             {imagenes.map((e, i) => {
-              return <img key={i} src={e.src} alt={e.alt} className="imgStyle" />;
+              return (
+                <img key={i} src={e.src} alt={e.alt} className="imgStyle" />
+              );
             })}
           </div>
 
@@ -169,6 +168,8 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <UserMenu closeMenu={setIsOpenUserMenu} />
       )}
       <Footer />
     </div>
