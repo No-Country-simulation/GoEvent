@@ -10,11 +10,11 @@ import {
 } from "../../services/";
 import Navbar from "../Navbar";
 import { useEffect, useState } from "react";
-import { EventType } from "../../types";
 import CreateGuestForm from "./CreateGuestForm";
 import GuestList from "./GuestList";
 import { useNavigate } from "react-router-dom";
 import { dateFormat } from "../../utils";
+import { EventType } from "../../types";
 
 const EventDetails = () => {
   const [user] = useAtom(userAtom);
@@ -22,14 +22,12 @@ const EventDetails = () => {
   const [event, setEvent] = useAtom(selectedEventAtom);
   const [guestByEvent, setGuestByEvent] = useState([]);
   const [isOpenCreateGuest, setIsOpenCreateGuest] = useState<boolean>(false);
-  const [isOpenGuestList, setIsOpenGuestList] = useState<boolean>(false);
+  const [_, setIsOpenGuestList] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const { eventId } = useParams();
 
-  let { name, date, time, location } = event; //destructuring  event
-  
-
+  const { name, date, time, location } = event as EventType; //destructuring  event
 
   const getEvent = async () => {
     const response = await getOneEvent(id, eventId);
@@ -60,26 +58,8 @@ const EventDetails = () => {
 
   return (
     <div>
-<<<<<<< HEAD
-      <div className="fondo3 mt-[100px] flex items-center justify-between rounded-xl p-6">
-        <div className="flex items-center">
-          <div className="mr-4">
-            <img
-              src={event?.template_image || ""}
-              alt="Invitation card"
-              className="h-[348px] w-[217px] border-4 border-yellow-300"
-            />
-          </div>
-          <div className="text-xl">
-            <h2 className="pb-10 text-2xl font-bold">{event?.name}</h2>
-            <p className="py-5">Detalles: {event?.description}</p>
-            <time dateTime={event?.date}>
-              Fecha: {dateFormat(event?.date)}
-              <p>comienza: {event?.time.slice(0, 5)} hs</p>
-            </time>
-=======
       <Navbar openMenu={setIsOpenMenu} />
-      <div className="font-vietnam degradado h-fit-content text-[#0D1512]">
+      <div className="degradado h-fit-content font-vietnam text-[#0D1512]">
         <h2 className="ps-[150px] pt-8 text-2xl font-normal">
           Gestionar evento
         </h2>
@@ -94,9 +74,7 @@ const EventDetails = () => {
               <div className="">
                 <h3 className="ps-8 text-xl">{name}</h3>
                 <p className="ps-8 pt-8 text-base">{dateFormat(date)}</p>
-                <p className="ps-8 pt-1 text-base">
-                  Comienza: {time} hs
-                </p>
+                <p className="ps-8 pt-1 text-base">Comienza: {time} hs</p>
                 <p className="ps-8 pt-8 text-base">{location}</p>
                 <div>
                   <button className="boton mb-2 ms-8 mt-8 h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl hover:bg-orange-500">
@@ -108,12 +86,13 @@ const EventDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="mx-8 mt-4 mb-10 rounded-xl border border-[#C2BAA6] px-3 py-6">
-             
+            <div className="mx-8 mb-10 mt-4 rounded-xl border border-[#C2BAA6] px-3 py-6">
               {/* Línea opciones configuración invitación*/}
               <div className="flex justify-between text-2xl">
-                <button className="pr-[200px] hover:text-gray-500"
-                onClick={() => setIsOpenGuestList(true)}>
+                <button
+                  className="pr-[200px] hover:text-gray-500"
+                  onClick={() => setIsOpenGuestList(true)}
+                >
                   <p>Invitaciones enviadas</p>
                 </button>
                 <button className="flex hover:text-gray-500">
@@ -132,8 +111,10 @@ const EventDetails = () => {
                   />
                   <p className="ps-2">Enviar Mensaje</p>
                 </button>
-                <button className="flex hover:text-gray-500"
-                onClick={() => setIsOpenCreateGuest(true)}>
+                <button
+                  className="flex hover:text-gray-500"
+                  onClick={() => setIsOpenCreateGuest(true)}
+                >
                   <img
                     className="h-[40px] w-[40px] pb-2"
                     src="../public/icons/Multiply2.png"
@@ -142,20 +123,21 @@ const EventDetails = () => {
                   <p className="ps-2">Agregar Invitados</p>
                 </button>
               </div>
->>>>>>> develop
 
               {/* Linea filtro estado Invitados */}
-              <div className="flex justify-between text-xl text-[#0D1512] pb-5">
-                <button className="mt-[70px] hover:font-bold hover:text-gray-600 hover:underline"
-                onClick={() => setIsOpenGuestList(true)}
+              <div className="flex justify-between pb-5 text-xl text-[#0D1512]">
+                <button
+                  className="mt-[70px] hover:font-bold hover:text-gray-600 hover:underline"
+                  onClick={() => setIsOpenGuestList(true)}
                 >
                   Opciones de invitados
                 </button>
                 <button className="ml-4 mt-[70px] hover:font-bold hover:text-gray-600 hover:underline">
                   Enviar mensaje
                 </button>
-                <button className="ml-4 mt-[70px] hover:font-bold hover:text-gray-600 hover:underline"
-                onClick={() => setIsOpenCreateGuest(true)}
+                <button
+                  className="ml-4 mt-[70px] hover:font-bold hover:text-gray-600 hover:underline"
+                  onClick={() => setIsOpenCreateGuest(true)}
                 >
                   Agregar invitados
                 </button>
@@ -175,41 +157,38 @@ const EventDetails = () => {
               {/* map Invitados */}
 
               <div>
-                {guestByEvent.map((guest) =>{
+                {guestByEvent.map((guest: any) => {
                   return (
-                    <div className="flex justify-between py-5 border-b-2 border-[#C2BAA6]" key={guest.guest_id}>
-                    <div className="pt-5">
-                      <p className="text-xl">{guest.guest_fullname}</p>
-                      <p className="pt-3">{guest.guest_email}</p>
+                    <div
+                      className="flex justify-between border-b-2 border-[#C2BAA6] py-5"
+                      key={guest.guest_id}
+                    >
+                      <div className="pt-5">
+                        <p className="text-xl">{guest.guest_fullname}</p>
+                        <p className="pt-3">{guest.guest_email}</p>
+                      </div>
+                      <div className="flex pt-7">
+                        <button className="mx-5">
+                          <img
+                            className="h-[25px] w-[25px]"
+                            src="../public/icons/Pencil.png"
+                            alt="edit"
+                          />
+                        </button>
+                        <button className="mr-5 ms-10">
+                          <img
+                            className="h-[25px] w-[25px]"
+                            src="../public/icons/Trash.png"
+                            alt="delete"
+                          />
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex pt-7">
-                      <button className="mx-5">
-                        <img
-                          className="h-[25px] w-[25px]"
-                          src="../public/icons/Pencil.png"
-                          alt="edit"
-                        />
-                      </button>
-                      <button className="ms-10 mr-5">
-                        <img
-                          className="h-[25px] w-[25px]"
-                          src="../public/icons/Trash.png"
-                          alt="delete"
-                        />
-                      </button>
-                    </div>
-                  </div>
                   );
                 })}
-
               </div>
-                      
-
-            
             </div>
           </div>
-
-         
         </div>
 
         {/* 
@@ -218,7 +197,6 @@ const EventDetails = () => {
         {isOpenGuestList && <GuestList event_id={eventId || ""} />}
 
         */}
-        
       </div>
     </div>
   );

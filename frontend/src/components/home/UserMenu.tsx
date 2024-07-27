@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import {
   calendarIcon,
   clockIcon,
+  closeSesion,
   contactsIcon,
   magneticCardIcon,
   membershipCardIcon,
@@ -19,7 +20,7 @@ interface UserMenuProps {
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
-  let [user] = useAtom(userAtom);
+  let [user, setUser] = useAtom(userAtom);
   let [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   let navigate = useNavigate();
 
@@ -95,7 +96,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
             )}
           </ul>
           <div className="m-16">
-            <button className="">Cerrar sesion</button>
+            <button onClick={() => closeSesion(navigate, setUser)}>
+              Cerrar sesion
+            </button>
           </div>
         </div>
       ) : (

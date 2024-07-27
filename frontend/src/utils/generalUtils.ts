@@ -2,6 +2,7 @@ import moment from "moment";
 import { EventStatus } from "../types";
 import { Id } from "react-beautiful-dnd";
 import { updateEvent } from "../services";
+import { NavigateFunction } from "react-router-dom";
 
 export const dateFormat = (dateISO: string | undefined) => {
   if (!dateISO) return "No disponible";
@@ -56,4 +57,10 @@ export const eventIsToday = async (
       await updateEvent({ id: eventId, status: EventStatus.COMPLETED });
     }
   }
+};
+
+export const closeSesion = (navigate: NavigateFunction, setUser: any) => {
+  localStorage.removeItem("user");
+  setUser(null);
+  navigate("/login");
 };
