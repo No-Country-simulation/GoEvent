@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "../../context/atoms";
 import getUserDatils from "../../utils/getUserDetailsUtils";
 import { createEvent } from "../../services";
+import { toast } from "sonner";
 
 const CreateEvent = () => {
   const [user] = useAtom(userAtom);
@@ -20,11 +21,10 @@ const CreateEvent = () => {
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await createEvent(formData);
-    console.log(response);
+
     if (response.success) {
-      alert("El evento ha sido creado correctamente");
-      window.location.reload();
-    } else alert("Hubo un error al crear el evento");
+      toast.success("El evento se ha creado correctamente");
+    } else toast.error("Hubo un error al crear el evento");
   };
 
   return (

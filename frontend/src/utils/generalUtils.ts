@@ -44,6 +44,7 @@ export const eventIsToday = async (
   dateISO: string,
   eventState: string,
   eventId: string,
+  updateEvents: () => void,
 ) => {
   let today = moment().format("YYYY-MM-DD");
   let eventDate = moment(dateISO).format("YYYY-MM-DD");
@@ -51,10 +52,12 @@ export const eventIsToday = async (
   if (eventState === EventStatus.SCHEDULED) {
     if (today === eventDate) {
       await updateEvent({ id: eventId, status: EventStatus.ONGOING });
+      updateEvents();
     }
   } else if (eventState === EventStatus.ONGOING) {
     if (today !== eventDate) {
       await updateEvent({ id: eventId, status: EventStatus.COMPLETED });
+      updateEvents();
     }
   }
 };

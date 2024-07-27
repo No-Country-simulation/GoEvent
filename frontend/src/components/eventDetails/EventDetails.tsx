@@ -191,12 +191,7 @@ const EventDetails = () => {
           </div>
         </div>
 
-        {/* 
-
         {isOpenCreateGuest && <CreateGuestForm />}
-        {isOpenGuestList && <GuestList event_id={eventId || ""} />}
-
-        */}
       </div>
     </div>
   );
