@@ -21,14 +21,18 @@ const CreateGuestForm = ({ event_id }: { event_id: string }) => {
   };
 
   return (
-    <div className="border-2 border-amber-300">
-      <form onSubmit={handleSubmit} className="flex flex-col">
+    <div className="p-6">
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4 ">
+        <h2 className="text-2xl font-normal">
+          Registrar invitado
+        </h2>
         <input
           type="text"
           name="fullname"
           value={formData.fullname}
           onChange={handleChange}
           placeholder="Nombre Completo"
+          className="p-2 h-[68px] rounded-xl border border-[#C2BAA6] bg-[#EBE2CD]"
           required
         />
         <input
@@ -37,6 +41,7 @@ const CreateGuestForm = ({ event_id }: { event_id: string }) => {
           value={formData.email}
           onChange={handleChange}
           placeholder="Email"
+          className="p-2 h-[68px] rounded-xl border border-[#C2BAA6] bg-[#EBE2CD]"
           required
         />
         <input
@@ -45,9 +50,16 @@ const CreateGuestForm = ({ event_id }: { event_id: string }) => {
           value={formData.phone}
           onChange={handleChange}
           placeholder="Telefono"
+          className="p-2 h-[68px] rounded-xl border border-[#C2BAA6] bg-[#EBE2CD]"
           required
         />
-        <button type="submit">Agregar Usuario</button>
+        <div className="w-full flex justify-center mt-8">
+          <button 
+            type="submit" 
+            className="boton mb-2 h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl hover:bg-orange-500">
+              Agregar a la lista
+            </button>
+        </div>
       </form>
     </div>
   );
