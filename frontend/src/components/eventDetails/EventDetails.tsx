@@ -63,23 +63,19 @@ const EventDetails = () => {
           <h2 className="ps-[150px] pt-8 text-2xl font-normal">
             Gestionar evento
           </h2>
-          <div className="px-[200px] py-12">
+          <div className="px-[100px] py-12">
             <div className="fondo3 h-fit-content rounded-xl pb-2">
               <div className="mt-[48px] flex flex-row p-6">
                 <img
-                  className="h-[268px] w-[177px]"
+                  className="h-[270px] w-[180px]"
                   src="../public/Jamie4.png"
                   alt=""
                 />
-                <div className="">
+                <div className="text-base">
                   <h3 className="ps-8 text-xl">{event.name}</h3>
-                  <p className="ps-8 pt-8 text-base">
-                    {dateFormat(event.date)}
-                  </p>
-                  <p className="ps-8 pt-1 text-base">
-                    Comienza: {event.time} hs
-                  </p>
-                  <p className="ps-8 pt-8 text-base">{event.location}</p>
+                  <p className="ps-8 pt-8">{dateFormat(event.date)}</p>
+                  <p className="ps-8 pt-1">Comienza: {event.time} hs</p>
+                  <p className="ps-8 pt-8">{event.location}</p>
                   <div>
                     <button className="boton mb-2 ms-8 mt-8 h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl hover:bg-orange-500">
                       Editar Invitación
@@ -92,14 +88,14 @@ const EventDetails = () => {
               </div>
               <div className="mx-8 mb-10 mt-4 rounded-xl border border-[#C2BAA6] px-3 py-6">
                 {/* Línea opciones configuración invitación*/}
-                <div className="flex justify-between text-2xl">
+                <div className="flex justify-between text-xl">
                   <button
                     className="pr-[200px] hover:text-gray-500"
                     onClick={() => setIsOpenGuestList(true)}
                   >
                     <p>Invitaciones enviadas</p>
                   </button>
-                  <button className="flex hover:text-gray-500">
+                  <button className="flex items-center hover:text-gray-500">
                     <img
                       className="h-[25px] w-[25px]"
                       src="../public/icons/Settings.png"
@@ -107,7 +103,7 @@ const EventDetails = () => {
                     />
                     <p className="ps-2">Opciones de Invitados</p>
                   </button>
-                  <button className="flex hover:text-gray-500">
+                  <button className="flex items-center hover:text-gray-500">
                     <img
                       className="h-[25px] w-[25px]"
                       src="../public/icons/SendEmail.png"
@@ -116,7 +112,7 @@ const EventDetails = () => {
                     <p className="ps-2">Enviar Mensaje</p>
                   </button>
                   <button
-                    className="flex hover:text-gray-500"
+                    className="flex items-center hover:text-gray-500"
                     onClick={() => setIsOpenCreateGuest(true)}
                   >
                     <img
@@ -129,30 +125,22 @@ const EventDetails = () => {
                 </div>
 
                 {/* Linea filtro estado Invitados */}
-                <div className="flex justify-between pb-5 text-xl text-[#0D1512]">
-                  <button
-                    className="mt-[70px] hover:font-bold hover:text-gray-600 hover:underline"
-                    onClick={() => setIsOpenGuestList(true)}
-                  >
-                    Opciones de invitados
-                  </button>
-                  <button className="ml-4 mt-[70px] hover:font-bold hover:text-gray-600 hover:underline">
-                    Enviar mensaje
-                  </button>
-                  <button
-                    className="ml-4 mt-[70px] hover:font-bold hover:text-gray-600 hover:underline"
-                    onClick={() => setIsOpenCreateGuest(true)}
-                  >
-                    Agregar invitados
-                  </button>
+                <div className="flex items-center justify-between pb-5 text-lg text-[#0D1512]">
+                  <div className="flex space-x-2">
+                    <span>Todos(10)</span>
+                    <span>Aceptados(4)</span>
+                    <span>Rechazados(4)</span>
+                    <span>Sincontestar(2)</span>
+                  </div>
+
                   <div>
                     <img
-                      className="relative left-[10px] top-[85px]"
+                      className="relative left-[10px] top-[50px]"
                       src="../public/icons/Search.png"
                       alt=""
                     />
                     <input
-                      className="mt-9 h-[68px] w-[494px] rounded-xl border border-[#C2BAA6] bg-[#EBE2CD]"
+                      className="h-[68px] w-[494px] rounded-xl border border-[#C2BAA6] bg-[#EBE2CD]"
                       type="Buscar invitado"
                     />
                   </div>
