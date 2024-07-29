@@ -4,12 +4,14 @@ import { dateFormat, eventIsToday } from "../../utils";
 import { deleteEvent } from "../../services";
 import { useNavigate } from "react-router-dom";
 import QrScanner from "../QrScanner";
+import { toast } from "sonner";
 
 interface PropsEventCard {
   eventData: EventType;
+  updateEvents: () => void;
 }
 
-const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
+const EventCard: React.FC<PropsEventCard> = ({ eventData, updateEvents }) => {
   let navigate = useNavigate();
   let [isOpenScanner, setIsOpenScanner] = useState<boolean>(false);
 
@@ -17,15 +19,15 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData }) => {
     let response = await deleteEvent(id);
 
     if (response.success) {
-      alert("El evento ha sido eliminado correctamente");
-      window.location.reload();
-    } else alert("Hubo un error al eliminar el evento");
+      toast.success("El evento se ha eliminado correctamente");
+      updateEvents();
+    } else toast.error("Hubo un error al eliminar el evento");
   };
 
   let { name, date, time, id, location, description, status } = eventData; // destructuring eventData
 
   useEffect(() => {
-    eventIsToday(date, status, id);
+    eventIsToday(date, status, id, updateEvents);
   }, []);
   return (
     <div className="fondo3 mt-[100px] flex items-center justify-between rounded-xl p-6">

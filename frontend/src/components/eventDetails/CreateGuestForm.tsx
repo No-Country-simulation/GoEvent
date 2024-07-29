@@ -3,11 +3,12 @@ import { useFormState } from "../../hooks/useFormState";
 import { GuestType } from "../../types";
 import { createGuest } from "../../services";
 
-const CreateGuestForm = () => {
+const CreateGuestForm = ({ event_id }: { event_id: string }) => {
   const { formData, handleChange } = useFormState<GuestType>({
     fullname: "",
     email: "",
     phone: "",
+    event_id,
   });
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {

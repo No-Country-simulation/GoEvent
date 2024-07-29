@@ -5,6 +5,7 @@ import ProtecteRoute from "./components/ProtecteRoute";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import InvitationEditPage from "./pages/InvitationEditPage";
 import TemplateSelector from "./components/invitationTemplate/TemplateSelector";
+import { Toaster } from "sonner";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
         />
         <Route path="/evento/:eventId" element={<EventDetailsPage />} />
       </Routes>
+      <Toaster />
     </BrowserRouter>
   );
 }

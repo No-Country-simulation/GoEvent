@@ -42,9 +42,9 @@ const EventManagement = () => {
 
   return (
     <div>
-      <Navbar openMenu={setIsOpenMenu}/>
+      <Navbar openMenu={setIsOpenMenu} />
       {!isOpenMenu ? (
-        <div className="font-vietnam degradado min-h-[calc(100vh-60px)] pb-12 text-[#0D1512]">
+        <div className="degradado min-h-[calc(100vh-60px)] pb-12 font-vietnam text-[#0D1512]">
           <div className="flex justify-between px-20">
             <h2 className="mb-4 py-12 text-3xl font-semibold">Mis Eventos</h2>
           </div>
@@ -89,19 +89,12 @@ const EventManagement = () => {
               <ul ref={parent}>
                 {events.map((event) => (
                   <li key={event.id}>
-                    <EventCard eventData={event} />
+                    <EventCard eventData={event} updateEvents={getAllEvents} />
                   </li>
                 ))}
               </ul>
             </div>
             {isCreateEventOpen && <CreateEvent />}
-
-            {/* Cerrar sesion
-
-            <button className="flex ps-7 pt-[150px]">
-              <img src="./public/icons/Logout.png" alt="" />
-              <p className="ps-4 pt-1 text-xl">Cerrar sesion</p>
-            </button> */}
           </div>
         </div>
       ) : (

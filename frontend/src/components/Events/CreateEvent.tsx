@@ -1,12 +1,16 @@
 import { useFormState } from "../../hooks/useFormState";
 import { useAtom } from "jotai";
-import { userAtom } from "../../context/atoms";
+import { selectedEventAtom, userAtom } from "../../context/atoms";
 import getUserDatils from "../../utils/getUserDetailsUtils";
 import { createEvent } from "../../services";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const CreateEvent = () => {
   const [user] = useAtom(userAtom);
+  const [, seletEventAtom] = useAtom(selectedEventAtom);
   const { id } = getUserDatils(user);
+  const navigate = useNavigate();
 
   const { formData, handleChange } = useFormState({
     name: "",
@@ -20,11 +24,12 @@ const CreateEvent = () => {
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await createEvent(formData);
-    console.log(response);
+
     if (response.success) {
-      alert("El evento ha sido creado correctamente");
-      window.location.reload();
-    } else alert("Hubo un error al crear el evento");
+      toast.success("El evento se ha creado correctamente");
+      seletEventAtom(response.data.event);
+      navigate("/template-selector");
+    } else toast.error("Hubo un error al crear el evento");
   };
 
   return (
