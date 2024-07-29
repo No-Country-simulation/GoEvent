@@ -12,14 +12,6 @@ const api = axios.create({
   },
 });
 
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.log(error.request.response);
-    return Promise.reject(error.response);
-  },
-);
-
 // Antes de hacer cada llamada, pasa por aqui para agregar el token
 
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
