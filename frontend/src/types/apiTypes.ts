@@ -15,6 +15,7 @@ export interface EventType {
   description: string;
   location: string;
   time: string;
+  template_image: null | string;
   date: string;
   user_id: string;
   status: string;

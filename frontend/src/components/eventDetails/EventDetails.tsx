@@ -19,11 +19,12 @@ import Modal from "./modal/Modal";
 
 const EventDetails = () => {
   const [user] = useAtom(userAtom);
+  const [, setSelectEvent] = useAtom(selectedEventAtom);
   const { id } = getUserDatils(user);
   const [event, setEvent] = useState<EventType>();
   const [guestByEvent, setGuestByEvent] = useState([]);
   const [isOpenCreateGuest, setIsOpenCreateGuest] = useState<boolean>(false);
-  const [_, setIsOpenGuestList] = useState<boolean>(false);
+  const [, setIsOpenGuestList] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const { eventId } = useParams();
@@ -78,7 +79,10 @@ const EventDetails = () => {
                   <p className="ps-8 pt-1">Comienza: {event.time} hs</p>
                   <p className="ps-8 pt-8">{event.location}</p>
                   <div>
-                    <button className="boton mb-2 ms-8 mt-8 h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl hover:bg-orange-500">
+                    <button
+                      onClick={() => setSelectEvent(event)}
+                      className="boton mb-2 ms-8 mt-8 h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl hover:bg-orange-500"
+                    >
                       Editar Invitación
                     </button>
                     <button className="ps-12 text-xl underline decoration-1">
@@ -96,33 +100,30 @@ const EventDetails = () => {
                   >
                     <p>Invitaciones enviadas</p>
                   </button>
-                  <button className="flex items-center hover:text-gray-500">
-                    <img
-                      className="h-[25px] w-[25px]"
-                      src="../public/icons/Settings.png"
-                      alt="settings"
-                    />
-                    <p className="ps-2">Opciones de Invitados</p>
-                  </button>
-                  <button className="flex items-center hover:text-gray-500">
-                    <img
-                      className="h-[25px] w-[25px]"
-                      src="../public/icons/SendEmail.png"
-                      alt="send email"
-                    />
-                    <p className="ps-2">Enviar Mensaje</p>
-                  </button>
-                  <button
-                    className="flex items-center hover:text-gray-500"
-                    onClick={() => setIsOpenCreateGuest(true)}
-                  >
-                    <img
-                      className="h-[40px] w-[40px] pb-2"
-                      src="../public/icons/Multiply2.png"
-                      alt="plus"
-                    />
-                    <p className="ps-2">Agregar Invitados</p>
-                  </button>
+                  <div className="flex space-x-3">
+                    <button
+                      onClick={sendAllInvitations}
+                      className="flex items-center hover:text-gray-500"
+                    >
+                      <img
+                        className="h-[25px] w-[25px]"
+                        src="../public/icons/SendEmail.png"
+                        alt="send email"
+                      />
+                      <p className="ps-2">Enviar invitaciones</p>
+                    </button>
+                    <button
+                      className="flex items-center hover:text-gray-500"
+                      onClick={() => setIsOpenCreateGuest(true)}
+                    >
+                      <img
+                        className="h-[40px] w-[40px]"
+                        src="../public/icons/Multiply2.png"
+                        alt="plus"
+                      />
+                      <p className="ps-2">Agregar Invitados</p>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Linea filtro estado Invitados */}
@@ -175,6 +176,7 @@ const EventDetails = () => {
                               alt="delete"
                             />
                           </button>
+                          <span>{guest.invitation_status}</span>
                         </div>
                       </div>
                     );
