@@ -15,6 +15,7 @@ import CreateGuestForm from "./CreateGuestForm";
 import GuestList from "./GuestList";
 import { useNavigate } from "react-router-dom";
 import { dateFormat } from "../../utils";
+import Modal from "./modal/Modal";
 
 const EventDetails = () => {
   const [user] = useAtom(userAtom);
@@ -190,15 +191,14 @@ const EventDetails = () => {
             </div>
           </div>
 
-         
         </div>
 
-        {/* 
-
-        {isOpenCreateGuest && <CreateGuestForm />}
-        {isOpenGuestList && <GuestList event_id={eventId || ""} />}
-
-        */}
+        <Modal isOpen={isOpenCreateGuest} onClose={() => setIsOpenCreateGuest(false)}>
+          <div className="flex flex-col space-y-4">
+            <CreateGuestForm />
+            <GuestList event_id={eventId || ""} />
+          </div>
+        </Modal>
         
       </div>
     </div>
