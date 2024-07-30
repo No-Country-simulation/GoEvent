@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import {
   calendarIcon,
   clockIcon,
+  closeIcon,
   closeSesion,
   contactsIcon,
   magneticCardIcon,
@@ -68,7 +69,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
         <div className="degradado flex h-full w-full flex-col lg:mx-20">
           <div className="mx-10 flex justify-between pb-16 pt-5 text-2xl font-semibold">
             <p>¡Hola {fullname}!</p>{" "}
-            <button onClick={() => closeMenu(false)}>x</button>
+            <button onClick={() => closeMenu(false)}>
+              <img src={closeIcon} alt="closeIcon" />
+            </button>
           </div>
           <ul className="flex-grow space-y-6 px-10">
             {sections.map(

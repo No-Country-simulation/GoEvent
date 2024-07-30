@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { userAndToken } from "../../types";
-import { userIcon } from "../../utils";
+import { closeIcon, userIcon } from "../../utils";
 import getUserDatils from "../../utils/getUserDetailsUtils";
 import { SetStateAction } from "jotai";
 
@@ -16,7 +16,9 @@ const UserInformation: React.FC<User> = ({ userData, closeModal }) => {
     <div className="degradado relative h-full w-full lg:mx-20">
       <div className="flex justify-between px-20 py-5 text-2xl font-semibold">
         <h2>Configuracion</h2>
-        <button onClick={() => closeModal(false)}>x</button>
+        <button onClick={() => closeModal(false)}>
+          <img src={closeIcon} alt="closeIcon"></img>
+        </button>
       </div>
       <div className="flex pt-10">
         <div className="mr-16 flex w-3/12 flex-col items-center space-y-3">
@@ -45,9 +47,6 @@ const UserInformation: React.FC<User> = ({ userData, closeModal }) => {
           </div>
         </div>
       </div>
-      <button className="absolute bottom-28 left-32 text-xl">
-        Cerrar sesion
-      </button>
     </div>
   );
 };

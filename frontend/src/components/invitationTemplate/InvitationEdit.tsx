@@ -62,7 +62,7 @@ const InvitationEditor: React.FC = () => {
 
         // Call the API
         await updateEventImage(formData);
-
+        navigate("/home");
         //navigate(`/evento/${event.id}`); // O la ruta a la que deseas navegar
       } catch (error) {
         console.error("Error:", error);
