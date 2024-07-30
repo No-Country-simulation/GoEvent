@@ -24,17 +24,18 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData, updateEvents }) => {
     } else toast.error("Hubo un error al eliminar el evento");
   };
 
-  let { name, date, time, id, location, description, status } = eventData; // destructuring eventData
+  let { name, date, time, id, location, description, status, template_image } =
+    eventData; // destructuring eventData
 
   useEffect(() => {
     eventIsToday(date, status, id, updateEvents);
   }, []);
   return (
-    <div className="fondo3 mt-[100px] flex items-center justify-between rounded-xl p-6">
-      <div className="flex items-center">
+    <div className="fondo3 mt-[100px] flex justify-between rounded-xl p-6">
+      <div className="flex">
         <div className="mr-4">
           <img
-            src="./public/Jamie4.png"
+            src={template_image || "./public/Jamie4.png"}
             alt="Invitation card"
             className="w[217px] h-[348px] border-4 border-yellow-300"
           />
@@ -47,11 +48,10 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData, updateEvents }) => {
             <p>comienza: {time.slice(0, 5)} hs</p>
           </time>
 
-          <p className="pb-12">Lugar: {location}</p>
-          <p className="mt-4">Invitaciones enviadas</p>
+          <p>Lugar: {location}</p>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col items-center py-5">
         <button
           className="boton mb-2 h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl hover:bg-orange-500"
           onClick={() => navigate(`/evento/${id}`)}
@@ -68,7 +68,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData, updateEvents }) => {
           </button>
         )}
         <button className="flex px-4" onClick={() => handleDeleteEvent(id)}>
-          <p className="ps-12 pt-[100px] text-xl underline decoration-1">
+          <p className="pt-[50px] text-xl underline decoration-1">
             Eliminar evento
           </p>
         </button>

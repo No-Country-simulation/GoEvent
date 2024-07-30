@@ -4,6 +4,7 @@ import { Template } from "../../types";
 import { getTemplates } from "../../services/templateService";
 import { useAtom } from "jotai";
 import { selectedTemplateAtom } from "../../context/atoms";
+import Loading from "../Loading";
 
 const TemplateSelector: React.FC = () => {
   const [templates, setTemplates] = useState<Template[]>([]);
@@ -38,7 +39,7 @@ const TemplateSelector: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div>Cargando plantillas...</div>;
+    return <Loading />;
   }
 
   return (

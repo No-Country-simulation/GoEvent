@@ -94,7 +94,9 @@ const EventManagement = () => {
                 ))}
               </ul>
             </div>
-            {isCreateEventOpen && <CreateEvent />}
+            {isCreateEventOpen && (
+              <CreateEvent closeModal={setIsCreateEventOpen} />
+            )}
           </div>
         </div>
       ) : (

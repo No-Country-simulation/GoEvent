@@ -20,7 +20,7 @@ function App() {
         />
         <Route path="/evento/:eventId" element={<EventDetailsPage />} />
       </Routes>
-      <Toaster />
+      <Toaster richColors />
     </BrowserRouter>
   );
 }
