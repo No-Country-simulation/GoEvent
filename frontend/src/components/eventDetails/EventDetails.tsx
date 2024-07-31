@@ -10,7 +10,7 @@ import {
 } from "../../services/";
 import Navbar from "../Navbar";
 import { useEffect, useState } from "react";
-import { EventType } from "../../types";
+import { EventType, guestType } from "../../types";
 import CreateGuestForm from "./CreateGuestForm";
 import GuestList from "./GuestList";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +27,7 @@ const EventDetails = () => {
 
   const { eventId } = useParams();
 
-  let { name, date, time, location } = event; //destructuring  event
+  let { name, date, time, location } = event as EventType; //destructuring  event
   
 
 
@@ -41,7 +41,7 @@ const EventDetails = () => {
 
   const getAllGuestsOfEvent = async (eventId: string) => {
     const response = await getGuestsOfEvent(eventId);
-
+    
     if (response.success) setGuestByEvent(response.data.guests);
   };
 
@@ -156,7 +156,7 @@ const EventDetails = () => {
               {/* map Invitados */}
 
               <div>
-                {guestByEvent.map((guest) =>{
+                {guestByEvent.map((guest:guestType) =>{
                   return (
                     <div className="flex justify-between py-5 border-b-2 border-[#C2BAA6]" key={guest.guest_id}>
                     <div className="pt-5">

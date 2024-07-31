@@ -15,12 +15,12 @@ const LandingPage = () => {
   const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
 
   return (
-    <div className="fondo">
+    <div className="fondo mx-auto">
       <Navbar openMenu={setIsOpenUserMenu} />
       {!isOpenUserMenu ? (
-        <div className="font-gotic mx-auto sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
+        <div className="mx-auto font-gotic sm:w-[370px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
           {/*Grid*/}
-          <div className="grid items-center justify-between gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
+          <div className="xs: grid grid-cols-1 items-center justify-between gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
             {imagenes.map((e, i) => {
               return (
                 <img key={i} src={e.src} alt={e.alt} className="imgStyle" />
@@ -29,46 +29,48 @@ const LandingPage = () => {
           </div>
 
           {/*Como funciona GoEvent*/}
-          <div className="mb-10 w-full rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] px-6 shadow-md shadow-gray-500 sm:h-[900px] md:h-[660px] lg:h-[550px] xl:h-[455px]">
-            <h2 className="ps-[72px] pt-7 text-2xl font-medium">
-              Cómo funciona GoEvent?
-            </h2>
-            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[168px]">
-              Selecciona el tipo de evento que vas a realizar
-            </p>
-            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[245px]">
-              Elije entre nuestras plantillas de invitaciones o sube la tuya
-            </p>
-            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[290px]">
-              Carga tu lista de invitados o escribelos desde la web
-            </p>
-            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[336px]">
-              Comparte tu invitación con facilidad, enviales el qr para acceder
-              el día del evento
-            </p>
-            <p className="pt-[34px] text-xl sm:ps-8 md:ps-[429px]">
-              Recibe confirmación de asistencia y gestiona tu evento desde la
-              web
-            </p>
-            <p className="pt-[34px] text-2xl font-medium sm:ps-8 md:ps-[450px] lg:ps-[624px]">
-              ¡Organiza fácilmente tu evento!
-            </p>
+          <div className="">
+            <div className="mb-10 w-full rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] px-6 shadow-md shadow-gray-500 sm:h-[960px] md:h-[690px] lg:h-[550px] xl:h-[455px]">
+              <h2 className="ps-[72px] pt-7 text-2xl font-bold">
+                Cómo funciona GoEvent?
+              </h2>
+              <p className="pt-[34px] text-xl sm:ps-8 md:ps-[168px]">
+                Selecciona el tipo de evento que vas a realizar
+              </p>
+              <p className="pt-[34px] text-xl sm:ps-8 md:ps-[245px]">
+                Elije entre nuestras plantillas de invitaciones o sube la tuya
+              </p>
+              <p className="pt-[34px] text-xl sm:ps-8 md:ps-[290px]">
+                Carga tu lista de invitados o escribelos desde la web
+              </p>
+              <p className="pt-[34px] text-xl sm:ps-8 md:ps-[336px]">
+                Comparte tu invitación con facilidad, enviales el qr para
+                acceder el día del evento
+              </p>
+              <p className="pt-[34px] text-xl sm:ps-8 md:ps-[429px]">
+                Recibe confirmación de asistencia y gestiona tu evento desde la
+                web
+              </p>
+              <p className="pt-[34px] text-2xl font-medium sm:ps-8 md:ps-[450px] lg:ps-[624px]">
+                ¡Organiza fácilmente tu evento!
+              </p>
 
-            <img
-              src="./public/Character.svg"
-              alt="character"
-              className="relative left-[2px] z-30 sm:top-[112px] md:top-[-160px] lg:top-[-158px]"
-            />
-            <img
-              src="./public/cellphone.svg"
-              alt="cellphone"
-              className="relative left-[116px] z-20 sm:top-[-140px] md:top-[-410px]"
-            />
-            <img
-              src="./public/freepik.svg"
-              alt="freepik"
-              className="relative left-[5px] z-10 h-[215px] w-[318px] sm:top-[-397px] md:top-[-680px]"
-            />
+              <img
+                src="./public/Character.svg"
+                alt="character"
+                className="relative left-[2px] z-30 sm:top-[112px] md:top-[-160px] lg:top-[-158px]"
+              />
+              <img
+                src="./public/cellphone.svg"
+                alt="cellphone"
+                className="relative left-[116px] z-20 sm:bottom-[140px] md:top-[-410px]"
+              />
+              <img
+                src="./public/freepik.svg"
+                alt="freepik"
+                className="relative left-[5px] z-10 h-[215px] w-[318px] sm:top-[-397px] md:top-[-680px]"
+              />
+            </div>
           </div>
 
           <h3 className="px-6 pb-[53px] pt-5 text-center text-3xl">
@@ -76,7 +78,7 @@ const LandingPage = () => {
           </h3>
 
           {/*Planes*/}
-          <div className="h-fit-content flex justify-center gap-12 pb-12 sm:flex-col lg:flex-row">
+          <div className="h-fit-content flex flex-col justify-center gap-12 pb-12 lg:flex-row">
             <div className="degradado2 h-fit-content mx-auto rounded-3xl border-0 shadow-md shadow-gray-500 sm:w-[380px] md:w-[550px]">
               <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
                 Gratuito:
