@@ -18,6 +18,7 @@ import { EventType } from "../../types";
 import Modal from "./modal/Modal";
 import { toast } from "sonner";
 import Loading from "../Loading";
+import useLogoutUser from "../../hooks/useLogoutUser";
 
 const EventDetails = () => {
   const [user] = useAtom(userAtom);
@@ -28,6 +29,7 @@ const EventDetails = () => {
   const [isOpenCreateGuest, setIsOpenCreateGuest] = useState<boolean>(false);
   const [, setIsOpenGuestList] = useState<boolean>(false);
   const navigate = useNavigate();
+  const logout = useLogoutUser();
 
   const { eventId } = useParams();
 
@@ -45,6 +47,10 @@ const EventDetails = () => {
     const response = await getGuestsOfEvent(eventId);
 
     if (response.success) setGuestByEvent(response.data.guests);
+    else if (response.error.response) {
+      let { status } = response.error.response;
+      logout(status);
+    }
   };
 
   const sendAllInvitations = async () => {
@@ -67,7 +73,6 @@ const EventDetails = () => {
   );
 
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-  console.log(guestByEvent);
   useEffect(() => {
     getEvent();
   }, []);
@@ -91,7 +96,7 @@ const EventDetails = () => {
             <div className="flex flex-row p-6">
               <img
                 className="h-[270px] w-[180px]"
-                src={event.template_image || "../public/Jamie4.png"}
+                src={event.template_image || "../defaulEventImg.png"}
                 alt=""
               />
               <div className="w-full ps-12 text-base">
@@ -101,7 +106,10 @@ const EventDetails = () => {
                 <p className="pt-8">{event.location}</p>
                 <div className="my-10 space-x-5">
                   <button
-                    onClick={() => setSelectEvent(event)}
+                    onClick={() => {
+                      setSelectEvent(event);
+                      navigate("/template-selector");
+                    }}
                     className="boton h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl transition-all hover:bg-orange-500"
                   >
                     Editar Invitación

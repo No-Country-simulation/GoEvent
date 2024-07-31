@@ -7,6 +7,7 @@ import { selectedTemplateAtom } from "../../context/atoms";
 import { dateFormat } from "../../utils";
 import { selectedEventAtom } from "../../context/atoms";
 import { updateEventImage } from "../../services";
+import { toast } from "sonner";
 
 const InvitationEditor: React.FC = () => {
   const [selectedTemplate, setSelectedTemplate] = useAtom(selectedTemplateAtom);
@@ -62,9 +63,11 @@ const InvitationEditor: React.FC = () => {
 
         // Call the API
         await updateEventImage(formData);
+        toast.success("Imagen de invitación actualizada correctamente.");
         navigate("/home");
         //navigate(`/evento/${event.id}`); // O la ruta a la que deseas navegar
       } catch (error) {
+        toast.error("Error al actualizar la imagen de invitación:");
         console.error("Error:", error);
       }
     }
