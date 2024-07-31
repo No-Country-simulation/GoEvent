@@ -35,7 +35,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData, updateEvents }) => {
       <div className="flex">
         <div className="mr-4">
           <img
-            src={template_image || "./public/Jamie4.png"}
+            src={template_image || "./defaulEventImg.png"}
             alt="Invitation card"
             className="w[217px] h-[348px] border-4 border-yellow-300"
           />
