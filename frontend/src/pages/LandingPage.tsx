@@ -16,10 +16,10 @@ const LandingPage = () => {
   const [isOpenUserMenu, setIsOpenUserMenu] = useState(false);
 
   return (
-    <div className="fondo">
+    <div className="fondo mx-auto">
       <Navbar openMenu={setIsOpenUserMenu} />
       {!isOpenUserMenu ? (
-        <div className="mx-auto font-gotic sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
+        <div className="mx-auto font-gotic sm:w-[370px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
           {/*Grid*/}
           <div className="hidden gap-6 pb-14 pt-7 md:grid md:grid-cols-2 xl:grid-cols-3">
             {imagenes.map((e, i) => {
@@ -80,7 +80,7 @@ const LandingPage = () => {
             Elegí el plan que mejor se adapte a tus necesidades
           </h3>
           {/*Planes*/}
-          <div className="h-fit-content sm: flex flex-col justify-center gap-12 pb-12 sm:flex-row sm:flex-col lg:flex-row">
+          <div className="h-fit-content flex flex-col justify-center gap-12 pb-12 lg:flex-row">
             <div className="degradado2 h-fit-content mx-auto rounded-3xl border-0 shadow-md shadow-gray-500 sm:w-[380px] md:w-[550px]">
               <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
                 Gratuito:

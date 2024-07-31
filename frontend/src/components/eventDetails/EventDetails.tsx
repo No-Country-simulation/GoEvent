@@ -10,11 +10,11 @@ import {
 } from "../../services/";
 import Navbar from "../Navbar";
 import { useEffect, useState } from "react";
+import { EventType, guestType } from "../../types";
 import CreateGuestForm from "./CreateGuestForm";
 import GuestList from "./GuestList";
 import { useNavigate } from "react-router-dom";
 import { closeIcon, dateFormat } from "../../utils";
-import { EventType } from "../../types";
 import Modal from "./modal/Modal";
 import { toast } from "sonner";
 import Loading from "../Loading";
@@ -33,7 +33,9 @@ const EventDetails = () => {
 
   const { eventId } = useParams();
 
-  // const { name, date, time, location } = event as EventType; //destructuring  event
+  let { name, date, time, location } = event as EventType; //destructuring  event
+  
+
 
   const getEvent = async () => {
     const response = await getOneEvent(id, eventId);
@@ -45,7 +47,7 @@ const EventDetails = () => {
 
   const getAllGuestsOfEvent = async (eventId: string) => {
     const response = await getGuestsOfEvent(eventId);
-
+    
     if (response.success) setGuestByEvent(response.data.guests);
     else if (response.error.response) {
       let { status } = response.error.response;
@@ -169,7 +171,7 @@ const EventDetails = () => {
               {/* map Invitados */}
 
               <div>
-                {guestByEvent.map((guest: any) => {
+                {guestByEvent.map((guest:guestType) =>{
                   return (
                     <div
                       className="relative flex justify-between border-b-2 border-[#C2BAA6] py-5"

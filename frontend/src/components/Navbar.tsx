@@ -20,7 +20,7 @@ const Navbar: React.FC<NavBarProps> = ({ openMenu }) => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div className="naranja flex h-[60px] w-full items-center px-10 shadow-md shadow-gray-500">
         {user && (
           <img
