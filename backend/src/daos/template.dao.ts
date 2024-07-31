@@ -17,16 +17,18 @@ export default class TemplateDAO {
   }
   public static async getAllTemplate() {
     try {
-      const foundTemplates = await Template.findAll();
-      if (!foundTemplates) return null
+      const foundTemplates = await Template.findAll({
+        attributes: ['id', 'name', 'template_image'], // Selecciona solo los campos especificados
+      });
+  
+      if (!foundTemplates) return null;
+  
       return foundTemplates.map((event) => event.toJSON());
     } catch (error) {
       console.error('Error on DAO find Template:', error);
       throw new Error('Error fetching event for Template');
     }
   }
-
-
   public static async update(template: Partial<TemplateAttributes>, id: string) {
     try {
       const updatedTemplate = await Template.update(template, { where: { id } });

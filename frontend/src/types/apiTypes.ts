@@ -15,6 +15,7 @@ export interface EventType {
   description: string;
   location: string;
   time: string;
+  template_image: null | string;
   date: string;
   user_id: string;
   status: string;
@@ -27,6 +28,7 @@ export interface GuestType {
   fullname: string;
   email: string;
   phone: string;
+  event_id: string;
 }
 
 export interface Guest2Type {
@@ -40,5 +42,4 @@ export interface Guest2Type {
 export interface InvitationType {
   event_id: string;
   guest_id: string;
-  qr_code: string;
 }

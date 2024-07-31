@@ -1,5 +1,6 @@
 export interface Template {
     id: string;
-    imageUrl: string;
+    template_image: string;
+    name : string
   }
   

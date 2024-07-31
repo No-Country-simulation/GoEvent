@@ -2,6 +2,8 @@ import { useAtom } from "jotai";
 import {
   calendarIcon,
   clockIcon,
+  closeIcon,
+  closeSesion,
   contactsIcon,
   magneticCardIcon,
   membershipCardIcon,
@@ -19,7 +21,7 @@ interface UserMenuProps {
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
-  let [user] = useAtom(userAtom);
+  let [user, setUser] = useAtom(userAtom);
   let [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   let navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
       icon: calendarIcon,
       text: "Mis Eventos",
       id: "events",
-      onClick: () => navigate("/eventos"),
+      onClick: () => navigate("/home"),
     },
     {
       icon: membershipCardIcon,
@@ -62,12 +64,14 @@ const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
   ];
 
   return (
-    <div className="flex h-[calc(100vh-60px)]">
+    <div className="absolute flex h-[calc(100vh-60px)] w-full">
       {!isUserMenuOpen ? (
         <div className="degradado flex h-full w-full flex-col lg:mx-20">
           <div className="mx-10 flex justify-between pb-16 pt-5 text-2xl font-semibold">
             <p>¡Hola {fullname}!</p>{" "}
-            <button onClick={() => closeMenu(false)}>x</button>
+            <button onClick={() => closeMenu(false)}>
+              <img src={closeIcon} alt="closeIcon" />
+            </button>
           </div>
           <ul className="flex-grow space-y-6 px-10">
             {sections.map(
@@ -95,7 +99,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ closeMenu }) => {
             )}
           </ul>
           <div className="m-16">
-            <button className="">Cerrar sesion</button>
+            <button onClick={() => closeSesion(navigate, setUser)}>
+              Cerrar sesion
+            </button>
           </div>
         </div>
       ) : (

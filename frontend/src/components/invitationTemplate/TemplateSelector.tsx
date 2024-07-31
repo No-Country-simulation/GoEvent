@@ -1,29 +1,68 @@
-import React from 'react';
-import { Template } from '../../types';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Template } from "../../types";
+import { getTemplates } from "../../services/templateService";
+import { useAtom } from "jotai";
+import { selectedTemplateAtom } from "../../context/atoms";
+import Loading from "../Loading";
 
-interface TemplateSelectorProps {
-  onSelect: (template: Template) => void;
-}
+const TemplateSelector: React.FC = () => {
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const [, setSelectedTemplate] = useAtom(selectedTemplateAtom);
 
-const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect }) => {
-  const templates: Template[] = [
-    { id: '1', imageUrl: 'url/to/template1.png' },
-    { id: '2', imageUrl: 'url/to/template2.png' },
-    // Agrega más plantillas según sea necesario
-  ];
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      // try {
+      //   const templates = await getTemplates();
+      //   setTemplates(templates.data.templates);
+      //   console.error("Error fetching templates:", error);
+      // } finally {
+      //   setLoading(false);
+      // }
+
+      // Si no estoy mal, no es necesario en uso de tryCatch porque
+      // ya estamos manejando los errores dentro de la llamada, solo
+      // tenemos que preguntar por templates.success
+
+      const templates = await getTemplates();
+
+      templates.success
+        ? setTemplates(templates.data.templates)
+        : console.error("Error fetching templates:", templates.error);
+
+      setLoading(false);
+    };
+
+    fetchTemplates();
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
-    <div>
-      <h2>Selecciona una Plantilla</h2>
-      <div>
+    <div className="p-4">
+      <h2 className="mb-4 text-center text-xl font-bold">
+        Selecciona una Plantilla
+      </h2>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {templates.map((template) => (
-          <img
+          <div
             key={template.id}
-            src={template.imageUrl}
-            alt={`Plantilla ${template.id}`}
-            onClick={() => onSelect(template)}
-            style={{ cursor: 'pointer', margin: '10px' }}
-          />
+            className="overflow-hidden rounded-lg border shadow-lg transition-shadow duration-300 hover:shadow-xl"
+          >
+            <img
+              src={template.template_image}
+              alt={`Plantilla ${template.id}`}
+              onClick={() => {
+                setSelectedTemplate(template);
+                navigate("/invitationEdit");
+              }}
+              className="h-auto w-full cursor-pointer"
+            />
+          </div>
         ))}
       </div>
     </div>
@@ -31,4 +70,3 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelect }) => {
 };
 
 export default TemplateSelector;
-
