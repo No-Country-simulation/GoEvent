@@ -2,13 +2,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState } from "react";
 import UserMenu from "../components/home/UserMenu";
+import ImageGallery from "react-image-gallery";
 const imagenes = [
-  { src: "./img1.png", alt: "imagen1" },
-  { src: "./img2.png", alt: "imagen2" },
-  { src: "./img3.png", alt: "imagen3" },
-  { src: "./img4.png", alt: "imagen4" },
-  { src: "./img5.png", alt: "imagen5" },
-  { src: "./img6.png", alt: "imagen6" },
+  { original: "./img1.png", alt: "imagen1" },
+  { original: "./img2.png", alt: "imagen2" },
+  { original: "./img3.png", alt: "imagen3" },
+  { original: "./img4.png", alt: "imagen4" },
+  { original: "./img5.png", alt: "imagen5" },
+  { original: "./img6.png", alt: "imagen6" },
 ];
 
 const LandingPage = () => {
@@ -20,13 +21,29 @@ const LandingPage = () => {
       {!isOpenUserMenu ? (
         <div className="mx-auto font-gotic sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
           {/*Grid*/}
-          <div className="grid items-center justify-between gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
             {imagenes.map((e, i) => {
               return (
-                <img key={i} src={e.src} alt={e.alt} className="imgStyle" />
+                <img
+                  key={i}
+                  src={e.original}
+                  alt={e.alt}
+                  className="imgStyle"
+                />
               );
             })}
           </div>
+          {/*Carrousel*/}
+          {/* <div className="carousel mx-auto mt-4 h-[221px] w-[344px] bg-[#F5EEED] p-0">
+            <ImageGallery
+              items={imagenes}
+              showPlayButton={true}
+              showFullscreenButton={false}
+              showBullets={true}
+              autoPlay={true}
+              slideInterval={5500}
+            />
+          </div> */}
 
           {/*Como funciona GoEvent*/}
           <div className="mb-10 w-full rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] px-6 shadow-md shadow-gray-500 sm:h-[900px] md:h-[660px] lg:h-[550px] xl:h-[455px]">
@@ -55,19 +72,9 @@ const LandingPage = () => {
             </p>
 
             <img
-              src="./Character.svg"
+              src="./Character.png"
               alt="character"
-              className="relative left-[2px] z-30 sm:top-[112px] md:top-[-160px] lg:top-[-158px]"
-            />
-            <img
-              src="./cellphone.svg"
-              alt="cellphone"
-              className="relative left-[116px] z-20 sm:top-[-140px] md:top-[-410px]"
-            />
-            <img
-              src="./freepik.svg"
-              alt="freepik"
-              className="relative left-[5px] z-10 h-[215px] w-[318px] sm:top-[-397px] md:top-[-680px]"
+              className="relative left-[2px] z-30 sm:top-[-40px] md:top-[-350px] lg:top-[-300px]"
             />
           </div>
 
@@ -76,7 +83,7 @@ const LandingPage = () => {
           </h3>
 
           {/*Planes*/}
-          <div className="h-fit-content flex justify-center gap-12 pb-12 sm:flex-col lg:flex-row">
+          <div className="h-fit-content sm: flex flex-col justify-center gap-12 pb-12 sm:flex-row sm:flex-col lg:flex-row">
             <div className="degradado2 h-fit-content mx-auto rounded-3xl border-0 shadow-md shadow-gray-500 sm:w-[380px] md:w-[550px]">
               <h3 className="font-weight:500 pl-[71px] pt-5 text-2xl text-[#0D1512]">
                 Gratuito:
