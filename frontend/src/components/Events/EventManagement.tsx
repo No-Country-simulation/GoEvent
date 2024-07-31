@@ -88,7 +88,7 @@ const EventManagement = () => {
             </div>
 
             <div>
-              <ul ref={parent}>
+              <ul className="mx-[84px]" ref={parent}>
                 {events.map((event) => (
                   <li key={event.id}>
                     <EventCard eventData={event} updateEvents={getAllEvents} />
