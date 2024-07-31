@@ -35,7 +35,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData, updateEvents }) => {
       <div className="flex">
         <div className="mr-4">
           <img
-            src={template_image || "./public/Jamie4.png"}
+            src={template_image || "./defaulEventImg.png"}
             alt="Invitation card"
             className="w[217px] h-[348px] border-4 border-yellow-300"
           />
@@ -63,7 +63,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData, updateEvents }) => {
             onClick={() => setIsOpenScanner(true)}
             className="boton mb-3 mt-3 flex h-[68px] w-[363px] items-center justify-center rounded-xl px-4 py-4 text-xl hover:bg-orange-500"
           >
-            <img src="./public/Qr_Code.png" alt="" />
+            <img src="./Qr_Code.png" alt="" />
             <p className="ps-4">Escanear QR</p>
           </button>
         )}

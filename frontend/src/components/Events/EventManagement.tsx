@@ -83,7 +83,7 @@ const EventManagement = () => {
                 onClick={() => setIsCreateEventOpen(true)}
               >
                 Crear evento nuevo
-                <img src="../public/icons/Multiply.png" alt="add-event-icon" className="relative max-w-fit" />
+                <img src="/icons/Multiply.png" alt="add-event-icon" className="relative max-w-fit" />
               </button>
             </div>
 

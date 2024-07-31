@@ -3,12 +3,12 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import UserMenu from "../components/home/UserMenu";
 const imagenes = [
-  { src: "./public/img1.png", alt: "imagen1" },
-  { src: "./public/img2.png", alt: "imagen2" },
-  { src: "./public/img3.png", alt: "imagen3" },
-  { src: "./public/img4.png", alt: "imagen4" },
-  { src: "./public/img5.png", alt: "imagen5" },
-  { src: "./public/img6.png", alt: "imagen6" },
+  { src: "./img1.png", alt: "imagen1" },
+  { src: "./img2.png", alt: "imagen2" },
+  { src: "./img3.png", alt: "imagen3" },
+  { src: "./img4.png", alt: "imagen4" },
+  { src: "./img5.png", alt: "imagen5" },
+  { src: "./img6.png", alt: "imagen6" },
 ];
 
 const LandingPage = () => {
@@ -18,7 +18,7 @@ const LandingPage = () => {
     <div className="fondo">
       <Navbar openMenu={setIsOpenUserMenu} />
       {!isOpenUserMenu ? (
-        <div className="font-gotic mx-auto sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
+        <div className="mx-auto font-gotic sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
           {/*Grid*/}
           <div className="grid items-center justify-between gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
             {imagenes.map((e, i) => {
@@ -55,17 +55,17 @@ const LandingPage = () => {
             </p>
 
             <img
-              src="./public/Character.svg"
+              src="./Character.svg"
               alt="character"
               className="relative left-[2px] z-30 sm:top-[112px] md:top-[-160px] lg:top-[-158px]"
             />
             <img
-              src="./public/cellphone.svg"
+              src="./cellphone.svg"
               alt="cellphone"
               className="relative left-[116px] z-20 sm:top-[-140px] md:top-[-410px]"
             />
             <img
-              src="./public/freepik.svg"
+              src="./freepik.svg"
               alt="freepik"
               className="relative left-[5px] z-10 h-[215px] w-[318px] sm:top-[-397px] md:top-[-680px]"
             />
@@ -83,7 +83,7 @@ const LandingPage = () => {
               </h3>
               <div className="flex items-center ps-8 pt-10">
                 <img
-                  src="./public/Confetti.png"
+                  src="./Confetti.png"
                   className="h[50px] w-[50px] pr-4"
                   alt="confetti"
                 />
@@ -91,7 +91,7 @@ const LandingPage = () => {
               </div>
               <div className="flex items-center ps-8 pt-10">
                 <img
-                  src="./public/Confetti.png"
+                  src="./Confetti.png"
                   className="h[50px] w-[50px] pr-4"
                   alt="confetti"
                 />
@@ -101,7 +101,7 @@ const LandingPage = () => {
               </div>
               <div className="flex items-center ps-8 pt-10">
                 <img
-                  src="./public/Confetti.png"
+                  src="./Confetti.png"
                   className="h[50px] w-[50px] pr-4"
                   alt="confetti"
                 />
@@ -122,7 +122,7 @@ const LandingPage = () => {
               </h3>
               <div className="flex items-center ps-8 pt-8">
                 <img
-                  src="./public/Diamond.png"
+                  src="./Diamond.png"
                   className="h[50px] w-[50px] pr-4"
                   alt="confetti"
                 />
@@ -132,7 +132,7 @@ const LandingPage = () => {
               </div>
               <div className="flex items-center ps-8 pt-8">
                 <img
-                  src="./public/Diamond.png"
+                  src="./Diamond.png"
                   className="h[50px] w-[50px] pr-4"
                   alt="confetti"
                 />
@@ -142,7 +142,7 @@ const LandingPage = () => {
               </div>
               <div className="flex items-center ps-8 pt-8">
                 <img
-                  src="./public/Diamond.png"
+                  src="./Diamond.png"
                   className="h[50px] w-[50px] pr-4"
                   alt="confetti"
                 />
@@ -152,7 +152,7 @@ const LandingPage = () => {
               </div>
               <div className="flex items-center ps-8 pt-8">
                 <img
-                  src="./public/Diamond.png"
+                  src="./Diamond.png"
                   className="h[50px] w-[50px] pr-4"
                   alt="confetti"
                 />
