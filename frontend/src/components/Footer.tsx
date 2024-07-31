@@ -51,7 +51,7 @@ const Footer = () => {
 
       {/*redes*/}
       <div className="footer redes px-4 py-3">
-        <div className="flex justify-center gap-10 px-8">
+        <div className="flex flex-col items-center justify-center gap-10 px-8 sm:flex-row">
           <div>
             <img src="./Union.svg" alt="logo" className="h-[35px] w-[150px]" />
           </div>
