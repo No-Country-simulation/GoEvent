@@ -24,7 +24,7 @@ const Navbar: React.FC<NavBarProps> = ({ openMenu }) => {
       <div className="naranja flex h-[60px] w-full items-center px-10 shadow-md shadow-gray-500">
         {user && (
           <img
-            src="../public/Menu.png"
+            src="/Menu.png"
             className="curs h-[25px] w-[25px]"
             alt="menu"
             onClick={handleClick}
@@ -32,7 +32,7 @@ const Navbar: React.FC<NavBarProps> = ({ openMenu }) => {
         )}
         <div className="flex w-full justify-center">
           <img
-            src="../public/Union.svg"
+            src="/Union.svg"
             className="ml-7 h-[200px] w-[150px]"
             alt="logo"
           />
