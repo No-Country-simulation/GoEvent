@@ -44,8 +44,7 @@ const LandingPage = () => {
               slideInterval={5500}
             />
           </div>
-
-          {/*Como funciona GoEvent
+          Como funciona GoEvent
           <div className="mb-10 w-full rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] px-6 shadow-md shadow-gray-500 sm:h-[900px] md:h-[660px] lg:h-[550px] xl:h-[455px]">
             <h2 className="ps-[72px] pt-7 text-2xl font-medium">
               Cómo funciona GoEvent?
@@ -77,11 +76,9 @@ const LandingPage = () => {
               className="relative left-[2px] z-30 sm:top-[-40px] md:top-[-350px] lg:top-[-300px]"
             />
           </div>
-
           <h3 className="px-6 pb-[53px] pt-5 text-center text-3xl">
             Elegí el plan que mejor se adapte a tus necesidades
           </h3>
-
           {/*Planes*/}
           <div className="h-fit-content sm: flex flex-col justify-center gap-12 pb-12 sm:flex-row sm:flex-col lg:flex-row">
             <div className="degradado2 h-fit-content mx-auto rounded-3xl border-0 shadow-md shadow-gray-500 sm:w-[380px] md:w-[550px]">
