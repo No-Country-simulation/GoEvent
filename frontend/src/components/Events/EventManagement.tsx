@@ -39,6 +39,7 @@ const EventManagement = () => {
   useEffect(() => {
     parent.current && autoAnimate(parent.current);
   }, [parent]);
+  const classHoverOrange = " transition ease duration-200 hover:bg-orange-300"
 
   return (
     <div>
@@ -48,40 +49,41 @@ const EventManagement = () => {
           <div className="flex justify-between px-20">
             <h2 className="mb-4 py-12 text-3xl font-semibold">Mis Eventos</h2>
           </div>
-          <div className="px-[200px]">
+
+          <div>
             {/*Linea filtro y botón crear evento */}
 
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center">
-                {/*Filtro tipos de eventos*/}
+            <div className="mb-4 flex md:flex-row flex-col md:gap-0 gap-6 items-center w-full justify-evenly">
+              {/*Filtro tipos de eventos*/}
+              <div className="w-11/12 md:w-7/12 flex bg- gap-5 items-center justify-evenly">
+                <label htmlFor="filter" className="text-xl text-[#0D1512]/50">Filtrar por:</label>
                 <select
                   onChange={handleSelect}
                   id="filter"
-                  className="fondo2 orangeshadow w-[576px] rounded-xl border border-gray-300 p-8 text-base"
+                  className={"fondo2 orangeshadow rounded-xl border w-8/12 px-5 text-base h-[60px]" + classHoverOrange}
                 >
-                  <option value={"all"}>Filtrar por: Todos los eventos</option>
+                  <option value={"all"}>Todos los eventos</option>
                   <option value={EventStatus.ONGOING}>
-                    Filtrar por: En Curso
+                    En Curso
                   </option>
                   <option value={EventStatus.SCHEDULED}>
-                    Filtrar por: Proximos{" "}
+                    Proximos{" "}
                   </option>
                   <option value={EventStatus.COMPLETED}>
-                    Filtrar por: Finalizados
+                    Finalizados
                   </option>
                   <option value={EventStatus.CANCELLED}>
-                    Filtrar por: Cancelados
+                    Cancelados
                   </option>
                 </select>
               </div>
-
               {/*Botón para crear eventos*/}
               <button
-                className="orangeshadow fondo2 flex w-[264px] items-center rounded-md p-4 px-4 text-[#0D1512]"
+                className={"orangeshadow fondo2 w-auto md:w-3/12 flex items-center justify-center rounded-xl px-3  text-[#0D1512] h-[60px]" + classHoverOrange}
                 onClick={() => setIsCreateEventOpen(true)}
               >
-                <p className="ps-5">Crear evento nuevo</p>
-                <img src="../public/icons/Multiply.png" alt="" />
+                Crear evento nuevo
+                <img src="../public/icons/Multiply.png" alt="add-event-icon" className="relative max-w-fit" />
               </button>
             </div>
 
