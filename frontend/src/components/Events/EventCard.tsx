@@ -63,7 +63,7 @@ const EventCard: React.FC<PropsEventCard> = ({ eventData, updateEvents }) => {
             onClick={() => setIsOpenScanner(true)}
             className="boton mb-3 mt-3 flex h-[68px] w-[363px] items-center justify-center rounded-xl px-4 py-4 text-xl hover:bg-orange-500"
           >
-            <img src="./public/Qr_Code.png" alt="" />
+            <img src="./Qr_Code.png" alt="" />
             <p className="ps-4">Escanear QR</p>
           </button>
         )}
