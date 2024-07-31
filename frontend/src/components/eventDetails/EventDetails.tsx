@@ -83,7 +83,7 @@ const EventDetails = () => {
     <div>
       <Navbar openMenu={setIsOpenMenu} />
 
-      <div className="degradado h-fit-content space-y-10 px-[100px] font-vietnam text-[#0D1512]">
+      <div className="degradado h-fit-content space-y-10 px-[10px] font-vietnam text-[#0D1512] lg:px-[100px]">
         <div className="flex items-center justify-between pt-10">
           <h2 className="text-3xl font-semibold">Gestionar evento</h2>
           <button>
@@ -110,7 +110,7 @@ const EventDetails = () => {
                       setSelectEvent(event);
                       navigate("/template-selector");
                     }}
-                    className="boton h-[68px] w-[363px] rounded-xl px-4 py-4 text-xl transition-all hover:bg-orange-500"
+                    className="boton m-w-[363px] rounded-xl px-4 py-4 text-xl transition-all hover:bg-orange-500"
                   >
                     Editar Invitación
                   </button>
@@ -120,11 +120,11 @@ const EventDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="mx-8 mb-10 mt-4 rounded-xl border border-[#C2BAA6] px-3 py-6">
+            <div className="mb-10 mt-4 rounded-xl border-y-2 border-[#C2BAA6] px-3 py-6 md:mx-8 md:border">
               {/* Línea opciones configuración invitación*/}
               <div className="flex justify-between text-xl">
                 <button
-                  className="pr-[200px] hover:text-gray-500"
+                  className="hidden hover:text-gray-500 md:flex"
                   onClick={() => setIsOpenGuestList(true)}
                 >
                   <p>Invitaciones enviadas</p>
@@ -156,7 +156,7 @@ const EventDetails = () => {
               </div>
 
               {/* estado de Invitados */}
-              <div className="flex items-center justify-between py-5 text-lg text-[#0D1512]">
+              <div className="hidden items-center justify-between py-5 text-lg text-[#0D1512] md:flex">
                 <div className="flex space-x-2">
                   <span>Todos({invitationStatus.all})</span>
                   <span>Aceptados({invitationStatus.accepted})</span>
@@ -172,7 +172,7 @@ const EventDetails = () => {
                 {guestByEvent.map((guest: any) => {
                   return (
                     <div
-                      className="flex justify-between border-b-2 border-[#C2BAA6] py-5"
+                      className="relative flex justify-between border-b-2 border-[#C2BAA6] py-5"
                       key={guest.guest_id}
                     >
                       <div>
@@ -180,21 +180,21 @@ const EventDetails = () => {
                         <p className="pt-3">{guest.guest_email}</p>
                       </div>
                       <div className="flex items-center space-x-10 pr-5">
-                        <button>
+                        <button className="hidden md:flex">
                           <img
                             className="h-[25px] w-[25px]"
                             src="/icons/Pencil.png"
                             alt="edit"
                           />
                         </button>
-                        <button className="ms-10">
+                        <button className="hidden md:flex">
                           <img
                             className="h-[25px] w-[25px]"
                             src="/icons/Trash.png"
                             alt="delete"
                           />
                         </button>
-                        <span className="font-semibold">
+                        <span className="absolute right-0 top-5 font-semibold md:static">
                           {guest.invitation_status}
                         </span>
                       </div>
