@@ -96,7 +96,7 @@ const EventDetails = () => {
             <div className="flex flex-row p-6">
               <img
                 className="h-[270px] w-[180px]"
-                src={event.template_image || "../defaulEventImg.png"}
+                src={event.template_image || "/defaulEventImg.png"}
                 alt=""
               />
               <div className="w-full ps-12 text-base">
@@ -136,7 +136,7 @@ const EventDetails = () => {
                   >
                     <img
                       className="h-[25px] w-[25px]"
-                      src="../icons/SendEmail.png"
+                      src="/icons/SendEmail.png"
                       alt="send email"
                     />
                     <p className="ps-2">Enviar invitaciones</p>
@@ -147,7 +147,7 @@ const EventDetails = () => {
                   >
                     <img
                       className="h-[40px] w-[40px]"
-                      src="../icons/Multiply2.png"
+                      src="/icons/Multiply2.png"
                       alt="plus"
                     />
                     <p className="ps-2">Agregar Invitados</p>
@@ -183,14 +183,14 @@ const EventDetails = () => {
                         <button>
                           <img
                             className="h-[25px] w-[25px]"
-                            src="../icons/Pencil.png"
+                            src="/icons/Pencil.png"
                             alt="edit"
                           />
                         </button>
                         <button className="ms-10">
                           <img
                             className="h-[25px] w-[25px]"
-                            src="../icons/Trash.png"
+                            src="/icons/Trash.png"
                             alt="delete"
                           />
                         </button>
