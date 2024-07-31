@@ -21,7 +21,7 @@ const LandingPage = () => {
       {!isOpenUserMenu ? (
         <div className="mx-auto font-gotic sm:w-[400px] md:w-[700px] lg:w-[900px] xl:w-[1100px]">
           {/*Grid*/}
-          <div className="grid gap-6 pb-14 pt-7 md:grid-cols-2 xl:grid-cols-3">
+          <div className="hidden gap-6 pb-14 pt-7 md:grid md:grid-cols-2 xl:grid-cols-3">
             {imagenes.map((e, i) => {
               return (
                 <img
@@ -34,7 +34,7 @@ const LandingPage = () => {
             })}
           </div>
           {/*Carrousel*/}
-          {/* <div className="carousel mx-auto mt-4 h-[221px] w-[344px] bg-[#F5EEED] p-0">
+          <div className="carousel mx-auto my-8 h-[221px] w-[344px] bg-[#F5EEED] p-0 md:hidden">
             <ImageGallery
               items={imagenes}
               showPlayButton={true}
@@ -43,9 +43,9 @@ const LandingPage = () => {
               autoPlay={true}
               slideInterval={5500}
             />
-          </div> */}
+          </div>
 
-          {/*Como funciona GoEvent*/}
+          {/*Como funciona GoEvent
           <div className="mb-10 w-full rounded-xl border-none bg-gradient-to-r from-[#EBE2CD] to-[#EB9C64] px-6 shadow-md shadow-gray-500 sm:h-[900px] md:h-[660px] lg:h-[550px] xl:h-[455px]">
             <h2 className="ps-[72px] pt-7 text-2xl font-medium">
               Cómo funciona GoEvent?
