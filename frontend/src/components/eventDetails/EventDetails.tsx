@@ -33,7 +33,7 @@ const EventDetails = () => {
 
   const { eventId } = useParams();
 
-  let { name, date, time, location } = event as EventType; //destructuring  event
+  //let { name, date, time, location } = event as EventType; //destructuring  event
   
 
 
@@ -85,7 +85,7 @@ const EventDetails = () => {
     <div>
       <Navbar openMenu={setIsOpenMenu} />
 
-      <div className="degradado h-fit-content space-y-10 px-[100px] font-vietnam text-[#0D1512]">
+      <div className="degradado min-h-[calc(100vh-60px)]  space-y-10 px-[100px] font-vietnam text-[#0D1512]">
         <div className="flex items-center justify-between pt-10">
           <h2 className="text-3xl font-semibold">Gestionar evento</h2>
           <button>
