@@ -50,7 +50,7 @@ const EventManagement = () => {
             <h2 className="mb-4 py-12 text-3xl font-semibold">Mis Eventos</h2>
           </div>
 
-          <div>
+          <div className="">
             {/*Linea filtro y botón crear evento */}
 
             <div className="mb-4 flex md:flex-row flex-col md:gap-0 gap-6 items-center w-full justify-evenly">
