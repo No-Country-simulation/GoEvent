@@ -81,7 +81,7 @@ const EventManagement = () => {
                 onClick={() => setIsCreateEventOpen(true)}
               >
                 <p className="ps-5">Crear evento nuevo</p>
-                <img src="../public/icons/Multiply.png" alt="" />
+                <img src="../icons/Multiply.png" alt="" />
               </button>
             </div>
 
