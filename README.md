@@ -44,3 +44,6 @@ Plataforma para gestionar invitaciones y controlar la asistencia de eventos. El 
 
 ### TL
 - Susana Sandoval - Linkedin: https://www.linkedin.com/in/mariasusanasandoval/
+
+- ## Link a Figma
+https://www.figma.com/design/e9nqAm3BGSc6UmKAZPZiDk/GoEvent-%2F-S16-07?node-id=5-12&t=BRk3E4r7eygEmb4s-1
