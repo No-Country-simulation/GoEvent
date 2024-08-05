@@ -107,7 +107,7 @@ Actualmente **GoEvent** se encuentra funcionando como un Proyecto minimo viable,
 ### TL
 - Susana Sandoval - Linkedin: https://www.linkedin.com/in/mariasusanasandoval/
 
-##Depliegue y documentación Backend:
+## Depliegue y documentación Backend:
 
 El despliegue del Backend se hizo en vercel y se creó la siguiente documentación, la cual sirvió como referencia para la conexión con el FrontEnd: https://documenter.getpostman.com/view/24685479/2sA3dyjBYu
 
