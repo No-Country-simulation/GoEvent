@@ -107,5 +107,10 @@ Actualmente **GoEvent** se encuentra funcionando como un Proyecto minimo viable,
 ### TL
 - Susana Sandoval - Linkedin: https://www.linkedin.com/in/mariasusanasandoval/
 
+##Depliegue y documentación Backend:
+
+El despliegue del Backend se hizo en vercel y se creó la siguiente documentación, la cual sirvió como referencia para la conexión con el FrontEnd: https://documenter.getpostman.com/view/24685479/2sA3dyjBYu
+
+
 - ## Link a Figma
 https://www.figma.com/design/e9nqAm3BGSc6UmKAZPZiDk/GoEvent-%2F-S16-07?node-id=5-12&t=BRk3E4r7eygEmb4s-1
