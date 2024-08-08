@@ -1,46 +1,57 @@
-import mongoose from 'mongoose';
-import { DB_URL } from './environment';
+import { sequelize } from './sequelize.config';
+import { defineAssociations, defineViews } from '../models';
 
-class MongoDB {
-  private static instance: MongoDB | null = null;
+export default class PostgreDB {
+  private static instance: PostgreDB | null = null;
 
-  private constructor() { }
 
-  public static getInstance(): MongoDB {
-    if (!MongoDB.instance) {
-      MongoDB.instance = new MongoDB();
-      MongoDB.instance.connect();
+  public static async getInstance(): Promise<PostgreDB> {
+    if (!PostgreDB.instance) {
+      PostgreDB.instance = new PostgreDB();
+      await PostgreDB.instance.connect();
+      defineAssociations();
     }
-    return MongoDB.instance;
+    return PostgreDB.instance;
   }
+
 
   private async connect(): Promise<void> {
     try {
-      await mongoose.connect(DB_URL);
-      console.log('Connected to MongoDB with Mongoose');
+      await sequelize.authenticate();
+      console.log('Conected to PostgreSQL with Sequelize');
     } catch (err) {
       console.error('Unable to connect to the database:', err);
+      throw err;
+    }
+  }
+
+  public async sync(): Promise<void> {
+    try {
+      defineViews();
+      await sequelize.sync({ alter: true });
+    } catch (err) {
+      console.error('Unable to sync the database:', err);
+      throw err;
     }
   }
 
   public async isConnected(): Promise<boolean> {
-    if (!mongoose.connection.readyState) {
-      await mongoose.connect(DB_URL);
-      console.log('Reconnected to MongoDB with Mongoose');
+    try {
+      await sequelize.authenticate();
+      return true;
+    } catch {
+      return false;
     }
-    return mongoose.connection.readyState === 1;
   }
 
   public async close(): Promise<void> {
     try {
-      await mongoose.disconnect();
-      MongoDB.instance = null;
-      console.log('Connection to MongoDB closed');
+      await sequelize.close();
+      PostgreDB.instance = null;
+      console.log('Connection to PostgreSQL closed');
     } catch (err) {
       console.error('Error closing the connection:', err);
+      throw err;
     }
   }
-
 }
-
-export default MongoDB

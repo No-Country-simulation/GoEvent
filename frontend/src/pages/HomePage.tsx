@@ -1,5 +1,11 @@
+import EventManagement from "../components/events/EventManagement";
+
 const HomePage = () => {
-  return <h1>Hola mundo desde Home!!</h1>;
+  return (
+    <div>
+      <EventManagement />
+    </div>
+  );
 };
 
 export default HomePage;
