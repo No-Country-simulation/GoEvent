@@ -26,7 +26,7 @@ Puedes ver el despliegue de nuestro proyecto en la siguiente dirección: https:/
 
 ### 1. Creación de un Evento: Puedes crear un evento con **GoEvent** y adicionar datos como: 
 
-- El nonbre de tu Evento
+- El nombre de tu Evento
 - Descripción de tu evento
 - Lugar de tu evento
 - Fecha y hora.
