@@ -17,9 +17,6 @@ Mediante **GoEvent** podrás tener el control de tus invitados y de tus eventos,
 - **Registro y Control de Asistencia**: Los organizadores pueden registrar la asistencia escaneando los códigos QR de los invitados el día del evento.
 - **Panel de Control**: Los organizadores pueden ver en tiempo real la asistencia al evento y acceder a estadísticas y reportes.
 
-## Despliegue:
-
-Puedes ver el despliegue de nuestro proyecto en la siguiente dirección: https://goevent.vercel.app/
 
 
 ## Funcionalidades:
