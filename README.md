@@ -11,7 +11,7 @@ Plataforma para gestionar invitaciones y controlar la asistencia de eventos. El 
 
 Mediante **GoEvent** podrás tener el control de tus invitados y de tus eventos, ahorrándo tiempo innecesario tanto en la confirmación de asistencias, como en la revisión de largas listas para el ingreso de los invitados a cada evento. Ahorrarás también dinero pues evitarás invertir en logísticas más grandes de la cantidad de invitados que en realidad van a asistir a tu evento ó evitar recibir más Invitados de lo planeado.
 
-###**Características**:
+##**Características**:
 
 - **Envío de Invitaciones**: Las invitaciones se envían por correo electrónico con enlaces que incluyen códigos QR para confirmar la asistencia.
 - **Registro y Control de Asistencia**: Los organizadores pueden registrar la asistencia escaneando los códigos QR de los invitados el día del evento.
